@@ -4,7 +4,6 @@ import './globals.css'
 export const metadata: Metadata = {
   title: 'German Losada ',
   description: 'Porftofio Product Designer and Forntend Developer.',
-
 }
 
 export default function RootLayout({
@@ -13,8 +12,8 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
-      <body>{children}</body>
+    <html lang="en" suppressHydrationWarning>
+      <body suppressHydrationWarning>{children}</body>
     </html>
   )
 }
