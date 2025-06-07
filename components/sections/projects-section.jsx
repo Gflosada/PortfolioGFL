@@ -40,7 +40,7 @@ export function ProjectsSection() {
       description: "I designed and developed a modern Web3 platform for NFT experiences, integrating intuitive UI, seamless UX, and scalable blockchain solutions. My work balanced innovation with accessibility to create an engaging, user-friendly space in the decentralized ecosystem.",
       tags: ["Figma", "React.js", "Javascript", "Tailwind CSS"],
       image: "/NFTWebsite.png?height=400&width=600",
-      demoUrl: "https://www.behance.net/gallery/227379677/NFT-Website",
+      demoUrl: "https://www.behance.net/gallery/227639011/Web3-App",
       repoUrl: "https://github.com/Gflosada",
     },
     {
