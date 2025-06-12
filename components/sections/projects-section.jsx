@@ -16,7 +16,7 @@ export function ProjectsSection() {
       description: "design and develop responsive design systems, create AI-powered chatbots, and build ReactJS applications to enhance digital experiences. My focus is on efficiency, scalability, and user-centric innovation.",
       tags: ["Figma", "User Research", "Prototyping", "Mockups"],
       image: "/chatmindsmockup.png?height=400&width=600",
-      demoUrl: "https://www.behance.net/gallery/224271611/Investment-Dashboard-UIUX",
+      demoUrl: "https://www.behance.net/gallery/211331271/Web-DesignDevelopment",
       repoUrl: "https://github.com/Gflosada",
     },
     {
@@ -48,7 +48,7 @@ export function ProjectsSection() {
       description: "I designed intuitive mockups and UI/UX for a meal plan app, focusing on user-friendly navigation, accessibility, and engaging visuals. The goal was to create a seamless experience that helps users plan, track, and optimize their meals effortlessly. Let me know if you’d like any refinements!",
       tags: ["Figma", "User Research", "Prototyping", "Mockups"],
       image: "/mealapp.png?height=400&width=600",
-      demoUrl: "https://www.behance.net/gallery/227379677/NFT-Website",
+      demoUrl: "https://www.behance.net/gallery/117864547/App-Aura-UXUI-Design",
       repoUrl: "https://github.com/Gflosada",
     },
     {

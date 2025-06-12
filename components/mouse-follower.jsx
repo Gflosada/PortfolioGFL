@@ -2,12 +2,16 @@
 
 import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
+import { useMobile } from "@/src/hooks/use-mobile"
 
 export function MouseFollower() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
   const [isVisible, setIsVisible] = useState(false)
+  const isMobile = useMobile()
 
   useEffect(() => {
+    if (isMobile) return
+
     const handleMouseMove = (e) => {
       setMousePosition({ x: e.clientX, y: e.clientY })
       setIsVisible(true)
@@ -24,7 +28,9 @@ export function MouseFollower() {
       window.removeEventListener("mousemove", handleMouseMove)
       document.body.removeEventListener("mouseleave", handleMouseLeave)
     }
-  }, [])
+  }, [isMobile])
+
+  if (isMobile) return null
 
   return (
     <>
