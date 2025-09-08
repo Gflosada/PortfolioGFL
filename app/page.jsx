@@ -1,5 +1,5 @@
 import App from "@/components/App"
 
-export default function Portfolio() {
+export default function Home() {
   return <App />
 }

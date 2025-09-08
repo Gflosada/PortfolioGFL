@@ -60,7 +60,6 @@ export function ContactSection() {
               <div className="space-y-2">
                 <div className="font-medium">Tatiana P. Lozada</div>
                 <div className="text-sm text-zinc-400">Board Certified Behavior Analyst</div>
-                <div className="text-sm text-zinc-500">Phone: (407) 486-2806</div>
               </div>
             </div>
           </GlassmorphicCard>

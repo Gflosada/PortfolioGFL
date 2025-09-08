@@ -35,19 +35,13 @@ export function AboutSection() {
           <div className="space-y-6">
             <GlassmorphicCard>
               <p className="text-lg text-zinc-300">
-                I'm an innovative and detail-oriented Product Designer, Front-End Developer, and Digital Marketing
-                Specialist with a strong focus on fintech solutions. I specialize in crafting user-centered products by
-                combining intuitive UI/UX design, responsive front-end development, and data-driven marketing
-                strategies.
+                I'm an Innovative and detail-oriented Product Designer, Front-End Developer, and AI-Driven UX Specialist with a strong focus on fintech solutions and AI-powered design. I specialize in crafting user-centered products by seamlessly integrating intuitive UI/UX design, responsive front-end development, and AI-enhanced experiences.
               </p>
               <p className="text-lg text-zinc-300 mt-4">
-                With extensive experience in agile methodologies, I excel in efficiently delivering cutting-edge
-                financial products and services. My work showcases meticulous attention to motion design and impactful
-                visual content that drives commercial success.
+              With extensive experience in agile methodologies, I excel in efficiently delivering cutting-edge financial products and AI-enhanced services.
               </p>
               <p className="text-lg text-zinc-300 mt-4">
-                Passionate about collaborating with financial startups, I aim to innovate and elevate user experiences,
-                contributing to the creation of groundbreaking fintech solutions.
+              Passionate about collaborating with financial startups, I aim to push the boundaries of AI-driven UX, conversational UI, and adaptive interfaces, transforming fintech solutions through innovation and intelligent design.
               </p>
 
               <div className="grid grid-cols-2 gap-4 mt-8">
@@ -61,7 +55,7 @@ export function AboutSection() {
                 </div>
                 <div className="space-y-1">
                   <div className="text-sm text-zinc-500">Location</div>
-                  <div className="font-medium">Toronto, Ontario</div>
+                  <div className="font-medium">Toronto, Ontario, CA</div>
                 </div>
                 <div className="space-y-1">
                   <div className="text-sm text-zinc-500">Phone</div>
