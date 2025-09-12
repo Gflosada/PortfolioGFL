@@ -63,9 +63,8 @@ export default function FintechCaseStudy() {
         </div>
       </section>
 
-      {/* Design Phases (REPLACED image with draggable compare slider) */}
+      {/* Design Phases */}
       <section className="mx-auto max-w-6xl px-4 py-16 grid md:grid-cols-2 gap-12 items-center">
-        {/* If your file is /iphonecard1.png, swap the path below */}
         <ImageCompare
           frontSrc="/phonecard1.png"
           backSrc="/phonecard2.png"
@@ -73,8 +72,10 @@ export default function FintechCaseStudy() {
           aspect="9/19"
         />
         <div className="space-y-6">
-          <h2 className=" text-3xl sm:text-5xl font-bold font-barlow text-center md:text-left text-black">Design Phases</h2>
-          <p className="text-lg sm:text-xl leading-relaxed  text-gray-900">
+          <h2 className=" text-3xl sm:text-5xl font-bold font-barlow text-center md:text-left text-black">
+            Design Phases
+          </h2>
+          <p className="text-lg sm:text-xl leading-relaxed text-gray-900">
             The design process began with low-fidelity wireframes, mapping core user journeys like
             tracking spending, transferring funds, and viewing investment growth. Early testing
             revealed opportunities to simplify the dashboard and highlight KPIs more clearly.
@@ -82,7 +83,7 @@ export default function FintechCaseStudy() {
         </div>
       </section>
 
-      {/* Wireframes to Hifi — persona slider ABOVE iPhone mock */}
+      {/* Wireframes to Hifi */}
       <section className="mx-auto max-w-6xl px-4 py-16">
         <div className="relative">
           <div className="relative w-full overflow-hidden rounded-xl border-b-8 border-black bg-white">
@@ -146,7 +147,9 @@ export default function FintechCaseStudy() {
 
       {/* Features */}
       <section className="mx-auto max-w-6xl px-4 py-16">
-        <h3 className="text-center text-3xl sm:text-5xl font-bold font-barlow text-[#FF6584]">Features</h3>
+        <h3 className="text-center text-3xl sm:text-5xl font-bold font-barlow text-[#FF6584]">
+          Features
+        </h3>
         <div className="mt-6 flex flex-wrap justify-center gap-3">
           {features.map((f) => (
             <span key={f} className="rounded-lg bg-black px-4 py-3 text-[#FF6584] font-semibold">
@@ -160,20 +163,71 @@ export default function FintechCaseStudy() {
       {/* Gallery */}
       <section className=" w-full px-0 py-16 space-y-8">
         <img src="/phonesrend.png" alt="Gallery 1" className="w-full " />
-        <img src="/phonesfoot.png" alt="Gallery 2" className="w-full " />
+        
       </section>
+
+      {/* FOOTER with same style */}
+      <footer className="relative border-t border-white/10">
+        <div className="absolute inset-0">
+          <img
+            src="/phonesfoot.png"
+            alt="Footer background"
+            className="w-full h-[38vh] sm:h-[45vh] md:h-[52vh] object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-black/30" />
+        </div>
+        <div className="relative z-10 min-h-[38vh] sm:min-h-[45vh] md:min-h-[52vh] flex items-end">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8 pb-8 sm:pb-12 md:pb-16">
+            <div className="mx-auto max-w-4xl text-center space-y-6">
+              <h3 className="text-2xl sm:text-3xl font-semibold">
+                Ready to build data-driven experiences?
+              </h3>
+              <p className="text-gray-200 max-w-2xl mx-auto">
+                Let’s craft dashboards that turn complexity into clarity.
+              </p>
+
+              <div className="flex flex-wrap items-center justify-center gap-3">
+                <a
+                  href="mailto:germanlosada.dev@gmail.com"
+                  className="rounded-xl bg-white text-black px-5 py-2.5 font-semibold hover:bg-white/90 transition"
+                >
+                  Contact me
+                </a>
+                <a
+                  href="https://www.behance.net/germanlosada"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="rounded-xl border border-white/30 px-5 py-2.5 font-semibold hover:bg-white/10 transition"
+                >
+                  Behance
+                </a>
+                <a
+                  href="https://github.com/Gflosada"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="rounded-xl border border-white/30 px-5 py-2.5 font-semibold hover:bg-white/10 transition"
+                >
+                  GitHub
+                </a>
+              </div>
+
+              <p className="text-xs text-white/70 mt-6">
+                © {new Date().getFullYear()} German Losada — All rights reserved.
+              </p>
+            </div>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }
 
 /* ———————————————————————————————————————————————
-   Draggable before/after image compare (same effect)
-   Usage where added: <ImageCompare frontSrc="/phonecard1.png" backSrc="/phonecard1-back.png" />
-   - Swap frontSrc to "/iphonecard1.png" if that's your file.
+   Draggable before/after image compare
 ——————————————————————————————————————————————— */
 function ImageCompare({ frontSrc, backSrc, alt = "", aspect = "16/9" }) {
   const ref = React.useRef(null);
-  const [pos, setPos] = React.useState(0.5); // 0..1
+  const [pos, setPos] = React.useState(0.5);
 
   const updateFromEvent = (e) => {
     const el = ref.current;
@@ -209,21 +263,14 @@ function ImageCompare({ frontSrc, backSrc, alt = "", aspect = "16/9" }) {
       style={{ aspectRatio: aspect }}
       onTouchStart={startDrag}
     >
-      {/* Back image */}
       <img src={backSrc} alt={alt || "before"} className="absolute inset-0 h-full w-full object-cover" />
-
-      {/* Front image (revealed) */}
       <div className="absolute inset-0" style={{ clipPath: `inset(0 ${100 - percent}% 0 0)` }}>
         <img src={frontSrc} alt={alt || "after"} className="h-full w-full object-cover" />
       </div>
-
-      {/* Divider line */}
       <div
         className="pointer-events-none absolute inset-y-0 w-px bg-white/80"
         style={{ left: `${percent}%`, transform: "translateX(-0.5px)" }}
       />
-
-      {/* Handle */}
       <button
         type="button"
         aria-label="Drag to compare"

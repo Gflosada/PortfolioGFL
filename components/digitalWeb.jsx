@@ -8,10 +8,8 @@ import React from 'react'
  * Clean JSX component based on your snippet.
  * - Responsive, centered layout
  * - Title + KPI chips
- * - Two images (hero mock + long section)
- *
- * Usage: <DigitalWeb />
- * Optional props: heroSrc, footerSrc to swap images.
+ * - Before/after slider
+ * - Footer with background image + links
  */
 
 export default function DigitalWeb({
@@ -45,24 +43,80 @@ export default function DigitalWeb({
             ))}
           </div>
 
-          {/* First image (mock) — now a draggable before/after slider */}
-<ImageCompare
-  frontSrc={heroSrc}
-  backSrc={compareSrc}
-  alt="Website redesign comparison"
-  aspect="1199/1441"
-/>
-<div>
-<h1 className="text-center font-semibold leading-tight tracking-tight [font-family:Barlow] text-4xl sm:text-5xl md:text-6xl lg:text-[68px]">
-Designing for Clarity, <br className="hidden sm:block" /> Built for Conversion
-          </h1>
+          {/* First image (mock) — draggable before/after slider */}
+          <ImageCompare
+            frontSrc={heroSrc}
+            backSrc={compareSrc}
+            alt="Website redesign comparison"
+            aspect="1199/1441"
+          />
 
-</div>
-</div>
+          <div>
+            <h1 className="text-center font-semibold leading-tight tracking-tight [font-family:Barlow] text-4xl sm:text-5xl md:text-6xl lg:text-[68px]">
+              Designing for Clarity, <br className="hidden sm:block" /> Built for Conversion
+            </h1>
+          </div>
+        </div>
       </div>
 
       {/* Second full-width image */}
-      <img src={footerSrc} alt="Detail sections" className="h-auto mx-auto " />
+      <img src={footerSrc} alt="Detail sections" className="h-auto mx-auto" />
+
+      {/* FOOTER with same image as HERO */}
+      <footer className="relative border-t border-white/10">
+        {/* Background image + overlay */}
+        <div className="absolute inset-0">
+          <img
+            src="/wb4.png"
+            alt="Footer background"
+            className="w-full h-[38vh] sm:h-[45vh] md:h-[52vh] object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-black/30" />
+        </div>
+
+        {/* Content pinned to bottom */}
+        <div className="relative z-10 min-h-[38vh] sm:min-h-[45vh] md:min-h-[52vh] flex items-end">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8 pb-8 sm:pb-12 md:pb-16">
+            <div className="mx-auto max-w-4xl text-center space-y-6">
+              <h3 className="text-2xl sm:text-3xl font-semibold">
+                Ready to build data-driven experiences?
+              </h3>
+              <p className="text-gray-200 max-w-2xl mx-auto">
+                Let’s craft dashboards that turn complexity into clarity.
+              </p>
+
+              <div className="flex flex-wrap items-center justify-center gap-3">
+                <a
+                  href="mailto:germanlosada.dev@gmail.com"
+                  className="rounded-xl bg-white text-black px-5 py-2.5 font-semibold hover:bg-white/90 transition"
+                >
+                  Contact me
+                </a>
+                <a
+                  href="https://www.behance.net/germanlosada"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="rounded-xl border border-white/30 px-5 py-2.5 font-semibold hover:bg-white/10 transition"
+                >
+                  Behance
+                </a>
+                <a
+                  href="https://github.com/Gflosada"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="rounded-xl border border-white/30 px-5 py-2.5 font-semibold hover:bg-white/10 transition"
+                >
+                  GitHub
+                </a>
+              </div>
+
+              <p className="text-xs text-white/70 mt-6">
+                © {new Date().getFullYear()} German Losada — All rights reserved.
+              </p>
+            </div>
+          </div>
+        </div>
+      </footer>
     </div>
   )
 }
@@ -112,10 +166,7 @@ function ImageCompare({ frontSrc, backSrc, alt = '', aspect = '16/9' }) {
       <img src={backSrc} alt={alt || 'before'} className="absolute inset-0 h-full w-full object-cover" />
 
       {/* Front image (revealed) */}
-      <div
-        className="absolute inset-0"
-        style={{ clipPath: `inset(0 ${100 - percent}% 0 0)` }}
-      >
+      <div className="absolute inset-0" style={{ clipPath: `inset(0 ${100 - percent}% 0 0)` }}>
         <img src={frontSrc} alt={alt || 'after'} className="h-full w-full object-cover" />
       </div>
 
@@ -140,13 +191,12 @@ function ImageCompare({ frontSrc, backSrc, alt = '', aspect = '16/9' }) {
       >
         <div className="h-8 w-8 rounded-full bg-white text-black shadow-inner grid place-items-center">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="12" cy="12" r="2" fill="currentColor"/>
-            <circle cx="6" cy="12" r="2" fill="currentColor"/>
-            <circle cx="18" cy="12" r="2" fill="currentColor"/>
+            <circle cx="12" cy="12" r="2" fill="currentColor" />
+            <circle cx="6" cy="12" r="2" fill="currentColor" />
+            <circle cx="18" cy="12" r="2" fill="currentColor" />
           </svg>
         </div>
       </button>
     </div>
   )
 }
-

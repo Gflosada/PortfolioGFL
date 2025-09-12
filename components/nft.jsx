@@ -2,21 +2,6 @@
 
 import React from 'react'
 
-/**
- * Web3Landing
- * --------------------------------------------------------------
- * A responsive React component that recreates the provided mockup:
- * - Dark canvas with floating coins and rotated phone mockup
- * - Two diagonal ticker ribbons
- * - "Web3 Website Design & Development" section
- * - Feature cards (Website, NFT Landing Page, NFTs)
- * - Results & Outcomes with concentric rings + avatar orbs
- *
- * TailwindCSS is used for layout and styling.
- * Drop this file into your Next.js/React app and render <Web3Landing />.
- * Replace placeholder images with your assets.
- */
-
 export default function NftWebsite() {
   return (
     <div className="relative min-h-screen w-full overflow-hidden rounded-3xl bg-[#0B090D] text-white">
@@ -34,7 +19,10 @@ export default function NftWebsite() {
 
           <div className="relative h-[520px] w-full max-w-[520px] md:h-[744px] md:max-w-[645px]">
             {/* purple glow block (blend) */}
-            <div className="absolute -left-6 top-6 h-[235px] w-[214px] rotate-[8deg] mix-blend-color" style={{background:'#7F35FF'}} />
+            <div
+              className="absolute -left-6 top-6 h-[235px] w-[214px] rotate-[8deg] mix-blend-color"
+              style={{ background: '#7F35FF' }}
+            />
             <img
               alt="Phone preview"
               src="/web3iphone.png"
@@ -45,15 +33,27 @@ export default function NftWebsite() {
       </section>
 
       {/* —— TICKER RIBBONS ———————————————————————————————————— */}
-      <div className="relative h-[110px] w-full">
-        <Ticker text="CRYPTO Project" className="-rotate-[4deg] bg-[#7F35FF]" />
-        <Ticker text="CRYPTO PROJECT®" className="absolute left-[-150px] top-0 rotate-[4deg] bg-[#388BFF]" wide />
+      <div className="relative h-[180px] w-full overflow-visible">
+        {/* Purple ribbon (behind) */}
+        <Ticker
+          text="CRYPTO Project"
+          bgClass="bg-[#7F35FF]"
+          rotate="-4deg"
+          topClass="top-[28px]"
+          z="z-0"
+        />
+        {/* Blue ribbon (front) */}
+        <Ticker
+          text="CRYPTO PROJECT®"
+          bgClass="bg-[#388BFF]"
+          rotate="4deg"
+          topClass="top-[78px]"
+          z="z-10"
+        />
       </div>
 
       {/* —— INTRO / DESCRIPTION ———————————————————————————— */}
       <section className="relative mx-auto mt-4 w-full max-w-[1280px] px-6 sm:px-10 py-16">
-        
-
         <div className="mx-auto max-w-3xl text-center space-y-8">
           <h2 className="text-4xl sm:text-6xl font-black leading-tight">
             Web3 Website Design & Development
@@ -86,37 +86,78 @@ export default function NftWebsite() {
         </div>
 
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          <FeatureCard
-            title="Web3 Website"
-            meta="Website"
-            image="/Cardnft1.png"
-          />
-          <FeatureCard
-            title="NFT Landing Page"
-            meta="Website - App"
-            image="/Cardnft2.png"
-          />
-          <FeatureCard
-            title="NFTs"
-            meta="Design & Development"
-            image="/Cardnft3.png"
-          />
+          <FeatureCard title="Web3 Website" meta="Website" image="/Cardnft1.png" />
+          <FeatureCard title="NFT Landing Page" meta="Website - App" image="/Cardnft2.png" />
+          <FeatureCard title="NFTs" meta="Design & Development" image="/Cardnft3.png" />
         </div>
       </section>
+
       <section className="relative mx-auto w-full max-w-[1280px] px-6 sm:px-10 pb-24">
-       <img
-        src="/web3frame.png"
-        alt="Results preview"
-        className="w-full rounded-2xl border border-[#1F1B26] object-cover"
-       />
+        <img
+          src="/web3frame.png"
+          alt="Results preview"
+          className="w-full rounded-2xl border border-[#1F1B26] object-cover"
+        />
       </section>
 
-      
+      {/* —— FOOTER (same style) ————————————————————————————— */}
+      <footer className="relative border-t border-white/10">
+        {/* Background image + overlay */}
+        <div className="absolute inset-0">
+          <img
+            src="/nft1.png"
+            alt="Footer background"
+            className="w-full h-[38vh] sm:h-[45vh] md:h-[52vh] object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-black/30" />
+        </div>
+
+        {/* Content pinned to bottom */}
+        <div className="relative z-10 min-h-[38vh] sm:min-h-[45vh] md:min-h-[52vh] flex items-end">
+          <div className="container mx-auto px-6 sm:px-10 pb-8 sm:pb-12 md:pb-16">
+            <div className="mx-auto max-w-4xl text-center space-y-6">
+              <h3 className="text-2xl sm:text-3xl font-semibold">
+                Ready to build data-driven experiences?
+              </h3>
+              <p className="text-gray-200 max-w-2xl mx-auto">
+                Let’s craft dashboards that turn complexity into clarity.
+              </p>
+
+              <div className="flex flex-wrap items-center justify-center gap-3">
+                <a
+                  href="mailto:germanlosada.dev@gmail.com"
+                  className="rounded-xl bg-white text-black px-5 py-2.5 font-semibold hover:bg-white/90 transition"
+                >
+                  Contact me
+                </a>
+                <a
+                  href="https://www.behance.net/germanlosada"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="rounded-xl border border-white/30 px-5 py-2.5 font-semibold hover:bg-white/10 transition"
+                >
+                  Behance
+                </a>
+                <a
+                  href="https://github.com/Gflosada"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="rounded-xl border border-white/30 px-5 py-2.5 font-semibold hover:bg-white/10 transition"
+                >
+                  GitHub
+                </a>
+              </div>
+
+              <p className="text-xs text-white/70 mt-6">
+                © {new Date().getFullYear()} German Losada — All rights reserved.
+              </p>
+            </div>
+          </div>
+        </div>
+      </footer>
+
       {/* tiny utilities only for this file */}
       <style>{`
-        .ticker {
-          display: inline-flex; gap: 24px; padding: 16px; font-weight: 900; font-family: Inter, system-ui, sans-serif; font-size: 32px; line-height: 32px;
-        }
         .ring-grid > div { border: 1px solid #1F1B26; border-radius: 9999px; }
       `}</style>
     </div>
@@ -131,9 +172,7 @@ function Chip({ children, active }) {
     <div
       className={[
         'rounded-[18px] px-4 py-2 font-bold',
-        active
-          ? 'outline outline-2 outline-[#EF4870]'
-          : 'outline outline-1 outline-[#7F35FF]'
+        active ? 'outline outline-2 outline-[#EF4870]' : 'outline outline-1 outline-[#7F35FF]',
       ].join(' ')}
     >
       {children}
@@ -157,60 +196,27 @@ function FeatureCard({ title, meta, image }) {
   )
 }
 
-function Ticker({ text, className = '', wide = false }) {
+/** Full-width, cross-screen ticker ribbon */
+function Ticker({ text, bgClass = '', rotate = '0deg', topClass = 'top-0', z = 'z-0' }) {
   return (
-    <div className={["ticker w-full", className, wide ? 'min-w-[1718px]' : ''].join(' ')}>
-      {Array.from({ length: wide ? 5 : 6 }).map((_, i) => (
-        <span key={i}>{text}</span>
+    <div
+      className={[
+        'pointer-events-none absolute left-1/2 -translate-x-1/2',
+        'w-[140vw] py-4',
+        'flex items-center gap-6',
+        'font-black tracking-wide text-white uppercase',
+        'whitespace-nowrap',
+        bgClass,
+        topClass,
+        z,
+      ].join(' ')}
+      style={{ transform: `translateX(-50%) rotate(${rotate})` }}
+    >
+      {Array.from({ length: 16 }).map((_, i) => (
+        <span key={i} className="ticker__item">
+          {text}
+        </span>
       ))}
-    </div>
-  )
-}
-
-function Coin({ src, className = '', size = 200 }) {
-  return (
-    <img
-      src={src}
-      alt="coin"
-      className={['pointer-events-none select-none absolute', className].join(' ')}
-      style={{ width: size, height: size }}
-    />
-  )
-}
-
-function ColorBlob({ className = '', w = 200, h = 200 }) {
-  return (
-    <div className={["pointer-events-none absolute mix-blend-color", className].join(' ')} style={{ width: w, height: h }} />
-  )
-}
-
-function Concentric({ className = '' }) {
-  // produces the outlined rings grid similar to the mock
-  const sizes = [303, 367, 441, 507, 585, 675, 787, 893, 1027, 1153, 1281, 1413]
-  return (
-    <div className={["ring-grid relative", className].join(' ')}>
-      <div className="absolute left-1/2 top-1/2 -z-10 h-[815px] w-[1440px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(ellipse_50%_50%_at_50%_50%,_#D9D9D9_66%,_rgba(217,217,217,0)_100%)] opacity-[0.07]" />
-      <div className="relative mx-auto aspect-square w-full max-w-[900px]">
-        {sizes.map((s, i) => (
-          <div key={i} className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2" style={{ width: s, height: s }} />
-        ))}
-      </div>
-    </div>
-  )
-}
-
-function Avatar({ src, className = '', size }) {
-  return (
-    <div className={["absolute", className].join(' ')}>
-      <img src={src} alt="avatar" className="rounded-full" />
-    </div>
-  )
-}
-
-function StatPill({ children }) {
-  return (
-    <div className="w-full max-w-[342px] rounded-full border border-[#2A2533] bg-[#0B090D] px-6 py-2 text-center text-sm">
-      {children}
     </div>
   )
 }

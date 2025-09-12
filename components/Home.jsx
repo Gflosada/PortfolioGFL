@@ -1,6 +1,5 @@
 import { MouseFollower } from "@/components/mouse-follower"
 import { ScrollProgress } from "@/components/scroll-progress"
-import { FloatingNav } from "@/components/floating-nav"
 import { HeroSection } from "@/components/sections/hero-section"
 import { AboutSection } from "@/components/sections/about-section"
 import { SkillsSection } from "@/components/sections/skills-section"
@@ -15,7 +14,6 @@ export default function Home() {
     <div className="min-h-screen bg-gradient-to-b from-zinc-900 via-zinc-900 to-black text-white overflow-hidden">
       <MouseFollower />
       <ScrollProgress />
-      <FloatingNav />
 
       <HeroSection />
       <AboutSection />

@@ -364,9 +364,62 @@ export default function ArtistPlatformCaseStudy({
       </section>
 
       {/* LONG END IMAGE */}
-      <section className="h-[1000px] w-full">
-        <img src={longEnd} alt="Extended showcase" className="h-full w-full object-cover" />
-      </section>
+       {/* FOOTER with same image as HERO */}
+<footer className="relative border-t border-white/10">
+  {/* Background image + overlay */}
+  <div className="absolute inset-0">
+    <img
+      src="/musicfin.png"
+      alt="Footer background"
+      className="w-full h-[38vh] sm:h-[45vh] md:h-[52vh] object-cover"
+    />
+    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-black/30" />
+  </div>
+
+  {/* Content pinned to bottom */}
+  <div className="relative z-10 min-h-[38vh] sm:min-h-[45vh] md:min-h-[52vh] flex items-end">
+    <div className="container mx-auto px-4 sm:px-6 lg:px-8 pb-8 sm:pb-12 md:pb-16">
+      <div className="mx-auto max-w-4xl text-center space-y-6">
+        <h3 className="text-2xl sm:text-3xl font-semibold">
+          Ready to build data-driven experiences?
+        </h3>
+        <p className="text-gray-200 max-w-2xl mx-auto">
+          Let’s craft dashboards that turn complexity into clarity.
+        </p>
+
+        <div className="flex flex-wrap items-center justify-center gap-3">
+          <a
+            href="mailto:germanlosada.dev@gmail.com"
+            className="rounded-xl bg-white text-black px-5 py-2.5 font-semibold hover:bg-white/90 transition"
+          >
+            Contact me
+          </a>
+          <a
+            href="https://www.behance.net/germanlosada"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="rounded-xl border border-white/30 px-5 py-2.5 font-semibold hover:bg-white/10 transition"
+          >
+            Behance
+          </a>
+          <a
+            href="https://github.com/Gflosada"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="rounded-xl border border-white/30 px-5 py-2.5 font-semibold hover:bg-white/10 transition"
+          >
+            GitHub
+          </a>
+        </div>
+
+        <p className="text-xs text-white/70 mt-6">
+          © {new Date().getFullYear()} German Losada — All rights reserved.
+        </p>
+      </div>
     </div>
+  </div>
+</footer>
+    </div>
+    
   )
 }
