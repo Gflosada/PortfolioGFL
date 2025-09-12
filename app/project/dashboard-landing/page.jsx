@@ -1,11 +1,11 @@
 "use client"
 
-import InvestmentDashboardCaseStudy from "@/components/code-samples"
+import DesignShowcase from "@/components/musicApp"
 
-export default function DashboardLandingPage() {
+export default function DashboardLandingCaseStudyPage() {
   return (
     <div className="min-h-screen bg-black text-white">
-      <InvestmentDashboardCaseStudy />
+      <DesignShowcase />
     </div>
   )
 }

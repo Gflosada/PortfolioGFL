@@ -17,7 +17,7 @@ const projectsData = {
     longDescription: "This project involved creating a comprehensive design system for a modern web platform. The dashboard features intuitive navigation, data visualization components, and responsive design that works seamlessly across all devices. The landing page was designed to effectively communicate the platform's value proposition while maintaining visual consistency with the overall brand identity.",
     tags: ["Figma", "Photoshop", "Illustrator", "Advertising"],
     image: "/appMusic.jpg",
-    demoUrl: "/project/dashboard-landing",
+    demoUrl: "https://www.behance.net/gallery/232073939/Produc-Design-Dashboard",
     repoUrl: "https://github.com/Gflosada",
     websiteUrl: null,
     date: "2024",
@@ -334,11 +334,7 @@ export default function ProjectDetail() {
                 </ul>
               </motion.div>
 
-              {params?.slug === "dashboard-landing" && (
-                <div className="mt-8">
-                  <InvestmentDashboardCaseStudy />
-                </div>
-              )}
+              {/* Page-specific components are now routed via /project/<slug> dedicated pages */}
             </div>
 
             {/* Sidebar */}

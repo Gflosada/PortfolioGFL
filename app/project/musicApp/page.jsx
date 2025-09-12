@@ -1,0 +1,11 @@
+"use client"
+
+import DesignShowcase from "@/components/musicApp"
+
+export default function DesignShowcase() {
+  return (
+    <div className="min-h-screen bg-black text-white">
+      <DesignShowcase />
+    </div>
+  )
+}

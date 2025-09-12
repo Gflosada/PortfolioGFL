@@ -1,204 +1,372 @@
-'use client';
+'use client'
 
-import React, { useEffect, useRef, useState } from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
+import React, { useEffect, useMemo, useState } from 'react'
 
-/**
- * Responsive case-study section for your portfolio (Next.js + Tailwind)
- * - Animated carousel (crossfade) under “Impact of the Design System”
- * - 4 images, auto-advance, pause-on-hover, clickable dots (keyboard-accessible)
- * - Footer uses the same background image as the hero
- */
-export default function InvestmentDashboard() {
-  // ---- Config ----
-  const heroBg = 'https://placehold.co/1630x10357';
-  const slides = [
-    { src: 'https://placehold.co/1600x900', alt: 'Design token audit before system' },
-    { src: 'https://placehold.co/1600x900?text=Component+Library', alt: 'Component library overview' },
-    { src: 'https://placehold.co/1600x900?text=Theming', alt: 'Theming and dark mode tokens' },
-    { src: 'https://placehold.co/1600x900?text=Usage+Guidelines', alt: 'Usage guidelines in docs' },
-  ];
-
-  // ---- Carousel state ----
-  const [index, setIndex] = useState(0);
-  const [paused, setPaused] = useState(false);
-  const total = slides.length;
-  const timerRef = useRef(null);
-  const goTo = (i) => setIndex(((i % total) + total) % total);
-  const next = () => goTo(index + 1);
-  const prev = () => goTo(index - 1);
-
-  // Auto-advance with pause on hover and when tab is hidden
-  useEffect(() => {
-    const onVis = () => setPaused(document.hidden);
-    document.addEventListener('visibilitychange', onVis);
-    return () => document.removeEventListener('visibilitychange', onVis);
-  }, []);
+/* =====================================================================
+   CrossfadeGallery (clean, with clearer indicators)
+===================================================================== */
+function CrossfadeGallery({
+  images,
+  alt = 'Gallery image',
+  intervalMs = 3500,
+  transitionMs = 700,
+  aspect = '1440/1025', // keep one consistent frame
+}) {
+  const [index, setIndex] = useState(0)
+  const [paused, setPaused] = useState(false)
+  const prefersReduced = usePrefersReducedMotion()
+  const safe = useMemo(() => (Array.isArray(images) ? images.filter(Boolean) : []), [images])
 
   useEffect(() => {
-    if (paused) {
-      if (timerRef.current) clearInterval(timerRef.current);
-      return;
-    }
-    timerRef.current = setInterval(next, 5000);
-    return () => {
-      if (timerRef.current) clearInterval(timerRef.current);
-    };
-  }, [index, paused]);
+    if (prefersReduced || paused || safe.length <= 1) return
+    const id = setInterval(
+      () => setIndex((i) => (i + 1) % safe.length),
+      Math.max(transitionMs + 50, intervalMs),
+    )
+    return () => clearInterval(id)
+  }, [prefersReduced, paused, safe.length, intervalMs, transitionMs])
+
+  if (!safe.length) return null
 
   return (
-    <div className="w-full text-white">
-      {/* Hero */}
-      <section
-        className="relative isolate overflow-hidden bg-center bg-cover"
-        style={{ backgroundImage: `url(${heroBg})` }}
-      >
-        <div className="absolute inset-0 bg-black/60" />
-        <div className="relative mx-auto max-w-6xl px-6 py-24 sm:py-28 lg:py-32">
-          <p className="mb-3 text-sm uppercase tracking-widest text-white/70">
-            Case Study
-          </p>
-          <h1 className="text-3xl font-semibold leading-tight sm:text-4xl lg:text-5xl">
-            Investment Dashboard – Design System Rollout
-          </h1>
-          <p className="mt-4 max-w-2xl text-base text-white/80">
-            A scalable, token-first system that unified 6 product surfaces, reduced
-            UI entropy, and accelerated delivery across teams.
-          </p>
-        </div>
-      </section>
+    <div
+      className="relative w-full overflow-hidden rounded-2xl border border-white/15 bg-black"
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+    >
+      {/* Consistent frame for all slides */}
+      <div className="relative w-full" style={{ aspectRatio: aspect }}>
+        {safe.map((src, i) => (
+          <img
+            key={`${src}-${i}`}
+            src={src}
+            alt={alt}
+            draggable={false}
+            className="absolute inset-0 h-full w-full object-contain transition-opacity"
+            style={{
+              opacity: i === index ? 1 : 0,
+              transitionDuration: `${transitionMs}ms`,
+            }}
+          />
+        ))}
+      </div>
 
-      {/* Impact + Carousel */}
-      <section className="mx-auto max-w-6xl px-6 py-16 lg:py-20">
-        <div className="grid items-start gap-10 lg:grid-cols-2">
-          <div>
-            <h2 className="text-2xl font-semibold sm:text-3xl">Impact of the Design System</h2>
-            <ul className="mt-6 space-y-3 text-white/80">
-              <li>• 42% faster average delivery time for feature squads</li>
-              <li>• 70% reduction in one-off styles and ad‑hoc components</li>
-              <li>• Accessibility: AA contrast coverage for 96% of UI states</li>
-            </ul>
-            <div className="mt-6">
-              <a
-                href="#components"
-                className="inline-flex items-center gap-2 rounded-2xl border border-white/15 px-4 py-2 text-sm text-white/90 backdrop-blur transition hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
-              >
-                Explore the component library
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" className="opacity-80">
-                  <path d="M5 12h14M13 5l7 7-7 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-              </a>
-            </div>
+      {/* Indicators */}
+      {safe.length > 1 && (
+        <>
+          {/* Dots */}
+          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-3">
+            {safe.map((_, i) => (
+              <span
+                key={i}
+                className={[
+                  'relative inline-block h-3 w-3 rounded-full transition',
+                  i === index
+                    ? 'bg-white shadow-[0_0_0_4px_rgba(255,255,255,0.25)] scale-110'
+                    : 'bg-white/40',
+                ].join(' ')}
+              />
+            ))}
           </div>
-
-          {/* Carousel */}
-          <div
-            className="relative"
-            onMouseEnter={() => setPaused(true)}
-            onMouseLeave={() => setPaused(false)}
-          >
-            <div className="relative aspect-[16/9] w-full overflow-hidden rounded-2xl border border-white/10 bg-black/30 shadow-xl">
-              <AnimatePresence mode="wait">
-                <motion.img
-                  key={index}
-                  src={slides[index].src}
-                  alt={slides[index].alt}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.6, ease: 'easeInOut' }}
-                  className="absolute inset-0 h-full w-full object-cover"
-                />
-              </AnimatePresence>
-              {/* Optional gradient edge for readability */}
-              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
-
-              {/* Controls */}
-              <div className="pointer-events-none absolute inset-x-0 bottom-3 flex items-center justify-center gap-2">
-                {slides.map((_, i) => (
-                  <button
-                    key={i}
-                    aria-label={`Go to slide ${i + 1}`}
-                    aria-current={i === index}
-                    onClick={() => goTo(i)}
-                    className={
-                      'pointer-events-auto h-2 w-2 rounded-full ring-offset-2 transition ' +
-                      (i === index
-                        ? 'bg-white/90 shadow ring-1 ring-white/60'
-                        : 'bg-white/40 hover:bg-white/60')
-                    }
-                  />
-                ))}
-              </div>
-
-              <div className="absolute inset-y-0 left-0 flex items-center">
-                <button
-                  type="button"
-                  onClick={prev}
-                  className="ml-2 rounded-full border border-white/15 bg-black/30 p-2 text-white/90 backdrop-blur transition hover:bg-black/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
-                  aria-label="Previous slide"
-                >
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-                    <path d="M15 19l-7-7 7-7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                </button>
-              </div>
-              <div className="absolute inset-y-0 right-0 flex items-center">
-                <button
-                  type="button"
-                  onClick={next}
-                  className="mr-2 rounded-full border border-white/15 bg-black/30 p-2 text-white/90 backdrop-blur transition hover:bg-black/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
-                  aria-label="Next slide"
-                >
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-                    <path d="M9 5l7 7-7 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                </button>
-              </div>
-            </div>
-            <p className="mt-3 text-center text-xs text-white/70">
-              Hover to pause • Use dots or arrows • Crossfade animation
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Content placeholder */}
-      <section id="components" className="mx-auto max-w-6xl px-6 pb-12">
-        <div className="grid gap-6 md:grid-cols-2">
-          <Card title="Foundation" desc="Tokens, spacing scale, and typography ramp" />
-          <Card title="Components" desc="40+ audited components with variants" />
-          <Card title="Accessibility" desc="Contrast, motion preferences, and focus states" />
-          <Card title="Dev Experience" desc="Storybook, docs, and code mods" />
-        </div>
-      </section>
-
-      {/* Footer shares the hero background */}
-      <footer
-        className="relative isolate mt-8 bg-center bg-cover"
-        style={{ backgroundImage: `url(${heroBg})` }}
-      >
-        <div className="absolute inset-0 bg-black/70" />
-        <div className="relative mx-auto max-w-6xl px-6 py-16 text-center">
-          <h3 className="text-xl font-medium sm:text-2xl">Want the full write‑up?</h3>
-          <p className="mt-2 text-white/80">I can share the internal migration plan, KPIs, and rollout checklist.</p>
-          <a
-            href="#contact"
-            className="mt-6 inline-flex items-center rounded-xl border border-white/15 px-4 py-2 text-sm text-white/90 backdrop-blur transition hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
-          >
-            Get in touch
-          </a>
-        </div>
-      </footer>
+          {/* Progress bar */}
+          <ProgressBar key={index} durationMs={intervalMs} />
+        </>
+      )}
     </div>
-  );
+  )
 }
 
-function Card({ title, desc }) {
+
+
+function ProgressBar({ durationMs = 3500 }) {
   return (
-    <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-6 shadow-lg">
-      <h3 className="text-lg font-medium">{title}</h3>
-      <p className="mt-1 text-sm text-white/80">{desc}</p>
+    <>
+      <style>{`
+        @keyframes cm-progress-fill { from { width: 0% } to { width: 100% } }
+      `}</style>
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1 bg-white/15">
+        <div
+          className="h-full bg-white/80"
+          style={{
+            animationName: 'cm-progress-fill',
+            animationDuration: `${durationMs}ms`,
+            animationTimingFunction: 'linear',
+            animationFillMode: 'forwards',
+          }}
+        />
+      </div>
+    </>
+  )
+}
+
+function usePrefersReducedMotion() {
+  const [reduced, setReduced] = useState(false)
+  useEffect(() => {
+    if (typeof window === 'undefined' || !window.matchMedia) return
+    const mql = window.matchMedia('(prefers-reduced-motion: reduce)')
+    const onChange = () => setReduced(!!mql.matches)
+    onChange()
+    mql.addEventListener?.('change', onChange)
+    return () => mql.removeEventListener?.('change', onChange)
+  }, [])
+  return reduced
+}
+
+/* =====================================================================
+   Small UI atoms for the palette
+===================================================================== */
+function Swatch({ n, hex, darkText, codeText }) {
+  const textClass = darkText ? 'text-black' : 'text-white'
+  return (
+    <div
+      className="flex h-28 w-full flex-col justify-between rounded-xl border border-black/40 p-2"
+      style={{ backgroundColor: hex }}
+    >
+      <div className={`text-sm font-medium ${textClass}`}>{n}</div>
+      <div className={`text-xs ${textClass}`}>{codeText ?? hex}</div>
     </div>
-  );
+  )
+}
+
+function PaletteSection({ title, desc, wrapperBg = 'white', chipsA = [], chipsB = [] }) {
+  return (
+    <section className="mx-auto max-w-7xl px-6 py-12 md:py-16">
+      <div className="grid items-center gap-8 md:grid-cols-2 md:gap-14">
+        <div className="space-y-4">
+          <h3 className="text-2xl font-semibold sm:text-3xl">{title}</h3>
+          <p className="max-w-prose text-gray-200">{desc}</p>
+        </div>
+        <div className="rounded-xl border border-white/15 p-6" style={{ background: wrapperBg }}>
+          <div className="grid gap-5 sm:grid-cols-2">
+            {chipsA.map((c) => (
+              <Swatch key={`${title}-A-${c.n}`} {...c} />
+            ))}
+          </div>
+          <div className="mt-5 grid gap-5 sm:grid-cols-2">
+            {chipsB.map((c) => (
+              <Swatch key={`${title}-B-${c.n}`} {...c} />
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+/* =====================================================================
+   Main component
+===================================================================== */
+export default function ArtistPlatformCaseStudy({
+  heroSrc = '/music1.png',
+  midCardSrc = '/music2.png',
+  rightShot = '/music3.png',
+  longHero = '/music21.png',
+  wireframeWide = '/mu1.png',
+  longEnd = '/musicfin.png',
+
+  wireframeGallery = ['/mu1.png', '/mu2.png', '/mu3.png', '/mu4.png', '/mu5.png', '/mu6.png', '/mu7.png'],
+}) {
+  const featureChips = [
+    'Unified Dashboard',
+    'Style Adaptation',
+    'Smart Discovery Hub',
+    'Integrated Messaging & Bookings',
+    'Engagement Insights',
+  ]
+
+  const outcomes = [
+    { title: 'Consistency', body: 'Reduced design + dev time by ~40%.' },
+    { title: 'Scalability', body: 'Easier onboarding for devs, faster feature rollout.' },
+    { title: 'Identity', body: 'Artists adapt visuals to match their brand without losing UX.' },
+  ]
+
+  const primaryA = [
+    { n: '55', hex: '#9E62EC', darkText: true },
+    { n: '60', hex: '#000000', darkText: false, codeText: '#000000' },
+    { n: '70', hex: '#76D679', darkText: true },
+    { n: '80', hex: '#FD756B', darkText: true, codeText: '#FFEB99' },
+  ]
+  const primaryB = [
+    { n: '90', hex: '#FFF5CC', darkText: true },
+    { n: '95', hex: '#FFFAE5', darkText: true },
+    { n: '97', hex: '#FFFCF0', darkText: true },
+    { n: '99', hex: '#FFFEFA', darkText: true, codeText: '#FBFBFE' },
+  ]
+
+  const darkA = [
+    { n: '08', hex: '#141414' },
+    { n: '10', hex: '#1A1A1A' },
+    { n: '15', hex: '#262626' },
+    { n: '20', hex: '#333333' },
+  ]
+  const darkB = [
+    { n: '25', hex: '#404040' },
+    { n: '30', hex: '#4D4D4D' },
+    { n: '35', hex: '#595959' },
+    { n: '40', hex: '#666666' },
+  ]
+
+  const greyA = [
+    { n: '50', hex: '#7E7E81' },
+    { n: '60', hex: '#98989A' },
+    { n: '70', hex: '#B3B3B3' },
+    { n: '80', hex: '#CCCCCC' },
+  ]
+  const greyB = [
+    { n: '90', hex: '#E4E4E7', darkText: true },
+    { n: '95', hex: '#F1F1F3', darkText: true },
+    { n: '97', hex: '#F7F7F8', darkText: true },
+    { n: '99', hex: '#FCFCFD', darkText: true },
+  ]
+
+  const wireframes = useMemo(() => {
+    const arr = Array.isArray(wireframeGallery) ? [...wireframeGallery] : []
+    const i = arr.indexOf(wireframeWide)
+    if (i === -1) arr.unshift(wireframeWide)
+    else if (i > 0) {
+      arr.splice(i, 1)
+      arr.unshift(wireframeWide)
+    }
+    return arr.slice(0, 7)
+  }, [wireframeGallery, wireframeWide])
+
+  return (
+    <div className="w-full bg-[#0A0D17] text-white">
+      {/* HERO */}
+      <section className="relative isolate overflow-hidden">
+        <img src={heroSrc} alt="Hero background" className="mx-auto h-auto w-full object-contain" />
+        <div className="relative -mt-px bg-[#35236D]">
+          <div className="mx-auto max-w-7xl px-6 pb-0 pt-2 md:pt-20 lg:pt-24">
+            <div className="mx-auto max-w-3xl text-center">
+              <h1 className="text-3xl font-semibold leading-tight sm:text-5xl sm:leading-tight md:text-6xl md:leading-tight">
+                Empowering Artists to Discover, Perform, and Connect Through Design.
+              </h1>
+              <p className="mt-6 text-base/7 text-gray-100 sm:text-lg md:text-xl">
+                A product dashboard designed as a creative hub, where artists manage their journey, showcase performances,
+                and expand their network in styles that reflect their individuality.
+              </p>
+
+              <div className="mt-8 inline-flex items-center gap-3 rounded-2xl bg-white px-2 py-1 text-sm font-semibold text-[#7F56D9]">
+                <span>Design Changes</span>
+                <span className="rounded-2xl bg-[#6941C6] px-3 py-1 text-white ring-1 ring-[#E9D7FE]">What I Built</span>
+              </div>
+
+              <div className="mt-8 flex flex-wrap justify-center gap-3">
+                {featureChips.map((chip) => (
+                  <button
+                    key={chip}
+                    className="rounded-lg border border-white/20 bg-white px-5 py-3 text-base font-semibold text-[#7F56D9] shadow-sm hover:bg-white/90 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
+                    type="button"
+                  >
+                    {chip}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <div className="mt-12 w-full">
+              <img src={midCardSrc} alt="Dashboard preview" className="h-auto w-full object-contain" />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* VISION */}
+      <section className="mx-auto max-w-7xl px-6 py-16 md:py-24">
+        <div className="grid items-center gap-10 md:grid-cols-2 md:gap-16">
+          <div className="space-y-4">
+            <h2 className="text-2xl font-semibold sm:text-3xl">The Vision</h2>
+            <p className="max-w-prose text-gray-300">We set out to create a dashboard for artists that was more than numbers—it became a space to:</p>
+            <div className="grid gap-4">
+              <div className="rounded-xl border border-white/20 bg-purple-600/90 p-4">
+                <p className="font-semibold text-black/90 md:text-white">Showcase performances and tracks.</p>
+                <p className="mt-2 font-semibold text-white">Discover collaboration opportunities.</p>
+              </div>
+              <div className="rounded-xl border border-white/20 bg-black p-4">
+                <p className="font-semibold">Connect directly with venues and labels.</p>
+                <p className="mt-2 font-semibold">Adapt the platform to their personal style.</p>
+              </div>
+            </div>
+          </div>
+
+          <img src={rightShot} alt="Right side UI shot" className="mx-auto w-full max-w-2xl rounded-xl object-cover" />
+        </div>
+      </section>
+
+      {/* RESEARCH → WIREFRAMES → PROTOTYPING CARDS */}
+      <section className="mx-auto max-w-7xl px-6 pb-6 md:pb-10">
+        <div className="grid gap-6 md:grid-cols-3">
+          <div className="rounded-2xl border border-white/15 bg-[#3E1C96] p-6">
+            <h3 className="text-2xl font-semibold">Research</h3>
+            <p className="mt-2 text-gray-200">Interviews with artists and music managers revealed the need for a platform mixing career insights with creative identity.</p>
+          </div>
+          <div className="rounded-2xl border border-white/15 bg-[#252B37] p-6">
+            <h3 className="text-2xl font-semibold text-[#E8E3F6]">Wireframes</h3>
+            <p className="mt-2 text-gray-300">Early sketches balanced data (views, streams, bookings) with storytelling (videos, media uploads).</p>
+          </div>
+          <div className="rounded-2xl border border-white/15 bg-[#252B37] p-6">
+            <h3 className="text-2xl font-semibold">Prototyping</h3>
+            <p className="mt-2 text-gray-300">Ensuring accuracy and trust through clear data visualization.</p>
+          </div>
+        </div>
+      </section>
+
+      {/* Palettes */}
+      <PaletteSection title="Primary Colors" desc="Primary Colors - The foundational color representing brand identity" wrapperBg="white" chipsA={primaryA} chipsB={primaryB} />
+      <PaletteSection title="Dark Shades" desc="Dark Colors - Setting the thematic tone and serving as the predominant background hues" wrapperBg="#7F56D9" chipsA={darkA} chipsB={darkB} />
+      <PaletteSection title="Grey Shades" desc="Grey Colors - Employed for creating inviting and readable text elements" wrapperBg="#7F56D9" chipsA={greyA} chipsB={greyB} />
+
+      {/* LARGE SHOWCASE IMAGE */}
+      <section className="mx-auto max-w-7xl px-6 py-10 md:py-14">
+        <img src={longHero} alt="Showcase section" className="w-full rounded-2xl object-cover" />
+      </section>
+
+      {/* FOUNDATIONS & OUTCOMES */}
+      <section className="mx-auto max-w-7xl px-6 py-16 md:py-24">
+        <div className="grid items-start gap-10 md:grid-cols-3">
+          <div className="md:col-span-1">
+            <h2 className="text-2xl font-semibold sm:text-3xl">Foundations</h2>
+            <p className="mt-3 max-w-prose text-gray-300">
+              A flexible design system with adaptive colors, clear typography, and reusable components ensured consistency, scalability, and gave artists the freedom to reflect their unique style.
+            </p>
+            <div className="mt-6 grid gap-3">
+              {['Feedback & States', 'Responsiveness', 'Accessibility', 'Core UI'].map((item) => (
+                <div key={item} className="rounded-lg border border-white/10 bg-gray-100 px-3 py-2 text-black">
+                  {item}
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="md:col-span-2">
+            <h3 className="text-center text-3xl font-semibold">Outcomes of the Design System</h3>
+            <div className="mt-8 grid gap-4 sm:grid-cols-2">
+              {outcomes.slice(0, 2).map((o) => (
+                <div key={o.title} className="rounded-2xl border border-white/30 bg-[#2E073F] p-6 text-center">
+                  <div className="text-2xl font-semibold">{o.title}</div>
+                  <p className="mt-2 text-gray-300">{o.body}</p>
+                </div>
+              ))}
+            </div>
+            <div className="mx-auto mt-4 max-w-md">
+              <div className="rounded-2xl border border-white/30 bg-[#2E073F] p-6 text-center">
+                <div className="text-2xl font-semibold">{outcomes[2].title}</div>
+                <p className="mt-2 text-gray-300">{outcomes[2].body}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* WIREFRAME → HI-FI (animated) */}
+      <section className="mx-auto max-w-7xl px-6 pb-12 md:pb-20">
+        <CrossfadeGallery images={wireframes} alt="Wireframe to Hi-Fi progression" intervalMs={3400} transitionMs={700} aspect="1440/1025" />
+      </section>
+
+      {/* LONG END IMAGE */}
+      <section className="h-[1000px] w-full">
+        <img src={longEnd} alt="Extended showcase" className="h-full w-full object-cover" />
+      </section>
+    </div>
+  )
 }
