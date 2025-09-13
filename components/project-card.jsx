@@ -8,7 +8,7 @@ import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 
-export function ProjectCard({ title, description, tags, image, demoUrl, repoUrl, websiteUrl, slug }) {
+export function ProjectCard({ title, description, tags, image, demoUrl, repoUrl, websiteUrl, slug, hideButtons = false }) {
   const [isHovered, setIsHovered] = useState(false)
 
   return (
@@ -51,44 +51,46 @@ export function ProjectCard({ title, description, tags, image, demoUrl, repoUrl,
                 ))}
                 </div>
 
-            <div className="flex justify-between mt-auto pt-4 border-t border-zinc-700/50">
-              <div className="flex gap-4">
-                <Button variant="ghost" size="sm" className="text-zinc-400 hover:text-white hover:bg-zinc-700/50 flex flex-col items-center gap-1" asChild>
-                  <Link href={repoUrl} target="_blank" rel="noopener noreferrer">
-                    <Github className="h-4 w-4" />
-                    <span>Code</span>
+            {!hideButtons && (
+              <div className="flex justify-between mt-auto pt-4 border-t border-zinc-700/50">
+                <div className="flex gap-4">
+                  <Button variant="ghost" size="sm" className="text-zinc-400 hover:text-white hover:bg-zinc-700/50 flex flex-col items-center gap-1" asChild>
+                    <Link href={repoUrl} target="_blank" rel="noopener noreferrer">
+                      <Github className="h-4 w-4" />
+                      <span>Code</span>
+                    </Link>
+                  </Button>
+                  <div className="flex flex-col items-center gap-1">
+                    {websiteUrl ? (
+                      <Button variant="ghost" size="sm" className="text-zinc-400 hover:text-white hover:bg-zinc-700/50 flex flex-col items-center gap-1" asChild>
+                        <Link href={websiteUrl} target="_blank" rel="noopener noreferrer">
+                          <Globe className="h-4 w-4" />
+                          <span>Website</span>
+                        </Link>
+                      </Button>
+                    ) : (
+                      <div className="h-8 w-16 flex flex-col items-center justify-center">
+                        <div className="h-4 w-4 opacity-0"></div>
+                        <span className="text-xs opacity-0">Placeholder</span>
+                      </div>
+                    )}
+                  </div>
+                </div>
+                <Button
+                  size="sm"
+                  className="bg-gradient-to-r from-slate-600 to-blue-600 hover:from-blue-600 hover:to-slate-600 border-0 px-4 flex items-center justify-center gap-2 rounded-xl"
+                  asChild
+                >
+                  <Link
+                    href={`/project/${slug}`}
+                    className="flex items-center gap-2"
+                  >
+                    Live Demo
+                    <ArrowUpRight className="h-4 w-4" />
                   </Link>
                 </Button>
-                <div className="flex flex-col items-center gap-1">
-                  {websiteUrl ? (
-                    <Button variant="ghost" size="sm" className="text-zinc-400 hover:text-white hover:bg-zinc-700/50 flex flex-col items-center gap-1" asChild>
-                      <Link href={websiteUrl} target="_blank" rel="noopener noreferrer">
-                        <Globe className="h-4 w-4" />
-                        <span>Website</span>
-                      </Link>
-                    </Button>
-                  ) : (
-                    <div className="h-8 w-16 flex flex-col items-center justify-center">
-                      <div className="h-4 w-4 opacity-0"></div>
-                      <span className="text-xs opacity-0">Placeholder</span>
-                    </div>
-                  )}
-                </div>
               </div>
-              <Button
-                size="sm"
-                className="bg-gradient-to-r from-slate-600 to-blue-600 hover:from-blue-600 hover:to-slate-600 border-0 px-4 flex items-center justify-center gap-2 rounded-xl"
-                asChild
-              >
-                <Link
-                  href={`/project/${slug}`}
-                  className="flex items-center gap-2"
-                >
-                  Live Demo
-                  <ArrowUpRight className="h-4 w-4" />
-                </Link>
-              </Button>
-            </div>
+            )}
           </div>
 
           <div className="absolute top-3 right-3 z-20">
