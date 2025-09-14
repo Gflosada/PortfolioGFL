@@ -22,7 +22,7 @@ export default function FintechCaseStudy() {
     <div className="w-full bg-[#C7C7C7]">
       {/* Hero */}
       <section className="mx-auto max-w-6xl px-4 py-12">
-        <img src="/iphonefin.png" alt="Hero" className="w-full rounded-xl object-cover" />
+        <img src="/iPhonefin.png" alt="Hero" className="w-full rounded-xl object-cover" />
         <div className="mt-12 text-center">
           <h1 className="text-3xl sm:text-5xl font-bold font-barlow">
             Fintech App Design

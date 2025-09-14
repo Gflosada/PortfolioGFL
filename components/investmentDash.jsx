@@ -35,7 +35,7 @@ export default function InvestmentDashboardCaseStudy() {
       <section className="relative">
         <div className="absolute inset-0">
           <img
-            src="/investDash.png"
+            src="/InvestDash.png"
             alt="Fintech dashboard hero"
             className="h-[40vh] sm:h-[50vh] md:h-[60vh] w-full object-cover"
           />
@@ -233,7 +233,7 @@ export default function InvestmentDashboardCaseStudy() {
         </div>
       </section>
       <img
-  src="/ipadMini.png"
+  src="/dmini.png"
   alt="iPad Mini"
   className="w-full h-auto"
 />
@@ -243,7 +243,7 @@ export default function InvestmentDashboardCaseStudy() {
   {/* Background image + overlay */}
   <div className="absolute inset-0">
     <img
-      src="/investDash2.png"
+      src="/InvestDash2.png"
       alt="Footer background"
       className="w-full h-[38vh] sm:h-[45vh] md:h-[52vh] object-cover"
     />
