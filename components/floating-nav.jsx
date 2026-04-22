@@ -43,12 +43,12 @@ export function FloatingNav() {
   return (
     <>
       <motion.div
-        className={`fixed top-6 left-1/2 -translate-x-1/2 z-50 ${isVisible ? "opacity-100" : "opacity-0 pointer-events-none"}`}
-        initial={{ y: -100 }}
-        animate={{ y: isVisible ? 0 : -100 }}
+        className={`fixed left-4 right-4 top-4 z-[70] md:left-1/2 md:right-auto md:top-6 ${isVisible ? "opacity-100" : "opacity-0 pointer-events-none"}`}
+        initial={{ x: isMobile ? 0 : "-50%", y: -100 }}
+        animate={{ x: isMobile ? 0 : "-50%", y: isVisible ? 0 : -100 }}
         transition={{ duration: 0.3 }}
       >
-        <div className="relative px-4 py-3 rounded-full bg-zinc-800/80 backdrop-blur-md border border-zinc-700/50 shadow-lg">
+        <div className="relative w-full px-4 py-3 rounded-full bg-zinc-800/80 backdrop-blur-md border border-zinc-700/50 shadow-lg md:w-auto">
           <div className="absolute -inset-0.5 bg-gradient-to-r from-slate-500/20 to-blue-500/20 rounded-full blur opacity-50"></div>
 
           {isMobile ? (
@@ -98,7 +98,7 @@ export function FloatingNav() {
       {/* Mobile menu */}
       {isMobile && (
         <motion.div
-          className={`fixed inset-0 z-40 bg-black/90 backdrop-blur-md ${isOpen ? "block" : "hidden"}`}
+          className={`fixed inset-0 z-[65] bg-black/90 backdrop-blur-md ${isOpen ? "block" : "hidden"}`}
           initial={{ opacity: 0 }}
           animate={{ opacity: isOpen ? 1 : 0 }}
           transition={{ duration: 0.3 }}

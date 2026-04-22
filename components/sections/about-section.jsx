@@ -44,20 +44,20 @@ export function AboutSection() {
               Passionate about collaborating with financial startups, I aim to push the boundaries of AI-driven UX, conversational UI, and adaptive interfaces, transforming fintech solutions through innovation and intelligent design.
               </p>
 
-              <div className="grid grid-cols-2 gap-4 mt-8">
-                <div className="space-y-1">
+              <div className="grid grid-cols-1 gap-4 mt-8 sm:grid-cols-2">
+                <div className="min-w-0 space-y-1">
                   <div className="text-sm text-zinc-500">Name</div>
                   <div className="font-medium">German Losada</div>
                 </div>
-                <div className="space-y-1">
+                <div className="min-w-0 space-y-1">
                   <div className="text-sm text-zinc-500">Email</div>
-                  <div className="font-medium">gflosadaz@gmail.com</div>
+                  <div className="break-all font-medium">gflosadaz@gmail.com</div>
                 </div>
-                <div className="space-y-1">
+                <div className="min-w-0 space-y-1">
                   <div className="text-sm text-zinc-500">Location</div>
                   <div className="font-medium">Toronto, Ontario, CA</div>
                 </div>
-                <div className="space-y-1">
+                <div className="min-w-0 space-y-1">
                   <div className="text-sm text-zinc-500">Phone</div>
                   <div className="font-medium">+1 (647) 809-4452</div>
                 </div>

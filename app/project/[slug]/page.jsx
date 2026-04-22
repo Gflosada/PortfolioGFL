@@ -2,6 +2,7 @@ import Link from "next/link"
 import { ArrowLeft, Github, Globe, ExternalLink, Calendar, User, Tag } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
+import { ProjectSideNavigation } from "@/components/project-side-navigation"
 
 
 // Project data - you can move this to a separate file later
@@ -179,8 +180,23 @@ const projectsData = {
   }
 }
 
+const dedicatedProjectSlugs = new Set([
+  "dashboard-landing",
+  "web-design-development",
+  "digital-marketing-agency",
+  "financial-app",
+  "investment-dashboard",
+  "nft-website",
+  "meal-plan-app",
+  "musicApp",
+  "graphic-design",
+  "portfolio-website",
+])
+
 export function generateStaticParams() {
-  return Object.keys(projectsData).map((slug) => ({ slug }))
+  return Object.keys(projectsData)
+    .filter((slug) => !dedicatedProjectSlugs.has(slug))
+    .map((slug) => ({ slug }))
 }
 
 export default async function ProjectDetail({ params }) {
@@ -206,6 +222,7 @@ export default async function ProjectDetail({ params }) {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-zinc-900 via-zinc-900 to-black text-white">
+      <ProjectSideNavigation />
       {/* Header */}
       <div className="sticky top-0 z-50 bg-zinc-900/80 backdrop-blur-sm border-b border-zinc-700/50">
         <div className="container mx-auto px-4 py-4">

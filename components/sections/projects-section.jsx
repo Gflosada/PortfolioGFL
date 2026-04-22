@@ -13,6 +13,15 @@ export function ProjectsSection() {
       repoUrl: "https://github.com/Gflosada",
     },
     {
+      slug: "financial-app",
+      title: "Financial App",
+      description: "I conducted comprehensive user research, UX design, and UI development to create a seamless, intuitive financial application. My approach focused on user needs,accessibility, and engagement, ensuring a smooth and efficient experience.Let me know if you'd like any refinements!",
+      tags: ["Figma", "User Research", "Prototyping", "Mockups"],
+      image: "/financialapp.png?height=400&width=600",
+      demoUrl: "https://www.behance.net/gallery/154064523/Gravity-UIUX",
+      repoUrl: "https://github.com/Gflosada",
+    },
+    {
       slug: "investment-dashboard",
       title: "Investment Dashboard UI/UX Desig",
       description:"complete UI/UX design system for a next-gen investment fintech dashboard—streamlined components, intuitive user flows, and data-driven visuals that empower smarter investing.",
@@ -38,15 +47,6 @@ export function ProjectsSection() {
       tags: ["Figma", "User Research", "Prototyping", "Mockups"],
       image: "/digitalweb.png?height=400&width=600",
       demoUrl: "https://www.behance.net/gallery/200146167/UIUX-Digital-Marketing-Agency-website",
-      repoUrl: "https://github.com/Gflosada",
-    },
-    {
-      slug: "financial-app",
-      title: "Financial App",
-      description: "I conducted comprehensive user research, UX design, and UI development to create a seamless, intuitive financial application. My approach focused on user needs,accessibility, and engagement, ensuring a smooth and efficient experience.Let me know if you'd like any refinements!",
-      tags: ["Figma", "User Research", "Prototyping", "Mockups"],
-      image: "/financialapp.png?height=400&width=600",
-      demoUrl: "https://www.behance.net/gallery/154064523/Gravity-UIUX",
       repoUrl: "https://github.com/Gflosada",
     },
     {
@@ -76,6 +76,7 @@ export function ProjectsSection() {
       image: "/GDesign.webp?height=400&width=600",
       demoUrl: "https://www.behance.net/gallery/124119831/Graphic-Design",
       repoUrl: "https://github.com/Gflosada",
+      hideActions: true,
     },
     {
       slug: "portfolio-website",
@@ -85,6 +86,7 @@ export function ProjectsSection() {
       image: "/portfolio.png?height=400&width=600",
       demoUrl: "https://www.behance.net/germanlosada",
       repoUrl: "https://github.com/Gflosada",
+      hideActions: true,
     },
   ]
 

@@ -19,30 +19,30 @@ export function ContactSection() {
             <h3 className="text-2xl font-bold mb-6">Contact Information</h3>
             <div className="space-y-6">
               <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-full bg-zinc-800 flex items-center justify-center">
+                <div className="w-12 h-12 shrink-0 rounded-full bg-zinc-800 flex items-center justify-center">
                   <Mail className="h-5 w-5 text-blue-400" />
                 </div>
-                <div>
+                <div className="min-w-0">
                   <div className="text-sm text-zinc-500">Email</div>
-                  <div className="font-medium">gflosadaz@gmail.com</div>
+                  <div className="break-all font-medium">gflosadaz@gmail.com</div>
                 </div>
               </div>
               <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-full bg-zinc-800 flex items-center justify-center">
+                <div className="w-12 h-12 shrink-0 rounded-full bg-zinc-800 flex items-center justify-center">
                   <Linkedin className="h-5 w-5 text-blue-400" />
                 </div>
-                <div>
+                <div className="min-w-0">
                   <div className="text-sm text-zinc-500">LinkedIn</div>
-                  <div className="font-medium">linkedin.com/in/innovativedesigner</div>
+                  <div className="break-all font-medium">linkedin.com/in/innovativedesigner</div>
                 </div>
               </div>
               <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-full bg-zinc-800 flex items-center justify-center">
+                <div className="w-12 h-12 shrink-0 rounded-full bg-zinc-800 flex items-center justify-center">
                   <Github className="h-5 w-5 text-blue-400" />
                 </div>
-                <div>
+                <div className="min-w-0">
                   <div className="text-sm text-zinc-500">GitHub</div>
-                  <div className="font-medium">github.com/Gflosada</div>
+                  <div className="break-all font-medium">github.com/Gflosada</div>
                 </div>
               </div>
             </div>

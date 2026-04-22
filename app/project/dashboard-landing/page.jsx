@@ -1,3 +1,5 @@
+import { ProjectSideNavigation } from "@/components/project-side-navigation"
+
 const projectFacts = [
   { label: "Role", value: "Product Designer", detail: "UX strategy, IA, UI design, prototyping" },
   { label: "Timeline", value: "10 weeks", detail: "Discovery, design, validation, handoff" },
@@ -10,7 +12,7 @@ const visuals = {
   discovery: "/music3.png",
   wireframes: "/mu1.png",
   dashboard: "/music2.png",
-  final: "/music21.png",
+  final: "/musicfin.png",
   outcome: "/musicfin.png",
 }
 
@@ -191,6 +193,7 @@ function ImageFrame({ src, alt, caption, className = "" }) {
 export default function DashboardLandingCaseStudyPage() {
   return (
     <main className="min-h-screen bg-[#F5F7FA] text-[#101113]">
+      <ProjectSideNavigation />
       <section className="relative overflow-hidden bg-[#08090A] px-5 pb-16 pt-28 text-white sm:px-8 lg:px-12">
         <div className="absolute inset-x-0 top-0 h-px bg-white/20" />
         <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
@@ -362,14 +365,7 @@ export default function DashboardLandingCaseStudyPage() {
             body="The final design balances high-impact visual presentation with practical product storytelling. It gives prospects a stronger reason to continue and gives the business a clearer view of acquisition performance."
             centered
           />
-          <div className="mt-10 overflow-hidden rounded-lg border border-[#D9DEE8] bg-[#08090A]">
-            <img
-              src={visuals.final}
-              alt="Final artist dashboard landing page design"
-              className="h-auto w-full object-contain"
-            />
-          </div>
-          <div className="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
             {solutionFeatures.map((feature) => (
               <article key={feature.title} className="rounded-lg border border-[#D9DEE8] bg-[#F5F7FA] p-5">
                 <h3 className="text-lg font-semibold text-[#101113]">{feature.title}</h3>

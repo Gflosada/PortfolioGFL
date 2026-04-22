@@ -4,29 +4,29 @@ import React from 'react'
 
 export default function NftWebsite() {
   return (
-    <div className="relative min-h-screen w-full overflow-hidden rounded-3xl bg-[#0B090D] text-white">
+    <div className="relative min-h-screen w-full overflow-hidden rounded-3xl bg-[#0B090D] pb-24 text-white lg:pb-0">
       {/* —— HERO ——————————————————————————————————————————————— */}
-      <section className="relative mx-auto w-full max-w-[1280px] px-6 sm:px-10 pt-10 pb-8">
-        <div className="flex flex-col-reverse items-center justify-between gap-10 md:flex-row">
-          <div className="max-w-xl space-y-8">
-            <h1 className="text-[44px] leading-[1.05] font-black sm:text-6xl">
+      <section className="relative mx-auto w-full max-w-[1280px] px-5 pb-10 pt-24 sm:px-10 md:pt-12">
+        <div className="flex flex-col items-start justify-between gap-10 md:flex-row md:items-center">
+          <div className="relative z-10 w-full max-w-[22rem] space-y-6 sm:max-w-xl md:space-y-8">
+            <h1 className="text-4xl font-black leading-[1.05] sm:text-6xl">
               Custom Landing Pages for Crypto, NFTs & Web3
             </h1>
-            <p className="text-lg text-white/80">
+            <p className="max-w-lg text-base leading-7 text-white/80 sm:text-lg">
               NFTs, Meme Coins, Web3 – We Build Pages That Get People Talking
             </p>
           </div>
 
-          <div className="relative h-[520px] w-full max-w-[520px] md:h-[744px] md:max-w-[645px]">
+          <div className="relative mx-auto h-[360px] w-full max-w-[360px] self-center overflow-hidden sm:h-[500px] sm:max-w-[500px] md:h-[744px] md:max-w-[645px] md:overflow-visible">
             {/* purple glow block (blend) */}
             <div
-              className="absolute -left-6 top-6 h-[235px] w-[214px] rotate-[8deg] mix-blend-color"
+              className="absolute -left-10 top-8 h-[170px] w-[155px] rotate-[8deg] mix-blend-color sm:h-[235px] sm:w-[214px] md:-left-6 md:top-6"
               style={{ background: '#7F35FF' }}
             />
             <img
               alt="Phone preview"
               src="/web3iphone.png"
-              className="absolute left-24 top-8 h-[649px] w-[505px] -rotate-6 rounded-xl border border-[#1F1B26] shadow-[0_0_0_3px_#1F1B26]"
+              className="absolute left-1/2 top-2 h-[400px] w-auto -translate-x-1/2 -rotate-6 rounded-xl border border-[#1F1B26] shadow-[0_0_0_3px_#1F1B26] sm:h-[560px] md:left-24 md:top-8 md:h-[649px] md:w-[505px] md:translate-x-0"
             />
           </div>
         </div>

@@ -4,14 +4,14 @@ import { SkillBadge } from "@/components/skill-badge"
 export function SkillsSection() {
   const skills = [
     { name: "HTML/CSS", level: 95 },
-    { name: "JavaScript/TypeScript", level: 90 },
+    { name: "JavaScript\nTypeScript", level: 90 },
     { name: "React.js", level: 90 },
     { name: "Next.js", level: 90 },
     { name: "Angular", level: 80 },
     { name: "Tailwind CSS", level: 90 },
     { name: "UI/UX Design", level: 95 },
     { name: "Figma/Adobe XD", level: 95 },
-    { name: "Photoshop/Illustrator", level: 85 },
+    { name: "Photoshop\nIllustrator", level: 85 },
     { name: "PHP/SQL", level: 75 },
     { name: "PostgreSQL", level: 80 },
     { name: "APIs", level: 85 },
@@ -22,7 +22,7 @@ export function SkillsSection() {
     { name: "User Research", level: 95 },
     { name: "Prototyping", level: 90 },
     { name: "Wireframing", level: 90 },
-    { name: "Version Control", level: 85 },
+    { name: "A/B Testing", level: 85 },
   ]
 
   return (
