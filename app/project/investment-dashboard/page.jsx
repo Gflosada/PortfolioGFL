@@ -2,7 +2,7 @@
 
 import InvestmentDashboardCaseStudy from "@/components/investmentDash"
 
-export default function DashboardLandingPage() {
+export default function InvestmentDashboardPage() {
   return (
     <div className="min-h-screen bg-black text-white">
       <InvestmentDashboardCaseStudy />

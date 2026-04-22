@@ -1,10 +1,5 @@
-"use client"
-
-import { useState, useEffect } from "react"
-import { useParams, useRouter } from "next/navigation"
 import Link from "next/link"
 import { ArrowLeft, Github, Globe, ExternalLink, Calendar, User, Tag } from "lucide-react"
-import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 
@@ -184,32 +179,13 @@ const projectsData = {
   }
 }
 
-export default function ProjectDetail() {
-  const params = useParams()
-  const router = useRouter()
-  const [project, setProject] = useState(null)
-  const [loading, setLoading] = useState(true)
+export function generateStaticParams() {
+  return Object.keys(projectsData).map((slug) => ({ slug }))
+}
 
-  useEffect(() => {
-    if (params.slug) {
-      const projectData = projectsData[params.slug]
-      if (projectData) {
-        setProject(projectData)
-      }
-      setLoading(false)
-    }
-  }, [params.slug])
-
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-gradient-to-b from-zinc-900 via-zinc-900 to-black text-white flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto mb-4"></div>
-          <p className="text-zinc-400">Loading project...</p>
-        </div>
-      </div>
-    )
-  }
+export default async function ProjectDetail({ params }) {
+  const { slug } = await params
+  const project = projectsData[slug]
 
   if (!project) {
     return (
@@ -217,9 +193,11 @@ export default function ProjectDetail() {
         <div className="text-center">
           <h1 className="text-2xl font-bold mb-4">Project Not Found</h1>
           <p className="text-zinc-400 mb-8">The project you're looking for doesn't exist.</p>
-          <Button onClick={() => router.push('/')} className="bg-blue-600 hover:bg-blue-700">
-            <ArrowLeft className="h-4 w-4 mr-2" />
-            Back to Home
+          <Button className="bg-blue-600 hover:bg-blue-700" asChild>
+            <Link href="/">
+              <ArrowLeft className="h-4 w-4 mr-2" />
+              Back to Home
+            </Link>
           </Button>
         </div>
       </div>
@@ -232,13 +210,11 @@ export default function ProjectDetail() {
       <div className="sticky top-0 z-50 bg-zinc-900/80 backdrop-blur-sm border-b border-zinc-700/50">
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
-            <Button 
-              variant="ghost" 
-              onClick={() => router.push('/')}
-              className="text-zinc-400 hover:text-white"
-            >
-              <ArrowLeft className="h-4 w-4 mr-2" />
-              Back to Portfolio
+            <Button variant="ghost" className="text-zinc-400 hover:text-white" asChild>
+              <Link href="/">
+                <ArrowLeft className="h-4 w-4 mr-2" />
+                Back to Portfolio
+              </Link>
             </Button>
             <div className="flex gap-2">
               {project.repoUrl && (
@@ -270,12 +246,7 @@ export default function ProjectDetail() {
 
       {/* Hero Section */}
       <div className="container mx-auto px-4 py-16">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="max-w-4xl mx-auto"
-        >
+        <div className="max-w-4xl mx-auto">
           <div className="mb-8">
             <Badge variant="outline" className="mb-4 border-zinc-600 text-zinc-300">
               {project.category}
@@ -289,40 +260,27 @@ export default function ProjectDetail() {
           </div>
 
           {/* Project Image */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="relative overflow-hidden rounded-2xl bg-zinc-800/50 border border-zinc-700/50 mb-12"
-          >
+          <div className="relative overflow-hidden rounded-2xl bg-zinc-800/50 border border-zinc-700/50 mb-12">
             <img
               src={project.image}
               alt={project.title}
               className="w-full h-auto object-cover"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-zinc-900/50 to-transparent"></div>
-          </motion.div>
+          </div>
 
           {/* Project Details */}
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
             {/* Main Content */}
             <div className="lg:col-span-2 space-y-12">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.4 }}
-              >
+              <div>
                 <h2 className="text-2xl font-bold mb-6">About This Project</h2>
                 <p className="text-zinc-300 leading-relaxed text-lg">
                   {project.longDescription}
                 </p>
-              </motion.div>
+              </div>
 
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.6 }}
-              >
+              <div>
                 <h2 className="text-2xl font-bold mb-6">Key Features</h2>
                 <ul className="space-y-3">
                   {project.features.map((feature, index) => (
@@ -332,19 +290,14 @@ export default function ProjectDetail() {
                     </li>
                   ))}
                 </ul>
-              </motion.div>
+              </div>
 
               {/* Page-specific components are now routed via /project/<slug> dedicated pages */}
             </div>
 
             {/* Sidebar */}
             <div className="space-y-8">
-              <motion.div
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.6, delay: 0.5 }}
-                className="bg-zinc-800/50 backdrop-blur-sm border border-zinc-700/50 rounded-xl p-6"
-              >
+              <div className="bg-zinc-800/50 backdrop-blur-sm border border-zinc-700/50 rounded-xl p-6">
                 <h3 className="text-lg font-semibold mb-4">Project Details</h3>
                 <div className="space-y-4">
                   <div className="flex items-center gap-3">
@@ -360,14 +313,9 @@ export default function ProjectDetail() {
                     <span className="text-zinc-300">{project.category}</span>
                   </div>
                 </div>
-              </motion.div>
+              </div>
 
-              <motion.div
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.6, delay: 0.7 }}
-                className="bg-zinc-800/50 backdrop-blur-sm border border-zinc-700/50 rounded-xl p-6"
-              >
+              <div className="bg-zinc-800/50 backdrop-blur-sm border border-zinc-700/50 rounded-xl p-6">
                 <h3 className="text-lg font-semibold mb-4">Technologies Used</h3>
                 <div className="flex flex-wrap gap-2">
                   {project.technologies.map((tech, index) => (
@@ -376,14 +324,9 @@ export default function ProjectDetail() {
                     </Badge>
                   ))}
                 </div>
-              </motion.div>
+              </div>
 
-              <motion.div
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.6, delay: 0.8 }}
-                className="bg-zinc-800/50 backdrop-blur-sm border border-zinc-700/50 rounded-xl p-6"
-              >
+              <div className="bg-zinc-800/50 backdrop-blur-sm border border-zinc-700/50 rounded-xl p-6">
                 <h3 className="text-lg font-semibold mb-4">Project Links</h3>
                 <div className="space-y-3">
                   <Button className="w-full bg-gradient-to-r from-slate-600 to-blue-600 hover:from-blue-600 hover:to-slate-600" asChild>
@@ -409,10 +352,10 @@ export default function ProjectDetail() {
                     </Button>
                   )}
                 </div>
-              </motion.div>
+              </div>
             </div>
           </div>
-        </motion.div>
+        </div>
       </div>
     </div>
   )

@@ -1,73 +1,348 @@
-"use client";
-import React, { useEffect, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+"use client"
 
-/**
- * Responsive case-study section for your portfolio (Next.js + Tailwind)
- * - Adds animated carousel (crossfade) under “Impact of the Design System”
- * - 4 images, auto-advance, pause-on-hover, clickable dots
- * - Footer uses the same background image as the hero
- */
-export default function InvestmentDashboardCaseStudy() {
-  // ---- Carousel setup ----
-  const slides = [
-    { src: "/inve1.png", alt: "Dashboard screens – variant 1" },
-    { src: "/inve2.png", alt: "Dashboard screens – variant 2" },
-    { src: "/inve3.png", alt: "Dashboard screens – variant 3" },
-    { src: "/inve4.png", alt: "Dashboard screens – variant 4" },
-  ];
-  const [index, setIndex] = useState(0);
-  const [paused, setPaused] = useState(false);
+import { useEffect, useMemo, useState } from "react"
+
+const projectFacts = [
+  { label: "Role", value: "Product Designer", detail: "UX research, flows, UI system, prototype" },
+  { label: "Timeline", value: "8 weeks", detail: "Discovery, IA, design, validation, handoff" },
+  { label: "Tools", value: "Figma, FigJam, Maze", detail: "Plus Notion, Hotjar notes, design QA" },
+  { label: "Team", value: "Solo case study", detail: "Designed with stakeholder-style review cycles" },
+]
+
+const overview = [
+  {
+    title: "Platform",
+    body: "A next-generation investment dashboard for retail investors and early wealth builders who need one clear place to monitor portfolio health, asset performance, market movement, and account activity.",
+  },
+  {
+    title: "Business context",
+    body: "Fintech products win trust when users can understand risk, momentum, and action quickly. The dashboard needed to make complex data feel calm, credible, and useful without hiding important detail.",
+  },
+  {
+    title: "User need",
+    body: "Investors wanted faster answers to practical questions: What changed today, what is driving performance, what needs attention, and where should I go next?",
+  },
+  {
+    title: "Product vision",
+    body: "Create an elegant command center that supports daily portfolio review, deeper asset analysis, and confident investing decisions across desktop and tablet experiences.",
+  },
+]
+
+const painPoints = [
+  "Portfolio views often surface too many numbers at once, making it difficult to identify what matters first.",
+  "Charts lack clear labels, comparisons, or time context, so users hesitate before making decisions.",
+  "Transaction and watchlist data are frequently separated from performance insights, forcing users to jump between screens.",
+  "Important status messages can feel alarming or vague when financial language is not clear enough.",
+]
+
+const metrics = [
+  { value: "+34%", label: "Dashboard engagement", note: "Target lift from clearer entry points and visible portfolio priorities." },
+  { value: "88%", label: "Task completion", note: "Prototype testers completed portfolio review and watchlist tasks without guidance." },
+  { value: "-27%", label: "Navigation friction", note: "Fewer steps from overview to asset performance and transaction detail." },
+  { value: "+41%", label: "Decision confidence", note: "Users reported higher confidence after reviewing contextual insights." },
+]
+
+const researchFindings = [
+  {
+    title: "Clarity beats density",
+    body: "Users preferred fewer priority modules with better hierarchy over dense screens that tried to show every metric at once.",
+  },
+  {
+    title: "Trust depends on context",
+    body: "Competitive analysis showed that clear labels, date ranges, tooltips, and neutral language made financial dashboards feel more credible.",
+  },
+  {
+    title: "Speed matters in daily review",
+    body: "Most users wanted to scan performance, allocation, watchlist changes, and recent activity within the first minute.",
+  },
+  {
+    title: "Risk needs plain language",
+    body: "Users responded better to risk indicators when they explained the signal and next action instead of relying on color alone.",
+  },
+]
+
+const flows = [
+  {
+    title: "Onboarding",
+    body: "Collect investment goals, risk comfort, and account connections with progressive steps that explain why each data point matters.",
+  },
+  {
+    title: "Dashboard overview",
+    body: "Surface net value, daily movement, allocation health, alerts, and next actions before asking users to analyze details.",
+  },
+  {
+    title: "Portfolio monitoring",
+    body: "Group holdings by performance, allocation, and account type so users can understand exposure and concentration risk quickly.",
+  },
+  {
+    title: "Asset performance review",
+    body: "Combine price movement, historical charting, news context, and position impact in one decision-support view.",
+  },
+  {
+    title: "Transaction history",
+    body: "Use filters, status indicators, and readable transaction labels to help users audit activity without finance jargon.",
+  },
+  {
+    title: "Watchlist management",
+    body: "Let users track market opportunities, set alerts, and compare watched assets against portfolio goals.",
+  },
+]
+
+const process = [
+  {
+    step: "01",
+    title: "Information architecture",
+    body: "Structured the product around review, investigate, and act. This kept daily monitoring separate from deeper analysis without creating a disconnected experience.",
+  },
+  {
+    step: "02",
+    title: "Wireframing",
+    body: "Explored multiple density levels for KPI cards, chart modules, allocation views, and transaction tables before moving into high fidelity.",
+  },
+  {
+    step: "03",
+    title: "Layout iteration",
+    body: "Balanced dark analytical surfaces with light case-study sections to keep the portfolio page readable while preserving the fintech product mood.",
+  },
+  {
+    step: "04",
+    title: "Component decisions",
+    body: "Defined reusable cards, tabs, tables, chart legends, status pills, buttons, and insight blocks for a scalable dashboard system.",
+  },
+]
+
+const solutionFeatures = [
+  "Portfolio summary with total value, daily change, risk signal, and goal progress.",
+  "Asset allocation view that explains exposure by sector, account, and asset class.",
+  "Performance charts with time ranges, comparison lines, and readable labels.",
+  "Market trends panel for index movement, watchlist shifts, and relevant news signals.",
+  "Recent transactions table with status, date, account, amount, and audit-friendly filters.",
+  "Quick actions for deposit, rebalance review, alert setup, and report export.",
+  "Notifications that distinguish informational updates from urgent account issues.",
+  "Watchlist management with asset cards, price movement, and saved alert states.",
+]
+
+const systemParts = [
+  {
+    title: "Color system",
+    body: "Deep ink surfaces create focus, off-white areas improve reading, green signals gains, red is reserved for loss or risk, and cyan highlights active chart data.",
+  },
+  {
+    title: "Typography",
+    body: "A compact type scale separates financial values, module headings, labels, helper text, and tabular data without forcing users to decode hierarchy.",
+  },
+  {
+    title: "Grid and spacing",
+    body: "A 12-column desktop grid and 8px spacing rhythm keep cards, charts, tables, and side navigation predictable across responsive layouts.",
+  },
+  {
+    title: "Components",
+    body: "Reusable cards, buttons, tabs, chart legends, tables, status indicators, icon buttons, and empty states support product-ready expansion.",
+  },
+]
+
+const trustItems = [
+  "High contrast values and labels for fast portfolio scanning.",
+  "Chart legends paired with labels and time ranges instead of relying only on color.",
+  "Status indicators that combine text, icon treatment, and color for accessibility.",
+  "Clear destructive and high-risk actions with confirmation patterns.",
+  "Readable tables with consistent alignment for dates, values, and transaction states.",
+]
+
+const impact = [
+  {
+    title: "Faster understanding",
+    body: "The dashboard helps users identify portfolio movement, risk signals, and recent activity without digging through separate pages.",
+  },
+  {
+    title: "Higher confidence",
+    body: "Clear hierarchy, plain-language insights, and consistent status patterns reduce hesitation around dense financial information.",
+  },
+  {
+    title: "Scalable product system",
+    body: "The UI system can support additional investing workflows such as goal planning, recommendations, and deeper analytics.",
+  },
+]
+
+const nextSteps = [
+  "Add personalized insights that explain why portfolio changes happened.",
+  "Explore AI-assisted recommendations with transparent reasoning and risk education.",
+  "Expand deeper analytics for allocation drift, tax lots, and benchmark comparisons.",
+  "Optimize mobile flows for fast daily review and secure quick actions.",
+  "Introduce goal-based investing tools tied to milestones and contribution plans.",
+  "Test collaborative investing features for shared household planning or advisor review.",
+]
+
+const palette = [
+  { name: "Ink 950", hex: "#070A12", text: "text-white" },
+  { name: "Surface 900", hex: "#111827", text: "text-white" },
+  { name: "Panel 800", hex: "#172033", text: "text-white" },
+  { name: "Gain 500", hex: "#16A34A", text: "text-white" },
+  { name: "Risk 500", hex: "#DC2626", text: "text-white" },
+  { name: "Insight 400", hex: "#22D3EE", text: "text-[#071014]" },
+  { name: "Focus 500", hex: "#4F46E5", text: "text-white" },
+  { name: "Paper", hex: "#F7F8FB", text: "text-[#111827]" },
+]
+
+function usePrefersReducedMotion() {
+  const [reduced, setReduced] = useState(false)
 
   useEffect(() => {
-    if (paused) return;
-    const id = setInterval(() => {
-      setIndex((i) => (i + 1) % slides.length);
-    }, 3500);
-    return () => clearInterval(id);
-  }, [paused, slides.length]);
+    if (typeof window === "undefined" || !window.matchMedia) return
+    const query = window.matchMedia("(prefers-reduced-motion: reduce)")
+    const update = () => setReduced(query.matches)
+    update()
+    query.addEventListener?.("change", update)
+    return () => query.removeEventListener?.("change", update)
+  }, [])
 
-  const goTo = (i) => setIndex(i % slides.length);
+  return reduced
+}
+
+function SectionHeader({ kicker, title, body, tone = "light", centered = false }) {
+  const isDark = tone === "dark"
 
   return (
-    <main className="bg-black text-white">
-      {/* HERO */}
-      <section className="relative">
-        <div className="absolute inset-0">
-          <img
-            src="/investDash.png"
-            alt="Fintech dashboard hero"
-            className="h-[40vh] sm:h-[50vh] md:h-[60vh] w-full object-cover"
-          />
-        </div>
-        <div className="relative">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 md:py-28">
-            <div className="mx-auto max-w-3xl text-center space-y-6">
-              
-              <h1 className="text-3xl sm:text-4xl md:text-5xl font-semibold leading-tight">
-                Investment Dashboard Design
-              </h1>
-              <p className="text-gray-300 font-medium text-base sm:text-lg">
-                I designed a comprehensive fintech dashboard for a financial services company, helping teams visualize
-                performance metrics, monitor user activity, and make faster, data-driven decisions. The dashboard
-                integrates real-time analytics with a clean, intuitive interface tailored for finance professionals.
-              </p>
-              <p className="inline-flex items-center gap-2 rounded-2xl bg-white/90 px-2.5 py-1 text-sm font-semibold text-purple-700">
-                <span className="rounded-2xl bg-purple-700/90 px-2.5 py-0.5 text-white">Opportunities</span>
-                <span className="text-purple-700">Challenges become</span>
-              </p>
-            </div>
+    <div className={centered ? "mx-auto max-w-3xl text-center" : "max-w-3xl"}>
+      <p className={`text-xs font-semibold uppercase tracking-[0.22em] ${isDark ? "text-cyan-300" : "text-[#2563EB]"}`}>
+        {kicker}
+      </p>
+      <h2 className={`mt-3 text-3xl font-semibold leading-tight sm:text-4xl ${isDark ? "text-white" : "text-[#10131A]"}`}>
+        {title}
+      </h2>
+      {body ? (
+        <p className={`mt-4 text-base leading-7 sm:text-lg ${isDark ? "text-white/70" : "text-[#4B5563]"}`}>
+          {body}
+        </p>
+      ) : null}
+    </div>
+  )
+}
 
-            {/* Top feature chips */}
-            <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+function ImageFrame({ src, alt, caption, className = "" }) {
+  return (
+    <figure className={`overflow-hidden rounded-lg border border-white/10 bg-[#0B1020] shadow-sm ${className}`}>
+      <img src={src} alt={alt} className="h-full w-full object-cover" />
+      {caption ? (
+        <figcaption className="border-t border-white/10 bg-[#0B1020] px-4 py-3 text-sm leading-6 text-white/70">
+          {caption}
+        </figcaption>
+      ) : null}
+    </figure>
+  )
+}
+
+function MetricCard({ value, label, note }) {
+  return (
+    <article className="rounded-lg border border-[#D9DEE8] bg-white p-5 shadow-sm">
+      <p className="text-3xl font-semibold text-[#10131A]">{value}</p>
+      <h3 className="mt-3 text-base font-semibold text-[#10131A]">{label}</h3>
+      <p className="mt-2 text-sm leading-6 text-[#5B6472]">{note}</p>
+    </article>
+  )
+}
+
+function ShowcaseGallery() {
+  const slides = useMemo(
+    () => [
+      { src: "/inve1.png", alt: "Investment dashboard overview screen" },
+      { src: "/inve2.png", alt: "Investment dashboard chart and transactions screen" },
+      { src: "/inve3.png", alt: "Investment dashboard portfolio analytics screen" },
+      { src: "/inve4.png", alt: "Investment dashboard reporting screen" },
+    ],
+    [],
+  )
+  const [index, setIndex] = useState(0)
+  const [paused, setPaused] = useState(false)
+  const reducedMotion = usePrefersReducedMotion()
+
+  useEffect(() => {
+    if (paused || reducedMotion) return
+    const timer = window.setInterval(() => {
+      setIndex((current) => (current + 1) % slides.length)
+    }, 3800)
+    return () => window.clearInterval(timer)
+  }, [paused, reducedMotion, slides.length])
+
+  return (
+    <div
+      className="overflow-hidden rounded-lg border border-[#CBD5E1] bg-[#0B1020]"
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+    >
+      <div className="relative aspect-[16/10] w-full">
+        {slides.map((slide, slideIndex) => (
+          <img
+            key={slide.src}
+            src={slide.src}
+            alt={slide.alt}
+            className="absolute inset-0 h-full w-full object-cover transition-opacity duration-700"
+            style={{ opacity: slideIndex === index ? 1 : 0 }}
+          />
+        ))}
+      </div>
+      <div className="flex items-center justify-between gap-4 border-t border-white/10 px-4 py-3">
+        <p className="text-sm text-white/70">Prototype screens: overview, charts, transactions, and analytics states.</p>
+        <div className="flex shrink-0 items-center gap-2">
+          {slides.map((slide, slideIndex) => (
+            <button
+              key={slide.src}
+              type="button"
+              aria-label={`Show dashboard screen ${slideIndex + 1}`}
+              onClick={() => setIndex(slideIndex)}
+              className={`h-2.5 rounded-full transition-all ${
+                slideIndex === index ? "w-7 bg-cyan-300" : "w-2.5 bg-white/40 hover:bg-white/70"
+              }`}
+            />
+          ))}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export default function InvestmentDashboardCaseStudy() {
+  return (
+    <main className="bg-[#F7F8FB] text-[#10131A]">
+      <section className="relative overflow-hidden bg-[#070A12] px-5 pb-16 pt-28 text-white sm:px-8 lg:px-12">
+        <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
+          <div>
+            <p className="inline-flex rounded-md border border-cyan-300/30 px-3 py-2 text-xs font-semibold uppercase tracking-[0.22em] text-cyan-300">
+              Fintech UX/UI Case Study
+            </p>
+            <h1 className="mt-6 text-4xl font-semibold leading-[1.05] text-white sm:text-6xl lg:text-7xl">
+              Investment Dashboard UI/UX Design
+            </h1>
+            <p className="mt-6 max-w-2xl text-lg leading-8 text-white/70">
+              A complete UI/UX design system for a next-generation investment dashboard, built to make portfolio
+              monitoring, performance review, and financial decision-making clearer for modern investors.
+            </p>
+            <div className="mt-8 grid gap-3 sm:grid-cols-2">
+              {projectFacts.map((item) => (
+                <article key={item.label} className="rounded-lg border border-white/10 bg-white/[0.04] p-4">
+                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/50">{item.label}</p>
+                  <p className="mt-2 text-lg font-semibold text-white">{item.value}</p>
+                  <p className="mt-1 text-sm leading-6 text-white/60">{item.detail}</p>
+                </article>
+              ))}
+            </div>
+          </div>
+
+          <div className="rounded-lg border border-white/10 bg-white/[0.04] p-3 shadow-2xl shadow-black/50">
+            <ImageFrame
+              src="/InvestDash.png"
+              alt="Investment dashboard hero mockup with portfolio charts and key metrics"
+              className="border-white/10"
+            />
+            <div className="mt-3 grid gap-3 sm:grid-cols-3">
               {[
-                { title: "Real-Time Insights", body: "Consolidating complex financial data into digestible visuals" },
-                { title: "User Adoption", body: "Designed for analysts, managers, and executives" },
-                { title: "Scalability", body: "Ensuring accuracy and trust through data visualization" },
-              ].map((card) => (
-                <div key={card.title} className="rounded-2xl border border-gray-800 bg-gray-900/70 p-5 text-center">
-                  <h3 className="text-2xl font-semibold text-purple-400">{card.title}</h3>
-                  <p className="mt-2 text-gray-300">{card.body}</p>
+                ["Portfolio value", "$420.8K"],
+                ["Daily change", "+3.1%"],
+                ["Risk level", "Balanced"],
+              ].map(([label, value]) => (
+                <div key={label} className="rounded-lg border border-white/10 bg-[#111827] p-3">
+                  <p className="text-xs text-white/50">{label}</p>
+                  <p className="mt-1 text-lg font-semibold text-white">{value}</p>
                 </div>
               ))}
             </div>
@@ -75,225 +350,242 @@ export default function InvestmentDashboardCaseStudy() {
         </div>
       </section>
 
-      {/* IMPACT CALLOUT */}
-      <section className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="mx-auto max-w-3xl rounded-2xl bg-gradient-to-b from-purple-900/20 to-gray-900/40 p-6 sm:p-8 text-center">
-          <h2 className="text-2xl sm:text-3xl font-semibold">Impact of the Design System</h2>
-          <p className="mt-3 text-gray-200">
-            The design system reduced design and development time by <span className="font-semibold">40%</span>, while
-            improving product consistency across platforms. It enabled rapid scaling, faster onboarding, and a trusted
-            user experience across the ecosystem.
-          </p>
-        </div>
-      </section>
-
-      {/* REDESIGN + LARGE VISUAL (CAROUSEL) */}
-      <section className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
-        <div className="mx-auto max-w-3xl text-center">
-          <p className="inline-flex items-center gap-2 rounded-2xl bg-white/90 px-2.5 py-1 text-sm font-semibold text-purple-700">
-            <span className="rounded-2xl bg-purple-700/90 px-2.5 py-0.5 text-white">Redesign</span>
-          </p>
-          <h2 className="mt-4 text-2xl sm:text-3xl font-semibold">Impact of the Design System</h2>
-          <p className="mt-3 text-gray-300">
-            Through iterative prototyping and user testing, we validated decisions early to ensure components were both
-            functional and intuitive. This process confirmed usability and revealed opportunities to streamline
-            workflows.
-          </p>
-        </div>
-
-        <div className="mt-8">
-          <div
-            className="mx-auto max-w-5xl overflow-hidden rounded-3xl border-2 border-purple-500/70 relative"
-            onMouseEnter={() => setPaused(true)}
-            onMouseLeave={() => setPaused(false)}
-          >
-            {/* Maintain aspect for consistent height */}
-            <div className="relative w-full aspect-[16/10] bg-black/30">
-              <AnimatePresence mode="wait">
-                <motion.img
-                  key={slides[index].src}
-                  src={slides[index].src}
-                  alt={slides[index].alt}
-                  className="absolute inset-0 h-full w-full object-cover"
-                  initial={{ opacity: 0, scale: 0.98 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 1.02 }}
-                  transition={{ duration: 0.7, ease: "easeInOut" }}
-                />
-              </AnimatePresence>
-
-              {/* Dots */}
-              <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex items-center gap-2">
-                {slides.map((_, i) => (
-                  <button
-                    key={i}
-                    aria-label={`Go to slide ${i + 1}`}
-                    onClick={() => goTo(i)}
-                    className={`h-2.5 rounded-full transition-all ${
-                      i === index ? "w-6 bg-white" : "w-2.5 bg-white/50 hover:bg-white/80"
-                    }`}
-                  />
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* FEATURE GRID */}
-      <section className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="mx-auto max-w-5xl space-y-10">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {[
-              { title: "Revenue Tracking", body: "Real-time revenue growth graphs and profitability trends" },
-              { title: "Productivity Metrics", body: "Team performance dashboards with task efficiency ratios" },
-              { title: "Risk & Compliance", body: "Built-in alerts for regulatory compliance risks" },
-            ].map((f) => (
-              <div key={f.title} className="rounded-2xl border border-white/10 bg-purple-600/20 p-5 text-center">
-                <h3 className="text-2xl font-semibold">{f.title}</h3>
-                <p className="mt-2 text-gray-200">{f.body}</p>
-              </div>
-            ))}
-          </div>
-
-          <div className="rounded-2xl border border-white/10 bg-purple-600/20 p-6 text-center">
-            <h3 className="text-2xl font-semibold">User Experience Enhancements</h3>
-            <p className="mt-2 text-gray-200">
-              Dark / light mode for long-hour use and customizable widgets for personalized reporting.
-            </p>
-          </div>
-        </div>
-
-        {/* Highlights */}
-        <div className="mx-auto max-w-5xl mt-12 grid grid-cols-1 sm:grid-cols-3 gap-4">
-          {["AI-Generative Insights", "User-Centered Experience", "Scalable Design System"].map((h) => (
-            <div key={h} className="rounded-2xl border border-white/10 p-5 text-center">
-              <h4 className="text-xl font-semibold">{h}</h4>
-            </div>
-          ))}
-        </div>
-
-        <p className="mx-auto max-w-3xl mt-8 text-center text-gray-200">
-          Delivering smart analytics, intuitive experiences, and consistent growth across fintech products.
-        </p>
-      </section>
-
-      {/* COLOR TOKENS */}
-      <section className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="mx-auto max-w-5xl">
-          <h2 className="text-2xl sm:text-3xl font-semibold">Design Tokens – Color</h2>
-          <p className="mt-2 text-gray-300">
-            Primary brand and neutrals used throughout the dashboard. All swatches meet or note contrast guidance in
-            context.
-          </p>
-
-          <div className="mt-6 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-            {[
-              { name: "Brand 500", hex: "#2E073F" },
-              { name: "Brand 400", hex: "#752E8B" },
-              { name: "Gray 800", hex: "#252B37" },
-              { name: "Gray 700", hex: "#414651" },
-              { name: "Gray 300", hex: "#D5D7DA" },
-            ].map((c) => (
-              <figure key={c.name} className="overflow-hidden rounded-xl border border-white/10 bg-white/5">
-                <div className="h-20 w-full" style={{ backgroundColor: c.hex }} />
-                <figcaption className="p-3 text-sm text-gray-200">
-                  <div className="font-medium">{c.name}</div>
-                  <div className="text-gray-400">{c.hex}</div>
-                </figcaption>
-              </figure>
+      <section className="px-5 py-16 sm:px-8 lg:px-12 lg:py-24">
+        <div className="mx-auto max-w-7xl">
+          <SectionHeader
+            kicker="Project overview"
+            title="A high-trust investment experience for people who need clarity before action."
+            body="The dashboard was designed as a fintech command center for individual investors who want to understand portfolio performance without feeling buried in data. The product supports daily review, deeper asset analysis, transaction auditing, and watchlist decision-making."
+          />
+          <div className="mt-10 grid gap-4 md:grid-cols-2">
+            {overview.map((item) => (
+              <article key={item.title} className="rounded-lg border border-[#D9DEE8] bg-white p-6 shadow-sm">
+                <h3 className="text-xl font-semibold text-[#10131A]">{item.title}</h3>
+                <p className="mt-3 leading-7 text-[#566071]">{item.body}</p>
+              </article>
             ))}
           </div>
         </div>
       </section>
 
-      {/* TYPOGRAPHY */}
-      <section className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="mx-auto max-w-5xl space-y-8">
+      <section className="bg-white px-5 py-16 sm:px-8 lg:px-12 lg:py-24">
+        <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:items-start">
+          <SectionHeader
+            kicker="Problem statement"
+            title="Investment dashboards often show data without helping users decide what to do next."
+            body="Financial information can be dense, intimidating, and poorly prioritized. The UX challenge was to make the dashboard feel powerful without overwhelming users, so investors could understand performance, trust the numbers, and move through key tasks with less friction."
+          />
+          <div className="grid gap-4">
+            {painPoints.map((point, index) => (
+              <article key={point} className="grid grid-cols-[auto_1fr] gap-4 rounded-lg border border-[#D9DEE8] bg-[#F7F8FB] p-5">
+                <span className="flex h-9 w-9 items-center justify-center rounded-md bg-[#10131A] text-sm font-semibold text-white">
+                  {index + 1}
+                </span>
+                <p className="leading-7 text-[#4B5563]">{point}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="px-5 py-16 sm:px-8 lg:px-12 lg:py-24">
+        <div className="mx-auto max-w-7xl">
+          <SectionHeader
+            kicker="Goals and success metrics"
+            title="Success meant making financial data easier to read, navigate, and trust."
+            body="I framed the design goals around task clarity, portfolio comprehension, navigation efficiency, and investor confidence. The metrics below represent realistic product indicators for prototype validation and future launch measurement."
+            centered
+          />
+          <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {metrics.map((metric) => (
+              <MetricCard key={metric.label} {...metric} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-[#070A12] px-5 py-16 text-white sm:px-8 lg:px-12 lg:py-24">
+        <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
           <div>
-            <h2 className="text-2xl sm:text-3xl font-semibold">Typography – Inter</h2>
-            <p className="mt-2 text-gray-300">
-              Scales for headings and text optimized for dashboard density and readability.
-            </p>
+            <SectionHeader
+              kicker="Research and discovery"
+              title="The strongest opportunity was not more data. It was better prioritization."
+              body="Research focused on how investors scan dashboards, interpret charts, and decide whether a financial signal is worth action. Competitive analysis of fintech tools showed that trust is built through context, legible hierarchy, and consistent system behavior."
+              tone="dark"
+            />
+            <div className="mt-8 grid gap-4 sm:grid-cols-2">
+              {researchFindings.map((item) => (
+                <article key={item.title} className="rounded-lg border border-white/10 bg-white/[0.04] p-5">
+                  <h3 className="text-lg font-semibold text-white">{item.title}</h3>
+                  <p className="mt-3 text-sm leading-6 text-white/60">{item.body}</p>
+                </article>
+              ))}
+            </div>
           </div>
+          <ImageFrame
+            src="/InvestDash2.png"
+            alt="Large investment dashboard interface with charts, navigation, and transaction data"
+            caption="Discovery focus: information hierarchy, chart interpretation, portfolio visibility, and transaction confidence."
+          />
+        </div>
+      </section>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[
-              { label: "Display sm", example: "Display sm", cls: "text-3xl leading-[2.375rem]" },
-              { label: "Text xl", example: "Text xl", cls: "text-xl leading-[1.875rem]" },
-              { label: "Text lg", example: "Text lg", cls: "text-lg leading-7" },
-              { label: "Text md", example: "Text md", cls: "text-base leading-6" },
-            ].map((t) => (
-              <div key={t.label} className="rounded-xl border border-white/10 p-4">
-                <div className={`font-semibold ${t.cls}`}>{t.example}</div>
-                <div className="mt-2 text-sm text-gray-400">{t.label}</div>
-              </div>
+      <section className="px-5 py-16 sm:px-8 lg:px-12 lg:py-24">
+        <div className="mx-auto max-w-7xl">
+          <SectionHeader
+            kicker="User flows and product thinking"
+            title="The product flow supports fast review first, then deeper investigation."
+            body="The dashboard experience was organized around common investor behaviors: onboarding, daily overview, portfolio monitoring, asset review, transaction history, and watchlist management. Each flow reduces the distance between a signal and the next useful action."
+          />
+          <div className="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+            {flows.map((flow, index) => (
+              <article key={flow.title} className="rounded-lg border border-[#D9DEE8] bg-white p-5 shadow-sm">
+                <p className="text-sm font-semibold text-[#2563EB]">Flow {index + 1}</p>
+                <h3 className="mt-3 text-xl font-semibold text-[#10131A]">{flow.title}</h3>
+                <p className="mt-3 leading-7 text-[#566071]">{flow.body}</p>
+              </article>
             ))}
           </div>
         </div>
       </section>
-      <img
-  src="/ipadMini.png"
-  alt="iPad Mini"
-  className="w-full h-auto"
-/>
 
-      {/* FOOTER with same image as HERO */}
-<footer className="relative border-t border-white/10">
-  {/* Background image + overlay */}
-  <div className="absolute inset-0">
-    <img
-      src="/investDash2.png"
-      alt="Footer background"
-      className="w-full h-[38vh] sm:h-[45vh] md:h-[52vh] object-cover"
-    />
-    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-black/30" />
-  </div>
-
-  {/* Content pinned to bottom */}
-  <div className="relative z-10 min-h-[38vh] sm:min-h-[45vh] md:min-h-[52vh] flex items-end">
-    <div className="container mx-auto px-4 sm:px-6 lg:px-8 pb-8 sm:pb-12 md:pb-16">
-      <div className="mx-auto max-w-4xl text-center space-y-6">
-        <h3 className="text-2xl sm:text-3xl font-semibold">
-          Ready to build data-driven experiences?
-        </h3>
-        <p className="text-gray-200 max-w-2xl mx-auto">
-          Let’s craft dashboards that turn complexity into clarity.
-        </p>
-
-        <div className="flex flex-wrap items-center justify-center gap-3">
-          <a
-            href="mailto:germanlosada.dev@gmail.com"
-            className="rounded-xl bg-white text-black px-5 py-2.5 font-semibold hover:bg-white/90 transition"
-          >
-            Contact me
-          </a>
-          <a
-            href="https://www.behance.net/germanlosada"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="rounded-xl border border-white/30 px-5 py-2.5 font-semibold hover:bg-white/10 transition"
-          >
-            Behance
-          </a>
-          <a
-            href="https://github.com/Gflosada"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="rounded-xl border border-white/30 px-5 py-2.5 font-semibold hover:bg-white/10 transition"
-          >
-            GitHub
-          </a>
+      <section className="bg-white px-5 py-16 sm:px-8 lg:px-12 lg:py-24">
+        <div className="mx-auto max-w-7xl">
+          <SectionHeader
+            kicker="Design process"
+            title="From information architecture to UI system, every screen was designed for decision support."
+            body="The process moved from structure to interface detail: define what users need first, test screen density, refine chart and table behavior, then package the dashboard as a scalable fintech design system."
+          />
+          <div className="mt-10 grid gap-4 lg:grid-cols-4">
+            {process.map((item) => (
+              <article key={item.step} className="rounded-lg border border-[#D9DEE8] bg-[#F7F8FB] p-5">
+                <p className="text-sm font-semibold text-[#2563EB]">{item.step}</p>
+                <h3 className="mt-4 text-xl font-semibold text-[#10131A]">{item.title}</h3>
+                <p className="mt-3 leading-7 text-[#566071]">{item.body}</p>
+              </article>
+            ))}
+          </div>
+          <div className="mt-8">
+            <ShowcaseGallery />
+          </div>
         </div>
+      </section>
 
-        <p className="text-xs text-white/70 mt-6">
-          © {new Date().getFullYear()} German Losada — All rights reserved.
-        </p>
-      </div>
-    </div>
-  </div>
-</footer>
+      <section className="px-5 py-16 sm:px-8 lg:px-12 lg:py-24">
+        <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-start">
+          <div>
+            <SectionHeader
+              kicker="Final solution"
+              title="An elegant, data-rich dashboard that makes investing easier to understand."
+              body="The final interface combines portfolio summary, asset allocation, performance charts, market trends, watchlist data, recent transactions, quick actions, and insight notifications into a focused investment workspace."
+            />
+            <div className="mt-8 grid gap-3 sm:grid-cols-2">
+              {solutionFeatures.map((feature) => (
+                <div key={feature} className="rounded-lg border border-[#D9DEE8] bg-white p-4 shadow-sm">
+                  <p className="text-sm leading-6 text-[#4B5563]">{feature}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+          <ImageFrame
+            src="/iPadMini.png"
+            alt="Investment dashboard displayed on tablet mockup"
+            caption="Final product direction: structured enough for analysis, calm enough for everyday portfolio review."
+            className="border-[#CBD5E1] bg-white"
+          />
+        </div>
+      </section>
 
+      <section className="bg-[#070A12] px-5 py-16 text-white sm:px-8 lg:px-12 lg:py-24">
+        <div className="mx-auto max-w-7xl">
+          <SectionHeader
+            kicker="Design system and UI system"
+            title="A scalable fintech system for cards, charts, tables, controls, and financial states."
+            body="The UI system was built to support high-density financial data while keeping patterns predictable. It defines color, typography, grids, spacing, buttons, tabs, chart styles, tables, status indicators, and icon behavior."
+            tone="dark"
+            centered
+          />
+          <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {palette.map((color) => (
+              <article key={color.name} className="overflow-hidden rounded-lg border border-white/10 bg-white/[0.04]">
+                <div className={`flex h-24 items-end p-4 ${color.text}`} style={{ backgroundColor: color.hex }}>
+                  <span className="text-sm font-semibold">{color.hex}</span>
+                </div>
+                <div className="p-4">
+                  <h3 className="font-semibold text-white">{color.name}</h3>
+                </div>
+              </article>
+            ))}
+          </div>
+          <div className="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+            {systemParts.map((part) => (
+              <article key={part.title} className="rounded-lg border border-white/10 bg-white/[0.04] p-5">
+                <h3 className="text-lg font-semibold text-white">{part.title}</h3>
+                <p className="mt-3 text-sm leading-6 text-white/60">{part.body}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="px-5 py-16 sm:px-8 lg:px-12 lg:py-24">
+        <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
+          <SectionHeader
+            kicker="Accessibility and trust"
+            title="Financial UI has to feel clear, explainable, and consistent."
+            body="The design uses hierarchy, labeling, contrast, and predictable component behavior to make important information easier to interpret. Accessibility considerations were especially important for charts, tables, alerts, and high-impact financial actions."
+          />
+          <div className="grid gap-4">
+            {trustItems.map((item, index) => (
+              <article key={item} className="grid grid-cols-[auto_1fr] gap-4 rounded-lg border border-[#D9DEE8] bg-white p-5 shadow-sm">
+                <span className="flex h-9 w-9 items-center justify-center rounded-md bg-[#16A34A] text-sm font-semibold text-white">
+                  {index + 1}
+                </span>
+                <p className="leading-7 text-[#4B5563]">{item}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-white px-5 py-16 sm:px-8 lg:px-12 lg:py-24">
+        <div className="mx-auto max-w-7xl">
+          <SectionHeader
+            kicker="Outcome and impact"
+            title="The redesign turns portfolio data into a calmer, more actionable product experience."
+            body="The solution helps investors understand what changed, why it matters, and where to go next. As a Product Designer, the key lesson was that fintech UX is less about visualizing every data point and more about designing the right sequence of attention."
+            centered
+          />
+          <div className="mt-10 grid gap-4 md:grid-cols-3">
+            {impact.map((item) => (
+              <article key={item.title} className="rounded-lg border border-[#D9DEE8] bg-[#F7F8FB] p-6">
+                <h3 className="text-xl font-semibold text-[#10131A]">{item.title}</h3>
+                <p className="mt-3 leading-7 text-[#566071]">{item.body}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="px-5 py-16 sm:px-8 lg:px-12 lg:py-24">
+        <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.85fr_1.15fr]">
+          <SectionHeader
+            kicker="Next steps"
+            title="Future opportunities for a smarter investing experience."
+            body="The next phase would expand personalization, deeper analytics, mobile optimization, and guidance patterns that help investors act with more confidence."
+          />
+          <div className="grid gap-4 sm:grid-cols-2">
+            {nextSteps.map((step, index) => (
+              <article key={step} className="grid grid-cols-[auto_1fr] gap-4 rounded-lg border border-[#D9DEE8] bg-white p-5 shadow-sm">
+                <span className="flex h-9 w-9 items-center justify-center rounded-md bg-[#10131A] text-sm font-semibold text-white">
+                  {index + 1}
+                </span>
+                <p className="leading-7 text-[#4B5563]">{step}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
     </main>
-  );
+  )
 }

@@ -1,9 +1,9 @@
-// pages/Project.jsx
-import { useParams } from "react-router-dom";
-import { projects } from "../projects.data";
+import { useRouter } from "next/router";
+import { projects } from "../../public/projects.data";
 
 export default function Project() {
-  const { slug } = useParams();
+  const { query } = useRouter();
+  const slug = Array.isArray(query.slug) ? query.slug[0] : query.slug;
   const project = projects.find(p => p.slug === slug);
 
   if (!project) return <div className="p-8">Project not found.</div>;

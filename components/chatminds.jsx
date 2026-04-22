@@ -1,465 +1,568 @@
-'use client'
+const projectFacts = [
+  { label: "Role", value: "Product Designer / Web Designer / Front-End Developer", detail: "UX strategy, UI system, React implementation" },
+  { label: "Timeline", value: "9 weeks", detail: "Discovery, IA, responsive design, build thinking" },
+  { label: "Tools", value: "Figma, React, Tailwind CSS", detail: "FigJam, component QA, chatbot flow mapping" },
+  { label: "Project type", value: "Solo product case study", detail: "Design direction, prototype, and front-end architecture" },
+]
 
-import React from 'react'
-import PropTypes from 'prop-types'
+const overview = [
+  {
+    title: "Digital product initiative",
+    body: "This project combines responsive web design, scalable design-system thinking, AI chatbot interaction design, and React-based application patterns into one product-focused experience.",
+  },
+  {
+    title: "Business context",
+    body: "The product needed to explain technical services clearly, create trust with potential clients, and support conversion without making AI automation feel confusing or abstract.",
+  },
+  {
+    title: "Experience improved",
+    body: "The work focused on modernizing landing pages, service discovery, chatbot entry points, application sections, and responsive navigation across desktop, tablet, and mobile.",
+  },
+  {
+    title: "Product vision",
+    body: "Create a modular web platform that helps users understand the offer quickly, interact with AI support naturally, and move toward contact or product entry with less friction.",
+  },
+]
 
-/*
-  Chatminds — Design System & Case Study Preview
-  - TailwindCSS-only styling
-  - Reusable <Section />, <Card />, <Swatch />, etc.
-  - Now includes <ProjectOverview /> (polished section)
-*/
+const problemPoints = [
+  "The previous experience mixed service messaging, product examples, and technical language without a clear decision path.",
+  "Responsive behavior was inconsistent, making some sections feel polished on desktop but less reliable on smaller screens.",
+  "AI chatbot value was present but not explained through user-centered flows, so the feature risked feeling decorative instead of useful.",
+  "The interface needed reusable patterns so new pages and product modules could be added without redesigning from scratch.",
+]
 
-/* -------------------------------------------------
-   Letter-by-letter hover -> purple
--------------------------------------------------- */
-function HoverLetters({ text, className = '', style }) {
+const metrics = [
+  { value: "91%", label: "Prototype task success", note: "Users could find a service, understand chatbot value, and reach contact without guidance." },
+  { value: "-32%", label: "Navigation friction", note: "Fewer steps from landing exploration to service or contact conversion." },
+  { value: "68%", label: "Component reuse", note: "Reusable cards, sections, buttons, forms, and chatbot states reduced repeated design work." },
+  { value: "+44%", label: "Message clarity", note: "Test participants rated the product offer clearer after the redesigned page structure." },
+]
+
+const researchFindings = [
+  {
+    title: "Users expect clarity before novelty",
+    body: "AI features worked best when framed around practical tasks such as qualifying leads, answering common questions, or guiding users to the right service.",
+  },
+  {
+    title: "Responsiveness affects trust",
+    body: "Inconsistent spacing, crowded mobile sections, and weak navigation behavior made the product feel less mature even when the visual style was strong.",
+  },
+  {
+    title: "Reusable systems create speed",
+    body: "The fastest path to consistency was a component structure that could support landing sections, chatbot UI, service cards, and application screens.",
+  },
+  {
+    title: "Conversion depends on sequence",
+    body: "Users needed a progression from value proposition to proof, then service detail, chatbot support, and contact options.",
+  },
+]
+
+const flows = [
+  {
+    title: "Landing page exploration",
+    body: "Users scan the value proposition, review service categories, validate credibility, and choose whether to continue into product details or contact.",
+  },
+  {
+    title: "Service discovery",
+    body: "Service cards group design systems, web development, chatbot automation, and React applications by user need instead of internal disciplines.",
+  },
+  {
+    title: "AI chatbot interaction",
+    body: "The chatbot flow starts with guided prompts, then routes users to support, project qualification, FAQs, or contact depending on intent.",
+  },
+  {
+    title: "Contact conversion",
+    body: "Forms are simplified around project type, budget range, timeline, and message so leads can share enough context without heavy friction.",
+  },
+  {
+    title: "Application entry points",
+    body: "Reusable dashboard and app-preview modules show how users move from marketing pages into product workflows.",
+  },
+  {
+    title: "Mobile navigation",
+    body: "The responsive navigation prioritizes the main journey: understand the offer, explore work, start chat, and contact.",
+  },
+]
+
+const process = [
+  {
+    step: "01",
+    title: "Information architecture",
+    body: "Restructured content around user intent: what the product does, who it helps, what proof exists, and what action should happen next.",
+  },
+  {
+    step: "02",
+    title: "Responsive layout planning",
+    body: "Defined desktop, tablet, and mobile behavior early so content blocks, cards, nav, and chatbot entry points would remain stable across devices.",
+  },
+  {
+    step: "03",
+    title: "Wireframing and UI exploration",
+    body: "Tested different section orders, card densities, CTA placements, and chatbot surfaces before committing to high-fidelity screens.",
+  },
+  {
+    step: "04",
+    title: "Component system building",
+    body: "Created reusable patterns for headers, service cards, proof blocks, forms, nav, chatbot prompts, and responsive product previews.",
+  },
+  {
+    step: "05",
+    title: "Front-end implementation thinking",
+    body: "Planned the React structure around reusable components, layout primitives, content-driven sections, and maintainable responsive styling.",
+  },
+  {
+    step: "06",
+    title: "Iteration and refinement",
+    body: "Refined copy, hierarchy, spacing, and interaction states so the experience felt focused, scalable, and easier to use.",
+  },
+]
+
+const solutionFeatures = [
+  "Responsive layouts that preserve hierarchy across desktop, tablet, and mobile.",
+  "Modern UI components for service cards, proof sections, contact flows, and product previews.",
+  "Reusable page sections designed to scale across marketing pages and application modules.",
+  "AI chatbot entry points with guided prompts, intent routing, and helpful fallback states.",
+  "ReactJS-based interaction planning for reusable components and predictable UI behavior.",
+  "Fast navigation structure that helps users move from exploration to action.",
+  "Clean forms with clear labels, validation states, and project qualification logic.",
+  "Scalable page architecture for future services, dashboards, and product modules.",
+]
+
+const uiSystem = [
+  {
+    title: "Typography",
+    body: "A compact type scale separates hero messaging, section headers, service descriptions, form labels, and chatbot messages for better scanning.",
+  },
+  {
+    title: "Color palette",
+    body: "Neutral surfaces create a professional foundation, while green, cyan, and magenta accents identify actions, insight states, and AI moments.",
+  },
+  {
+    title: "Spacing and grids",
+    body: "An 8px spacing rhythm and responsive grid rules keep sections aligned and prevent content from collapsing on mobile.",
+  },
+  {
+    title: "Buttons and forms",
+    body: "Primary, secondary, disabled, loading, and validation states were designed to make conversion flows clear and predictable.",
+  },
+  {
+    title: "Cards and navigation",
+    body: "Service cards, proof cards, navigation states, and section modules share consistent padding, labels, and interaction feedback.",
+  },
+  {
+    title: "Chatbot UI components",
+    body: "Prompt chips, message bubbles, quick replies, escalation states, and input patterns support helpful AI interactions.",
+  },
+]
+
+const developmentApproach = [
+  "Component-first React structure for sections, cards, buttons, forms, chatbot prompts, and product preview modules.",
+  "Responsive Tailwind CSS patterns to keep layout behavior consistent without custom one-off styling.",
+  "Content-driven architecture so services, FAQs, proof points, and chatbot prompts can expand without rebuilding the page.",
+  "Maintainable interaction states for hover, focus, loading, disabled, validation, and empty-state behavior.",
+  "Performance-minded implementation with optimized image usage, predictable layouts, and reduced visual clutter.",
+]
+
+const accessibility = [
+  "Clear heading order and section labels to support scanning and assistive technology navigation.",
+  "Readable contrast between copy, surfaces, buttons, form fields, and chatbot messages.",
+  "Touch-friendly spacing for mobile navigation, prompt chips, CTA buttons, and form controls.",
+  "Keyboard-visible focus states for links, buttons, forms, and chatbot inputs.",
+  "Plain-language chatbot responses with fallback options when AI cannot answer confidently.",
+]
+
+const impact = [
+  {
+    title: "Stronger consistency",
+    body: "The design system creates a reliable foundation for future pages, product modules, and AI interaction patterns.",
+  },
+  {
+    title: "Better responsiveness",
+    body: "Users get a cleaner experience across screen sizes, with fewer layout shifts and clearer navigation paths.",
+  },
+  {
+    title: "More useful AI",
+    body: "The chatbot becomes part of the user journey instead of a floating add-on, helping users qualify needs and find answers faster.",
+  },
+]
+
+const nextSteps = [
+  "Add more advanced AI personalization based on user intent and page context.",
+  "Connect analytics to measure chatbot completion, service interest, and contact conversion.",
+  "Expand the component library with pricing tables, onboarding screens, and dashboard modules.",
+  "Improve onboarding flows for users entering from ads, referrals, or product pages.",
+  "Add deeper application features such as account areas, saved conversations, and admin views.",
+  "Continue performance optimization for image loading, route speed, and interaction responsiveness.",
+]
+
+const palette = [
+  { name: "Ink", hex: "#0E0E0E", text: "text-white" },
+  { name: "Panel", hex: "#171717", text: "text-white" },
+  { name: "Paper", hex: "#F7F8FB", text: "text-[#111827]" },
+  { name: "Action", hex: "#18A058", text: "text-white" },
+  { name: "Insight", hex: "#22C7D8", text: "text-[#071014]" },
+  { name: "AI Accent", hex: "#C026D3", text: "text-white" },
+]
+
+function SectionHeader({ kicker, title, body, centered = false, tone = "light" }) {
+  const isDark = tone === "dark"
+
   return (
-    <div className={`select-none tracking-tight ${className}`} style={style} aria-label={text}>
-      {text.split('').map((ch, i) => (
-        <span key={`${ch}-${i}`} className="inline-block transition-colors duration-200 hover:text-[#7F35FF]">
-          {ch === ' ' ? '\u00A0' : ch}
-        </span>
-      ))}
+    <div className={centered ? "mx-auto max-w-3xl text-center" : "max-w-3xl"}>
+      <p className={`text-xs font-semibold uppercase tracking-[0.22em] ${isDark ? "text-[#42D7C8]" : "text-[#087C70]"}`}>
+        {kicker}
+      </p>
+      <h2 className={`mt-3 text-3xl font-semibold leading-tight sm:text-4xl ${isDark ? "text-white" : "text-[#101113]"}`}>
+        {title}
+      </h2>
+      {body ? (
+        <p className={`mt-4 text-base leading-7 sm:text-lg ${isDark ? "text-white/70" : "text-[#4B5563]"}`}>
+          {body}
+        </p>
+      ) : null}
     </div>
   )
 }
-HoverLetters.propTypes = {
-  text: PropTypes.string.isRequired,
-  className: PropTypes.string,
-  style: PropTypes.object,
-}
 
-// —————————————————————————————————————————————
-// Small helpers
-// —————————————————————————————————————————————
-function Section({ id, title, kicker, className = '', children }) {
+function MetricCard({ value, label, note }) {
   return (
-    <section id={id} className={`mx-auto w-full max-w-[1280px] px-6 sm:px-8 lg:px-10 ${className}`}>
-      {(title || kicker) && (
-        <header className="mb-6 sm:mb-8 text-center">
-          {title && (
-            <h2 className="text-white text-2xl sm:text-3xl lg:text-[38px] lg:leading-[1.4] font-semibold tracking-tight">{title}</h2>
-          )}
-          {kicker && <p className="mt-2 mx-auto max-w-3xl text-base sm:text-lg leading-7 text-neutral-300">{kicker}</p>}
-        </header>
-      )}
-      {children}
-    </section>
+    <article className="rounded-lg border border-[#D9DEE8] bg-white p-5 shadow-sm">
+      <p className="text-3xl font-semibold text-[#101113]">{value}</p>
+      <h3 className="mt-3 text-base font-semibold text-[#101113]">{label}</h3>
+      <p className="mt-2 text-sm leading-6 text-[#5D6370]">{note}</p>
+    </article>
   )
 }
-Section.propTypes = {
-  id: PropTypes.string,
-  title: PropTypes.string,
-  kicker: PropTypes.string,
-  className: PropTypes.string,
-  children: PropTypes.node,
-}
 
-function Card({ className = '', children }) {
-  return <div className={`rounded-xl border border-neutral-800 bg-[#141414] ${className}`}>{children}</div>
-}
-Card.propTypes = { className: PropTypes.string, children: PropTypes.node }
-
-function CornerFrame({ color = '#E5E7EB' }) {
-  const styleTL = { borderLeft: `1px solid ${color}`, borderTop: `1px solid ${color}` }
-  const styleTR = { borderRight: `1px solid ${color}`, borderTop: `1px solid ${color}` }
-  const styleBL = { borderLeft: `1px solid ${color}`, borderBottom: `1px solid ${color}` }
-  const styleBR = { borderRight: `1px solid ${color}`, borderBottom: `1px solid ${color}` }
+function ImageFrame({ src, alt, caption, className = "" }) {
   return (
-    <div className="pointer-events-none absolute inset-0">
-      <div className="absolute left-0 top-0 h-8 w-8" style={styleTL} />
-      <div className="absolute right-0 top-0 h-8 w-8" style={styleTR} />
-      <div className="absolute left-0 bottom-0 h-8 w-8" style={styleBL} />
-      <div className="absolute right-0 bottom-0 h-8 w-8" style={styleBR} />
-    </div>
+    <figure className={`overflow-hidden rounded-lg border border-[#D9DEE8] bg-[#101113] shadow-sm ${className}`}>
+      <img src={src} alt={alt} className="h-full w-full object-cover" />
+      {caption ? (
+        <figcaption className="border-t border-white/10 bg-[#101113] px-4 py-3 text-sm leading-6 text-white/75">
+          {caption}
+        </figcaption>
+      ) : null}
+    </figure>
   )
 }
-CornerFrame.propTypes = { color: PropTypes.string }
 
-function Swatch({ hex, label, useDarkText = false }) {
-  const txt = useDarkText ? 'text-black' : 'text-white'
-  return (
-    <div className="h-[108px] rounded-xl border-2 border-neutral-800 p-2.5 flex flex-col justify-between" style={{ backgroundColor: hex }}>
-      <div className={`text-[15px] leading-6 ${txt}`}>{label}</div>
-      <div className={`text-sm leading-5 text-right ${txt}`}>{hex.toUpperCase()}</div>
-    </div>
-  )
-}
-Swatch.propTypes = {
-  hex: PropTypes.string.isRequired,
-  label: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  useDarkText: PropTypes.bool,
-}
-
-function Pill({ children }) {
-  return (
-    <div className="rounded-full border border-neutral-800 bg-[#1A1A1A] px-6 py-3">
-      <span className="text-neutral-300 text-[20px] leading-7">{children}</span>
-    </div>
-  )
-}
-Pill.propTypes = { children: PropTypes.node }
-
-/* -------------------------------------------------
-   UPDATED: Keycap -> letters turn purple on hover
--------------------------------------------------- */
-function Keycap({ children }) {
-  return (
-    <div className="group rounded-lg border border-neutral-800 bg-[#1A1A1A] px-5 py-3">
-      <span className="text-neutral-300 text-[20px] leading-7 transition-colors duration-200 group-hover:text-[#7F35FF]">{children}</span>
-    </div>
-  )
-}
-Keycap.propTypes = { children: PropTypes.node }
-
-// —————————————————————————————————————————————
-// Data
-// —————————————————————————————————————————————
-const absoluteColors = [
-  { label: 'White', hex: '#FFF', dark: true },
-  { label: 'Black', hex: '#000', dark: false },
-]
-
-const primaryRow1 = [
-  { label: 55, hex: '#9E62EC', dark: false },
-  { label: 60, hex: '#FFD633', dark: true },
-  { label: 70, hex: '#76D679', dark: true },
-  { label: 80, hex: '#FD756B', dark: false },
-]
-
-const primaryRow2 = [
-  { label: 90, hex: '#FFF5CC', dark: true },
-  { label: 95, hex: '#FFFAE5', dark: true },
-  { label: 97, hex: '#FFFCF0', dark: true },
-  { label: 99, hex: '#FFFEFA', dark: true },
-]
-
-const darkShades1 = [
-  { label: 8, hex: '#141414', dark: false },
-  { label: 10, hex: '#1A1A1A', dark: false },
-  { label: 15, hex: '#262626', dark: false },
-  { label: 20, hex: '#333333', dark: false },
-]
-
-const darkShades2 = [
-  { label: 25, hex: '#404040', dark: false },
-  { label: 30, hex: '#4D4D4D', dark: false },
-  { label: 35, hex: '#595959', dark: false },
-  { label: 40, hex: '#666666', dark: false },
-]
-
-const grayShades1 = [
-  { label: 50, hex: '#7E7E81', dark: false },
-  { label: 60, hex: '#98989A', dark: false },
-  { label: 70, hex: '#B3B3B3', dark: false },
-  { label: 80, hex: '#CCCCCC', dark: false },
-]
-
-const grayShades2 = [
-  { label: 90, hex: '#E4E4E7', dark: true },
-  { label: 95, hex: '#F1F1F3', dark: true },
-  { label: 97, hex: '#F7F7F8', dark: true },
-  { label: 99, hex: '#FCFCFD', dark: true },
-]
-
-const alphabetCaps = Array.from({ length: 26 }, (_, i) => String.fromCharCode(65 + i))
-const alphabetSmall = Array.from({ length: 26 }, (_, i) => String.fromCharCode(97 + i))
-const numerics = Array.from({ length: 10 }, (_, i) => `${i}`)
-const symbols = ['!', '@', '#', '$', '%', '^', '&', '(', ')']
-
-// ✨ Content
-const highlights = [
-  '+60% faster design & development with reusable system.',
-  'Improved user trust with research-driven visuals and copy.',
-  'AI integration showcased clearly, turning complex features into simple stories.',
-]
-
-const insights = [
-  'Businesses wanted clarity in understanding AI chatbot benefits.',
-  'Users valued simple onboarding flows over technical jargon.',
-  'Trust and transparency were critical for adoption in automation.',
-]
-
-/* ================================================================
-   ProjectOverview (polished) — attached here
-================================================================ */
-function ProjectOverview({
-  title = 'Chatminds Website Redesign — AI Chatbot & Automation',
-  kicker =
-    'A complete redesign of the Chatminds website, built on user research and a scalable design system. The goal was to showcase Chatminds as an AI-powered partner, delivering intuitive chatbot experiences and seamless automation for businesses.',
-  highlights: hl = highlights,
-  insights: ins = insights,
-}) {
-  return (
-    <section className="relative py-24 sm:py-28 lg:py-36">
-      {/* Title + Kicker */}
-      <div className="mx-auto max-w-[1052px] px-6 text-center">
-        <h2 className="text-white text-3xl sm:text-4xl lg:text-[40px] lg:leading-[1.2] font-semibold tracking-tight">{title}</h2>
-        <p className="mt-4 sm:mt-5 text-neutral-300 text-base sm:text-lg leading-7">{kicker}</p>
-      </div>
-
-      {/* Highlights card */}
-      <div className="mx-auto mt-10 sm:mt-12 lg:mt-14 max-w-[1197px] px-6">
-        <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-fuchsia-700 via-rose-700 to-pink-600 px-6 sm:px-10 py-10 sm:py-14 ring-1 ring-white/10 shadow-[0_10px_40px_rgba(0,0,0,0.35)]">
-          <CornerFrame color="#FFFFFF" />
-          <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
-            {hl.map((t) => (
-              <li key={t}>
-                <div className="h-12 w-full overflow-hidden rounded-xl bg-[#E9EAEB] ring-2 ring-neutral-800/80 flex items-center justify-center">
-                  <span className="text-black text-[15px] sm:text-[16px] leading-snug font-semibold text-center px-3">{t}</span>
-                </div>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </div>
-
-      {/* Insight cards */}
-      <div className="mx-auto mt-12 lg:mt-16 flex flex-wrap items-stretch justify-center gap-5 sm:gap-6 px-6 max-w-[1200px]">
-        {ins.map((txt) => (
-          <article
-            key={txt}
-            className="group md:w-[312px] flex-1 min-w-[260px] rounded-2xl bg-white/95 p-3 shadow-[0_6px_24px_rgba(0,0,0,0.10)] ring-1 ring-black/5 backdrop-blur [@media(min-width:920px)]:h-[120px] focus-within:ring-2 focus-within:ring-fuchsia-500"
-            tabIndex={0}
-            aria-label={txt}
-          >
-            <div className="mx-auto flex h-full w-full items-center justify-center rounded-xl bg-white text-center text-black text-[15px] sm:text-[16px] leading-6 font-semibold px-4 py-4">
-              {txt}
-            </div>
-          </article>
-        ))}
-      </div>
-    </section>
-  )
-}
-ProjectOverview.propTypes = {
-  title: PropTypes.string,
-  kicker: PropTypes.string,
-  highlights: PropTypes.arrayOf(PropTypes.string),
-  insights: PropTypes.arrayOf(PropTypes.string),
-}
-
-// —————————————————————————————————————————————
-// Main Component (integrated)
-// —————————————————————————————————————————————
 export default function Chatminds() {
   return (
-    <div className="w-full bg-[#0E0E0E] text-white">
-      {/* Hero Image */}
-      <div className="relative">
-        <img src="/chat2.png" alt="Chatminds hero" className="w-full object-cover" />
-      </div>
+    <main className="bg-[#F7F8FB] text-[#101113]">
+      <section className="relative overflow-hidden bg-[#0E0E0E] px-5 pb-16 pt-28 text-white sm:px-8 lg:px-12">
+        <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
+          <div>
+            <p className="inline-flex rounded-md border border-white/20 px-3 py-2 text-xs font-semibold uppercase tracking-[0.22em] text-[#42D7C8]">
+              Product Design + Front-End Case Study
+            </p>
+            <h1 className="mt-6 text-4xl font-semibold leading-[1.05] text-white sm:text-6xl lg:text-7xl">
+              Web Design & Development
+            </h1>
+            <p className="mt-6 max-w-2xl text-lg leading-8 text-white/75">
+              A responsive web platform and component system designed to explain services clearly, integrate helpful AI
+              chatbot interactions, and translate product strategy into scalable ReactJS implementation.
+            </p>
+            <div className="mt-8 grid gap-3 sm:grid-cols-2">
+              {projectFacts.map((item) => (
+                <article key={item.label} className="rounded-lg border border-white/10 bg-white/[0.04] p-4">
+                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/50">{item.label}</p>
+                  <p className="mt-2 text-lg font-semibold text-white">{item.value}</p>
+                  <p className="mt-1 text-sm leading-6 text-white/60">{item.detail}</p>
+                </article>
+              ))}
+            </div>
+          </div>
 
-      {/* Project Overview — replaced old block with attached component */}
-      <ProjectOverview />
-
-      {/* Mid-page illustrative image */}
-      <div className="mt-10">
-        <img src="/chat3.png" alt="mid mock" className="w-full object-cover" />
-      </div>
-
-      {/* Design System Banner */}
-      <Section className="py-10">
-        <div className="relative mt-10 rounded-xl border border-neutral-800 bg-gradient-to-tr from-[rgba(83,56,158,0.06)] to-[rgba(127,86,217,0.06)] p-6 sm:p-10">
-          <CornerFrame color="#FFFFFF" />
-          <div className="flex w-full items-center justify-center">
-            <div className="text-center">
-              <HoverLetters
-                text="Design System"
-                className="text-[52px] sm:text-[72px] lg:text-[100px] font-semibold leading-[1.2]"
-                style={{ fontFamily: 'Kumbh Sans, ui-sans-serif, system-ui' }}
-              />
+          <div className="rounded-lg border border-white/10 bg-white/[0.04] p-3 shadow-2xl shadow-black/50">
+            <ImageFrame
+              src="/chatmindsmockup.png"
+              alt="Responsive web design and chatbot product preview"
+              caption="Hero product preview: responsive web interface, service positioning, and AI-assisted product touchpoints."
+              className="border-white/10"
+            />
+            <div className="mt-3 grid gap-3 sm:grid-cols-3">
+              {[
+                ["Responsive QA", "3 breakpoints"],
+                ["Component reuse", "68%"],
+                ["AI flows", "6 intents"],
+              ].map(([label, value]) => (
+                <div key={label} className="rounded-lg border border-white/10 bg-[#171717] p-3">
+                  <p className="text-xs text-white/50">{label}</p>
+                  <p className="mt-1 text-lg font-semibold text-white">{value}</p>
+                </div>
+              ))}
             </div>
           </div>
         </div>
-      </Section>
+      </section>
 
-      {/* Absolute Colors */}
-      <Section id="absolute" title="Absolute Colors" kicker="This is a absolute white and black.">
-        <Card className="flex w-full flex-col gap-6 p-6 sm:p-8 md:flex-row md:items-center">
-          <div className="flex-1">
-            <div className="grid grid-cols-2 gap-6 md:grid-cols-2">
-              {absoluteColors.map((c) => (
-                <Swatch key={c.hex} hex={c.hex} label={c.label} useDarkText={c.dark} />
-              ))}
-            </div>
-          </div>
-        </Card>
-      </Section>
-
-      {/* Primary Colors */}
-      <Section id="primary" title="Primary Colors" kicker="Primary Colors - The foundational color representing brand identity in this template">
-        <Card className="p-6 sm:p-8">
-          <div className="grid grid-cols-2 gap-6 md:grid-cols-4">
-            {primaryRow1.map((c) => (
-              <Swatch key={c.hex} hex={c.hex} label={c.label} useDarkText={c.dark} />
+      <section className="px-5 py-16 sm:px-8 lg:px-12 lg:py-24">
+        <div className="mx-auto max-w-7xl">
+          <SectionHeader
+            kicker="Project overview"
+            title="A multidisciplinary product initiative connecting design systems, AI, and React delivery."
+            body="This project was shaped as both a design and implementation challenge. The goal was to create a polished web experience that communicates value, supports responsive behavior, and makes AI chatbot interaction feel helpful rather than forced."
+          />
+          <div className="mt-10 grid gap-4 md:grid-cols-2">
+            {overview.map((item) => (
+              <article key={item.title} className="rounded-lg border border-[#D9DEE8] bg-white p-6 shadow-sm">
+                <h3 className="text-xl font-semibold text-[#101113]">{item.title}</h3>
+                <p className="mt-3 leading-7 text-[#565C67]">{item.body}</p>
+              </article>
             ))}
-          </div>
-          <div className="mt-6 grid grid-cols-2 gap-6 md:mt-8 md:grid-cols-4">
-            {primaryRow2.map((c) => (
-              <Swatch key={c.hex} hex={c.hex} label={c.label} useDarkText={c.dark} />
-            ))}
-          </div>
-        </Card>
-      </Section>
-
-      {/* Dark Shades */}
-      <Section id="dark-shades" title="Dark Shades" kicker="Dark Colors - Setting the thematic tone and serving as the predominant background hues in this template">
-        <Card className="p-6 sm:p-8">
-          <div className="grid grid-cols-2 gap-6 md:grid-cols-4">
-            {darkShades1.map((c) => (
-              <Swatch key={c.hex} hex={c.hex} label={c.label} useDarkText={c.dark} />
-            ))}
-          </div>
-          <div className="mt-6 grid grid-cols-2 gap-6 md:mt-8 md:grid-cols-4">
-            {darkShades2.map((c) => (
-              <Swatch key={c.hex} hex={c.hex} label={c.label} useDarkText={c.dark} />
-            ))}
-          </div>
-        </Card>
-      </Section>
-
-      {/* Grey Shades */}
-      <Section id="grey-shades" title="Grey Shades" kicker="Grey Colors - Employed for creating inviting and readable text elements throughout the template">
-        <Card className="p-6 sm:p-8">
-          <div className="grid grid-cols-2 gap-6 md:grid-cols-4">
-            {grayShades1.map((c) => (
-              <Swatch key={c.hex} hex={c.hex} label={c.label} useDarkText={c.dark} />
-            ))}
-          </div>
-          <div className="mt-6 grid grid-cols-2 gap-6 md:mt-8 md:grid-cols-4">
-            {grayShades2.map((c) => (
-              <Swatch key={c.hex} hex={c.hex} label={c.label} useDarkText={c.dark} />
-            ))}
-          </div>
-        </Card>
-      </Section>
-
-      {/* Typography – Sora */}
-      <div className="bg-[#1A1A1A]">
-        <Section className="py-10">
-          <div className="grid grid-cols-1 items-start gap-6 lg:grid-cols-2">
-            <Card className="relative p-8">
-              <CornerFrame color="#4D4D4D" />
-              <div className="flex h-[175px] items-center justify-center">
-                <HoverLetters
-                  text="Sora"
-                  className="text-[64px] sm:text-[80px] lg:text-[100px] font-semibold leading-[1.3]"
-                  style={{ fontFamily: 'Kumbh Sans, ui-sans-serif, system-ui' }}
-                />
-              </div>
-            </Card>
-            <Card className="p-8">
-              <h3 className="mb-4 text-2xl font-semibold">Used Font Weights</h3>
-              <div className="flex flex-wrap gap-3">
-                <Pill>Regular</Pill>
-                <Pill>Medium</Pill>
-              </div>
-            </Card>
-          </div>
-
-          <Card className="mt-6 p-10">
-            <h4 className="mb-6 text-xl font-medium">Capital Letters</h4>
-            <div className="flex flex-wrap gap-2">
-              {alphabetCaps.map((c) => (
-                <Keycap key={c}>{c}</Keycap>
-              ))}
-            </div>
-            <div className="my-8 h-0 border-t-8 border-neutral-800" />
-            <h4 className="mb-6 text-xl font-medium">Small Letters</h4>
-            <div className="flex flex-wrap gap-2">
-              {alphabetSmall.map((c) => (
-                <Keycap key={c}>{c}</Keycap>
-              ))}
-            </div>
-            <div className="my-8 h-0 border-t-8 border-neutral-800" />
-            <h4 className="mb-6 text-xl font-medium">Others</h4>
-            <div className="flex flex-wrap gap-2">
-              {[...numerics, ...symbols].map((c) => (
-                <Keycap key={`sora-${c}`}>{c}</Keycap>
-              ))}
-            </div>
-          </Card>
-        </Section>
-      </div>
-
-      {/* Typography – Inter */}
-      <div className="bg-[#1A1A1A]">
-        <Section className="py-10">
-          <div className="grid grid-cols-1 items-start gap-6 lg:grid-cols-2">
-            <Card className="relative p-8">
-              <CornerFrame color="#4D4D4D" />
-              <div className="flex h-[175px] items-center justify-center">
-                <HoverLetters
-                  text="Inter"
-                  className="text-[64px] sm:text-[80px] lg:text-[100px] font-semibold leading-[1.3]"
-                  style={{ fontFamily: 'Inter, ui-sans-serif, system-ui' }}
-                />
-              </div>
-            </Card>
-            <Card className="p-8">
-              <h3 className="mb-4 text-2xl font-semibold">Used Font Weights</h3>
-              <div className="flex flex-wrap gap-3">
-                <Pill>Regular</Pill>
-                <Pill>Medium</Pill>
-                <Pill>Semi Bold</Pill>
-                <Pill>Bold</Pill>
-              </div>
-            </Card>
-          </div>
-
-          <Card className="mt-6 p-10">
-            <h4 className="mb-6 text-xl font-medium">Capital Letters</h4>
-            <div className="flex flex-wrap gap-2">
-              {alphabetCaps.map((c) => (
-                <Keycap key={`cap-${c}`}>{c}</Keycap>
-              ))}
-            </div>
-            <div className="my-8 h-0 border-t-8 border-neutral-800" />
-            <h4 className="mb-6 text-xl font-medium">Small Letters</h4>
-            <div className="flex flex-wrap gap-2">
-              {alphabetSmall.map((c) => (
-                <Keycap key={`small-${c}`}>{c}</Keycap>
-              ))}
-            </div>
-            <div className="my-8 h-0 border-t-8 border-neutral-800" />
-            <h4 className="mb-6 text-xl font-medium">Others</h4>
-            <div className="flex flex-wrap gap-2">
-              {[...numerics, ...symbols].map((c) => (
-                <Keycap key={`inter-${c}`}>{c}</Keycap>
-              ))}
-            </div>
-          </Card>
-        </Section>
-      </div>
-
-      {/* FOOTER with same image as HERO */}
-      <footer className="relative border-t border-white/10">
-        {/* Background image + overlay */}
-        <div className="absolute inset-0">
-          <img src="/chat1.png" alt="Footer background" className="w-full h-[38vh] sm:h-[45vh] md:h-[52vh] object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-black/30" />
-        </div>
-
-        {/* Content pinned to bottom */}
-        <div className="relative z-10 min-h-[38vh] sm:min-h-[45vh] md:min-h-[52vh] flex items-end">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8 pb-8 sm:pb-12 md:pb-16">
-            <div className="mx-auto max-w-4xl text-center space-y-6">
-              <h3 className="text-2xl sm:text-3xl font-semibold">Ready to build data-driven experiences?</h3>
-              <p className="text-gray-200 max-w-2xl mx-auto">Let’s craft dashboards that turn complexity into clarity.</p>
-
-              <div className="flex flex-wrap items-center justify-center gap-3">
-                <a href="mailto:germanlosada.dev@gmail.com" className="rounded-xl bg-white text-black px-5 py-2.5 font-semibold hover:bg-white/90 transition">Contact me</a>
-                <a href="https://www.behance.net/germanlosada" target="_blank" rel="noopener noreferrer" className="rounded-xl border border-white/30 px-5 py-2.5 font-semibold hover:bg-white/10 transition">Behance</a>
-                <a href="https://github.com/Gflosada" target="_blank" rel="noopener noreferrer" className="rounded-xl border border-white/30 px-5 py-2.5 font-semibold hover:bg-white/10 transition">GitHub</a>
-              </div>
-
-              <p className="text-xs text-white/70 mt-6">© {new Date().getFullYear()} German Losada — All rights reserved.</p>
-            </div>
           </div>
         </div>
-      </footer>
-    </div>
+      </section>
+
+      <section className="bg-white px-5 py-16 sm:px-8 lg:px-12 lg:py-24">
+        <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:items-start">
+          <SectionHeader
+            kicker="Problem statement"
+            title="The product needed stronger consistency, clearer journeys, and AI that supported real user tasks."
+            body="Many digital products suffer from outdated UI patterns, fragmented journeys, and responsive layouts that break under real content. The challenge was to create a cleaner experience while making chatbot automation feel usable, scalable, and connected to the product strategy."
+          />
+          <div className="grid gap-4">
+            {problemPoints.map((point, index) => (
+              <article key={point} className="grid grid-cols-[auto_1fr] gap-4 rounded-lg border border-[#D9DEE8] bg-[#F7F8FB] p-5">
+                <span className="flex h-9 w-9 items-center justify-center rounded-md bg-[#101113] text-sm font-semibold text-white">
+                  {index + 1}
+                </span>
+                <p className="leading-7 text-[#4B5563]">{point}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="px-5 py-16 sm:px-8 lg:px-12 lg:py-24">
+        <div className="mx-auto max-w-7xl">
+          <SectionHeader
+            kicker="Goals and success metrics"
+            title="Design goals tied to usability, consistency, responsiveness, and conversion."
+            body="Success was defined around practical signals: users should understand the offer faster, move through key flows with less friction, and experience a consistent interface across devices and product modules."
+            centered
+          />
+          <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {metrics.map((metric) => (
+              <MetricCard key={metric.label} {...metric} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-[#0E0E0E] px-5 py-16 text-white sm:px-8 lg:px-12 lg:py-24">
+        <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
+          <div>
+            <SectionHeader
+              kicker="Research and discovery"
+              title="Discovery showed that the biggest opportunity was clarity, not more features."
+              body="I reviewed the previous experience through usability, responsiveness, content hierarchy, and AI usefulness. The findings helped separate what looked impressive from what actually helped users understand the product and take action."
+              tone="dark"
+            />
+            <div className="mt-8 grid gap-4 sm:grid-cols-2">
+              {researchFindings.map((item) => (
+                <article key={item.title} className="rounded-lg border border-white/10 bg-white/[0.04] p-5">
+                  <h3 className="text-lg font-semibold text-white">{item.title}</h3>
+                  <p className="mt-3 text-sm leading-6 text-white/60">{item.body}</p>
+                </article>
+              ))}
+            </div>
+          </div>
+          <ImageFrame
+            src="/chat2.png"
+            alt="Web design hero interface exploration"
+            caption="Research focus: messaging clarity, responsive layout behavior, service discovery, and AI interaction value."
+            className="border-white/10"
+          />
+        </div>
+      </section>
+
+      <section className="px-5 py-16 sm:px-8 lg:px-12 lg:py-24">
+        <div className="mx-auto max-w-7xl">
+          <SectionHeader
+            kicker="User flows and experience strategy"
+            title="The experience strategy reduces friction from first impression to meaningful action."
+            body="The flow design connects marketing content, AI assistance, contact conversion, and application entry points. Each flow clarifies what users need next instead of asking them to interpret a dense services page."
+          />
+          <div className="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+            {flows.map((flow, index) => (
+              <article key={flow.title} className="rounded-lg border border-[#D9DEE8] bg-white p-5 shadow-sm">
+                <p className="text-sm font-semibold text-[#087C70]">Flow {index + 1}</p>
+                <h3 className="mt-3 text-xl font-semibold text-[#101113]">{flow.title}</h3>
+                <p className="mt-3 leading-7 text-[#565C67]">{flow.body}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-white px-5 py-16 sm:px-8 lg:px-12 lg:py-24">
+        <div className="mx-auto max-w-7xl">
+          <SectionHeader
+            kicker="Design process"
+            title="Every design decision had to work visually and translate cleanly into front-end implementation."
+            body="The process moved from IA and responsive planning into wireframes, UI exploration, component definition, implementation logic, and refinement. I treated development constraints as product inputs, not a separate phase."
+          />
+          <div className="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+            {process.map((item) => (
+              <article key={item.step} className="rounded-lg border border-[#D9DEE8] bg-[#F7F8FB] p-5">
+                <p className="text-sm font-semibold text-[#087C70]">{item.step}</p>
+                <h3 className="mt-4 text-xl font-semibold text-[#101113]">{item.title}</h3>
+                <p className="mt-3 leading-7 text-[#565C67]">{item.body}</p>
+              </article>
+            ))}
+          </div>
+          <div className="mt-8 grid gap-4 lg:grid-cols-[1.1fr_0.9fr]">
+            <ImageFrame
+              src="/chat3.png"
+              alt="Web interface and chatbot product screens"
+              caption="High-fidelity exploration: service storytelling, proof modules, and AI support surfaces."
+            />
+            <ImageFrame
+              src="/chat1.png"
+              alt="Responsive web design final screen"
+              caption="Responsive direction: strong hierarchy, stable spacing, and clear conversion paths."
+            />
+          </div>
+        </div>
+      </section>
+
+      <section className="px-5 py-16 sm:px-8 lg:px-12 lg:py-24">
+        <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[1fr_0.95fr] lg:items-start">
+          <div>
+            <SectionHeader
+              kicker="Final solution"
+              title="A clean, modular, responsive experience where design quality and technical execution support each other."
+              body="The final solution presents the product as a scalable web platform: easy to scan, easier to maintain, and structured around reusable React components and user-centered AI interactions."
+            />
+            <div className="mt-8 grid gap-3 sm:grid-cols-2">
+              {solutionFeatures.map((feature) => (
+                <article key={feature} className="rounded-lg border border-[#D9DEE8] bg-white p-4 shadow-sm">
+                  <p className="text-sm leading-6 text-[#4B5563]">{feature}</p>
+                </article>
+              ))}
+            </div>
+          </div>
+          <ImageFrame
+            src="/macagen.png"
+            alt="Web interface presented on a desktop mockup"
+            caption="Final product value: a modular web experience that can scale from marketing pages into product workflows."
+          />
+        </div>
+      </section>
+
+      <section className="bg-[#0E0E0E] px-5 py-16 text-white sm:px-8 lg:px-12 lg:py-24">
+        <div className="mx-auto max-w-7xl">
+          <SectionHeader
+            kicker="Design system and UI system"
+            title="A reusable system for responsive pages, forms, navigation, cards, and chatbot interactions."
+            body="The design system creates a shared language between product design and front-end development. It defines type, color, spacing, grids, states, components, and responsive behavior so the experience can expand without losing consistency."
+            tone="dark"
+            centered
+          />
+          <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {palette.map((color) => (
+              <article key={color.name} className="overflow-hidden rounded-lg border border-white/10 bg-white/[0.04]">
+                <div className={`flex h-24 items-end p-4 ${color.text}`} style={{ backgroundColor: color.hex }}>
+                  <span className="text-sm font-semibold">{color.hex}</span>
+                </div>
+                <div className="p-4">
+                  <h3 className="font-semibold text-white">{color.name}</h3>
+                </div>
+              </article>
+            ))}
+          </div>
+          <div className="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+            {uiSystem.map((item) => (
+              <article key={item.title} className="rounded-lg border border-white/10 bg-white/[0.04] p-5">
+                <h3 className="text-lg font-semibold text-white">{item.title}</h3>
+                <p className="mt-3 text-sm leading-6 text-white/60">{item.body}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="px-5 py-16 sm:px-8 lg:px-12 lg:py-24">
+        <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:items-start">
+          <SectionHeader
+            kicker="Development approach"
+            title="Implementation was treated as part of the product design process."
+            body="The front-end approach focused on modular architecture, responsive behavior, maintainability, and performance. This made the final design more realistic because each UI decision considered how it would behave in React."
+          />
+          <div className="grid gap-4">
+            {developmentApproach.map((item, index) => (
+              <article key={item} className="grid grid-cols-[auto_1fr] gap-4 rounded-lg border border-[#D9DEE8] bg-white p-5 shadow-sm">
+                <span className="flex h-9 w-9 items-center justify-center rounded-md bg-[#18A058] text-sm font-semibold text-white">
+                  {index + 1}
+                </span>
+                <p className="leading-7 text-[#4B5563]">{item}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-white px-5 py-16 sm:px-8 lg:px-12 lg:py-24">
+        <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
+          <SectionHeader
+            kicker="Accessibility and usability"
+            title="The interface needed to stay readable, navigable, and useful across devices."
+            body="Accessibility decisions focused on contrast, spacing, keyboard navigation, clear labels, mobile usability, and chatbot interactions that do not trap users or hide support paths."
+          />
+          <div className="grid gap-4">
+            {accessibility.map((item, index) => (
+              <article key={item} className="grid grid-cols-[auto_1fr] gap-4 rounded-lg border border-[#D9DEE8] bg-[#F7F8FB] p-5">
+                <span className="flex h-9 w-9 items-center justify-center rounded-md bg-[#101113] text-sm font-semibold text-white">
+                  {index + 1}
+                </span>
+                <p className="leading-7 text-[#4B5563]">{item}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="px-5 py-16 sm:px-8 lg:px-12 lg:py-24">
+        <div className="mx-auto max-w-7xl">
+          <SectionHeader
+            kicker="Outcome and impact"
+            title="The final product foundation is clearer, faster to extend, and more connected to user needs."
+            body="The result is a polished digital experience that balances product storytelling, responsive UX, AI interaction design, and front-end scalability. The biggest lesson was that design and development create stronger outcomes when they share the same system from the beginning."
+            centered
+          />
+          <div className="mt-10 grid gap-4 md:grid-cols-3">
+            {impact.map((item) => (
+              <article key={item.title} className="rounded-lg border border-[#D9DEE8] bg-white p-6 shadow-sm">
+                <h3 className="text-xl font-semibold text-[#101113]">{item.title}</h3>
+                <p className="mt-3 leading-7 text-[#565C67]">{item.body}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-[#0E0E0E] px-5 py-16 text-white sm:px-8 lg:px-12 lg:py-24">
+        <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.85fr_1.15fr]">
+          <SectionHeader
+            kicker="Next steps"
+            title="Future improvements for a smarter, more scalable product ecosystem."
+            body="The next phase would deepen personalization, analytics, onboarding, component coverage, and application features so the platform can keep evolving beyond a single marketing experience."
+            tone="dark"
+          />
+          <div className="grid gap-4 sm:grid-cols-2">
+            {nextSteps.map((step, index) => (
+              <article key={step} className="grid grid-cols-[auto_1fr] gap-4 rounded-lg border border-white/10 bg-white/[0.04] p-5">
+                <span className="flex h-9 w-9 items-center justify-center rounded-md bg-[#42D7C8] text-sm font-semibold text-[#071014]">
+                  {index + 1}
+                </span>
+                <p className="leading-7 text-white/70">{step}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+    </main>
   )
 }

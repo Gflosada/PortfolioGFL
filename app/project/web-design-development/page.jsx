@@ -1,9 +1,8 @@
-// app/chatminds/page.jsx
-import Chatminds from "@/components/Chatminds";
+import Chatminds from "@/components/chatminds";
 
 export default function Page() {
   return (
-    <main className="min-h-screen bg-[#0E0E0E] text-white">
+    <main className="min-h-screen bg-[#F7F8FB]">
       <Chatminds />
     </main>
   );

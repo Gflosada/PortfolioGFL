@@ -1,10 +1,10 @@
 "use client"
 import FintechCaseStudy from "@/components/financialApp"
-export default function page() {
+export default function FinancialAppPage() {
   return (
-    <div className="min-h-screen bg-black text-white">
-    <FintechCaseStudy/>
-  </div>
+    <div className="min-h-screen bg-[#F7F8FB]">
+      <FintechCaseStudy />
+    </div>
   )
 }
 
