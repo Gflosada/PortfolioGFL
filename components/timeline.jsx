@@ -5,6 +5,14 @@ import { useMobile } from "@/src/hooks/use-mobile"
 
 const experiences = [
   {
+    title: "Assistant Product Manager - Design & Solutions, Global Case Manager",
+    company: "Scotiabank",
+    period: "March 2025 - Present",
+    location: "Toronto, Canada",
+    description:
+      "I support the AML Technology and Global Compliance Transformation Program, contributing to the migration of Oracle ECM environments from 8.0.8 to 8.1.2 with a focus on data integrity, system stability, and regulatory compliance. I lead data migration validation and Business Acceptance Testing activities across NFT and QAT environments, validating database objects, comparing large in-scope datasets with SQL and Python in Jupyter Notebook, and producing structured, audit-ready evidence. I collaborate with QA, Data Governance, Compliance, and Engineering teams on testing strategy, discrepancy resolution, GAP assessments, data migration plans, Test Exit Reports, stakeholder dashboards, and sign-off readiness.",
+  },
+  {
     title: "Product Designer, Entrepreneur, AI Chatbot & Web Development",
     company: "Chatminds Development",
     period: "2023 - Present",

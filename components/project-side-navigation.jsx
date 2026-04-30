@@ -5,8 +5,9 @@ import { usePathname } from "next/navigation"
 import { ChevronLeft, ChevronRight } from "lucide-react"
 
 const projects = [
-  { slug: "dashboard-landing", title: "Dashboard & Landing Page Design" },
+  { slug: "dashboard-landing", title: "Product Design Dashboard" },
   { slug: "financial-app", title: "Financial App" },
+  { slug: "autovision-ai", title: "AutoVision AI" },
   { slug: "investment-dashboard", title: "Investment Dashboard UI/UX Design" },
   { slug: "web-design-development", title: "Web Design & Development" },
   { slug: "digital-marketing-agency", title: "Digital Marketing Agency" },

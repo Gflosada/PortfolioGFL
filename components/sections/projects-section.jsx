@@ -5,9 +5,9 @@ export function ProjectsSection() {
   const projects = [
     {
       slug: "dashboard-landing",
-      title: "Dashboard & Landing Page Design",
-      description: "I designed a sleek and intuitive web interface for a platform, ensuring a user-friendly experience with clean aesthetics and seamless functionality. Additionally, I created engaging brochures and media assets, presenting the platform's capabilities in a visually compelling and informative way.",
-      tags: ["Figma","Photoshop", "Illustrator", "Advertising"],
+      title: "Product Design Dashboard",
+      description: "A UI/UX design and front-end development project for Found, a music platform connecting independent artists, fans, and industry professionals through responsive discovery, artist profiles, authentication, and real-time messaging.",
+      tags: ["Figma", "React", "Next.js", "Firebase"],
       image: "/appMusic.jpg?height=400&width=600",
       demoUrl: "https://www.behance.net/gallery/232073939/Produc-Design-Dashboard",
       repoUrl: "https://github.com/Gflosada",
@@ -19,6 +19,16 @@ export function ProjectsSection() {
       tags: ["Figma", "User Research", "Prototyping", "Mockups"],
       image: "/financialapp.png?height=400&width=600",
       demoUrl: "https://www.behance.net/gallery/154064523/Gravity-UIUX",
+      repoUrl: "https://github.com/Gflosada",
+    },
+    {
+      slug: "autovision-ai",
+      title: "AutoVision AI",
+      description: "A premium AI vehicle customization SaaS dashboard for car enthusiasts and automotive shops. The case study covers product strategy, guided AI generation, before/after comparison, project libraries, inspiration galleries, and B2B shop workflows.",
+      tags: ["Product Design", "UX/UI", "SaaS", "AI"],
+      image: "/autovision/home.png",
+      demoUrl: "https://www.behance.net/germanlosada",
+      websiteUrl: "https://project-s3tpp.vercel.app/",
       repoUrl: "https://github.com/Gflosada",
     },
     {

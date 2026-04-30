@@ -1,10 +1,10 @@
 import { ProjectSideNavigation } from "@/components/project-side-navigation"
 
 const projectFacts = [
-  { label: "Role", value: "Product Designer", detail: "UX strategy, IA, UI design, prototyping" },
-  { label: "Timeline", value: "10 weeks", detail: "Discovery, design, validation, handoff" },
-  { label: "Tools", value: "Figma, FigJam, Maze", detail: "Plus Notion, GA4, Hotjar notes" },
-  { label: "Team", value: "Solo project", detail: "With stakeholder feedback reviews" },
+  { label: "Role", value: "UI/UX Designer & Front-End Developer", detail: "Product strategy, interface design, React implementation" },
+  { label: "Platform", value: "Found Music App", detail: "Music discovery, artist profiles, messaging" },
+  { label: "Tools", value: "Figma, React, Next.js", detail: "Tailwind CSS, Firebase, component-based UI" },
+  { label: "Scope", value: "Design + build", detail: "Responsive UI, auth flows, real-time messaging" },
 ]
 
 const visuals = {
@@ -19,48 +19,48 @@ const visuals = {
 const overview = [
   {
     title: "Product",
-    body: "A responsive landing page and analytics dashboard for a digital product studio that sells strategy, design, and delivery services to growing teams.",
+    body: "Found is a music discovery and connection platform designed to help independent artists present their work professionally and build stronger relationships with fans and industry professionals.",
   },
   {
-    title: "Business context",
-    body: "The studio needed a clearer acquisition journey. Prospects were arriving from referrals and social links, but the website did not explain value fast enough or support confident inquiry decisions.",
-  },
-  {
-    title: "User problem",
-    body: "Founders and marketing leads had to work too hard to understand services, compare outcomes, and decide whether the studio was credible for a high-value project.",
+    title: "User experience",
+    body: "The platform supports artist browsing, profile exploration, music content discovery, authentication flows, and real-time messaging between users.",
   },
   {
     title: "Product objective",
-    body: "Create a landing experience that builds trust quickly, then connect internal teams to a dashboard that tracks leads, service interest, content performance, and conversion health.",
+    body: "The goal was to design and build a responsive, modern, user-centered platform that balances artist identity, discovery, and communication.",
+  },
+  {
+    title: "Implementation",
+    body: "The project combined Figma product design with front-end implementation using React, Next.js, Tailwind CSS, Firebase authentication, and reusable UI components.",
   },
 ]
 
 const painPoints = [
-  "Service messaging was broad, making it difficult for buyers to understand the studio's strongest offer.",
-  "Important proof points were buried below decorative content instead of helping users evaluate fit.",
-  "Primary calls to action competed with secondary navigation, lowering clarity at decision moments.",
-  "Internal performance data lived across disconnected tools, slowing content and conversion decisions.",
+  "Independent artists need better digital spaces to present their music, identity, visuals, and updates in a professional way.",
+  "Music discovery platforms can feel crowded or impersonal, making it harder for emerging artists to stand out.",
+  "Fans and industry users need clearer ways to browse artists, view profiles, and move from discovery into meaningful interaction.",
+  "The product needed clean information architecture and scalable front-end patterns that could support profiles, messaging, and content modules.",
 ]
 
 const metrics = [
-  { value: "82%", label: "Prototype task completion", note: "Users found a service and selected a next step without help." },
-  { value: "-30%", label: "Projected bounce reduction", note: "Based on faster value comprehension in moderated tests." },
-  { value: "+55%", label: "Inquiry confidence", note: "Participants rated the offer clearer after the redesign." },
-  { value: "2.5s", label: "Faster path to CTA", note: "Average improvement from landing scan to first action." },
+  { value: "3", label: "Core user groups", note: "Artists, fans, and industry professionals shaped the platform structure." },
+  { value: "100%", label: "Responsive coverage", note: "Layouts were planned for desktop, tablet, and mobile viewing contexts." },
+  { value: "Reusable", label: "Component system", note: "Cards, profile modules, navigation, and message patterns were built for scale." },
+  { value: "Live", label: "Firebase flows", note: "Authentication and real-time messaging informed the product architecture." },
 ]
 
 const insights = [
   {
-    title: "Buyers scan for proof before process",
-    body: "Interview participants wanted to see outcomes, client types, and project examples before reading detailed methodology.",
+    title: "Artist identity needs structure",
+    body: "Artists need more than a feed. Profiles have to communicate sound, image, credibility, and current activity in a way that feels curated.",
   },
   {
-    title: "Service categories needed sharper boundaries",
-    body: "Competitive review showed that strong studios grouped offers by buyer intent, not by internal disciplines.",
+    title: "Discovery has to stay lightweight",
+    body: "Fans need quick ways to browse, scan, and decide where to go next without dense navigation or overloaded content blocks.",
   },
   {
-    title: "Dashboard value depends on decision speed",
-    body: "The internal team needed lead quality, source, service interest, and content performance visible in one weekly view.",
+    title: "Messaging turns browsing into connection",
+    body: "Real-time communication adds product value by helping users move from passive discovery into direct artist, fan, or industry interaction.",
   },
 ]
 
@@ -68,83 +68,83 @@ const process = [
   {
     step: "01",
     title: "Information architecture",
-    body: "Rebuilt the page around a buyer's evaluation path: value proposition, services, proof, process, outcomes, and contact.",
+    body: "Mapped the platform around discovery, artist profiles, content browsing, account access, and communication flows.",
   },
   {
     step: "02",
     title: "User flows",
-    body: "Mapped prospect flows from homepage entry to service exploration, case proof, and qualified inquiry submission.",
+    body: "Defined paths for signing in, browsing artists, opening profiles, engaging with content, and starting real-time conversations.",
   },
   {
     step: "03",
-    title: "Wireframes",
-    body: "Explored low-fidelity layouts for the landing page and dashboard, prioritizing scan order, CTA hierarchy, and data grouping.",
+    title: "Interface design",
+    body: "Created responsive Figma screens for platform browsing, profile modules, dashboard content, navigation, and messaging patterns.",
   },
   {
     step: "04",
-    title: "Iteration",
-    body: "Refined section order, replaced vague claims with evidence-led content, and simplified the dashboard around weekly business decisions.",
+    title: "Front-end implementation",
+    body: "Translated the system into reusable React and Next.js components styled with Tailwind CSS and supported by Firebase flows.",
   },
 ]
 
 const solutionFeatures = [
   {
-    title: "Positioning-first hero",
-    body: "The hero explains who the product is for, what the studio delivers, and which action to take next without forcing users to decode the offer.",
+    title: "Discovery-first structure",
+    body: "The experience makes artist discovery feel immediate, giving users clear paths into profiles, featured content, and platform actions.",
   },
   {
-    title: "Service pathways",
-    body: "Service cards are organized by user intent: launch a product, improve a funnel, or scale a design system.",
+    title: "Artist profile modules",
+    body: "Profile areas were designed to support identity, music content, visual presentation, and professional credibility.",
   },
   {
-    title: "Conversion dashboard",
-    body: "The dashboard consolidates traffic, qualified leads, service demand, and content performance into one operating view.",
+    title: "Messaging experience",
+    body: "Real-time messaging patterns support direct communication between artists, fans, and industry professionals.",
   },
   {
-    title: "Trust-building proof",
-    body: "Outcome statements, partner logos, and process clarity help prospects understand credibility before making contact.",
+    title: "Scalable front-end system",
+    body: "Reusable React components, Tailwind utility patterns, and Firebase integrations keep the product easier to extend.",
   },
 ]
 
 const systemChoices = [
   {
     title: "Color",
-    body: "A restrained black and white foundation uses purple for primary action, magenta for status emphasis, and soft lavender for analytical accents.",
+    body: "A dark digital platform foundation uses purple, magenta, and lavender accents to create a modern music-tech interface.",
   },
   {
     title: "Typography",
-    body: "Large, direct headings support fast scanning while compact body text keeps dense product and dashboard content readable.",
+    body: "Large headings support artist identity and discovery, while compact body text keeps profiles, cards, and message areas readable.",
   },
   {
     title: "Components",
-    body: "Cards, badges, table rows, metric modules, filters, and CTA states were designed as reusable patterns for landing and dashboard views.",
+    body: "Cards, navigation, profile sections, content layouts, auth states, and messaging modules were designed as reusable patterns.",
   },
   {
     title: "Accessibility",
-    body: "The system prioritizes visible focus states, strong text contrast, descriptive labels, and touch-friendly spacing across mobile breakpoints.",
+    body: "The system prioritizes strong contrast, clear labels, predictable navigation, and touch-friendly spacing across responsive breakpoints.",
   },
 ]
 
 const impact = [
   {
-    title: "Clearer offer",
-    body: "The final narrative helps a prospect understand the studio's value in the first screen instead of piecing it together from separate sections.",
+    title: "Stronger artist presence",
+    body: "Found gives independent artists a more polished digital space to present their work, identity, and activity.",
   },
   {
-    title: "Better decision support",
-    body: "The dashboard gives the business a practical view of acquisition health, making weekly marketing and sales decisions easier to prioritize.",
+    title: "Improved engagement",
+    body: "Discovery, profiles, and messaging work together to help fans and industry users move from browsing to connection.",
   },
   {
-    title: "Stronger design maturity",
-    body: "Reusable UI decisions make the project easier to extend into additional service pages, campaign pages, and reporting modules.",
+    title: "Scalable product foundation",
+    body: "The combination of Figma design systems, React components, Next.js structure, Tailwind CSS, and Firebase creates a practical base for growth.",
   },
 ]
 
 const nextSteps = [
-  "Run a live A/B test on hero messaging and primary CTA language.",
-  "Connect the dashboard to real CRM and analytics sources for automated weekly reporting.",
-  "Add segmented landing variants for startups, enterprise teams, and social-good organizations.",
-  "Expand the design system with form validation, empty states, and dashboard alert patterns.",
+  "Expand artist profile customization with richer media sections, verified links, and release highlights.",
+  "Add smarter discovery filters for genre, location, availability, and professional opportunities.",
+  "Improve messaging with read states, conversation search, attachments, and safety controls.",
+  "Extend the component system with more empty states, validation states, and dashboard analytics modules.",
 ]
 
 function SectionHeader({ kicker, title, body, centered = false, tone = "light" }) {
@@ -202,11 +202,12 @@ export default function DashboardLandingCaseStudyPage() {
               UX/UI Case Study
             </p>
             <h1 className="mt-6 text-4xl font-semibold leading-[1.05] text-white sm:text-6xl lg:text-7xl">
-              Dashboard & Landing Page Design
+              Product Design Dashboard
             </h1>
             <p className="mt-6 max-w-2xl text-lg leading-8 text-white/75">
-              I redesigned a product studio's acquisition experience and internal analytics dashboard so prospects could
-              understand the offer faster and the business could track conversion opportunities with more clarity.
+              A product design and front-end development project for Found, a music platform that connects independent
+              artists with fans and industry professionals through responsive discovery, profiles, authentication, and
+              real-time messaging.
             </p>
 
             <div className="mt-8 grid gap-3 sm:grid-cols-2">
@@ -225,15 +226,15 @@ export default function DashboardLandingCaseStudyPage() {
             <div className="relative rounded-lg border border-white/20 bg-white/[0.05] p-3 shadow-2xl shadow-black/40">
               <ImageFrame
                 src={visuals.hero}
-                alt="Artist dashboard landing page mockup"
+                alt="Found music platform dashboard and discovery interface"
                 className="border-white/10"
               />
               <div className="mt-3 grid gap-3 sm:grid-cols-3">
-                {["Lead quality", "Service demand", "CTA health"].map((label, index) => (
+                {["Artist profiles", "Messaging", "Responsive UI"].map((label, index) => (
                   <div key={label} className="rounded-lg border border-white/10 bg-[#111315] p-3">
                     <p className="text-xs text-white/50">{label}</p>
                     <p className="mt-1 text-lg font-semibold text-white">
-                      {index === 0 ? "High" : index === 1 ? "+18%" : "4.2%"}
+                      {index === 0 ? "Designed" : index === 1 ? "Live" : "Built"}
                     </p>
                   </div>
                 ))}
@@ -247,8 +248,8 @@ export default function DashboardLandingCaseStudyPage() {
         <div className="mx-auto max-w-7xl">
           <SectionHeader
             kicker="Project overview"
-            title="A clearer path from first impression to qualified inquiry."
-            body="The project combines a marketing landing page with a business dashboard. The landing page improves how prospects evaluate the studio, while the dashboard helps the team understand which messages, channels, and services are creating real demand."
+            title="A responsive music platform for discovery, identity, and connection."
+            body="Found was designed as a digital product experience where independent artists can showcase themselves professionally and users can discover, browse, and communicate through a clean platform interface."
           />
           <div className="mt-10 grid gap-4 md:grid-cols-2">
             {overview.map((item) => (
@@ -265,8 +266,8 @@ export default function DashboardLandingCaseStudyPage() {
         <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:items-start">
           <SectionHeader
             kicker="Problem statement"
-            title="The experience looked polished, but it was not helping people decide."
-            body="The original page leaned on a strong visual mood, yet the content and information architecture did not answer the buyer's core questions quickly enough. The challenge was to preserve a premium visual tone while making the product story more useful, measurable, and action-oriented."
+            title="Independent artists need a better way to be discovered and contacted."
+            body="The challenge was to design a product that balances music discovery, artist identity, and direct communication in one cohesive experience, then translate that system into scalable front-end views."
           />
           <div className="grid gap-4">
             {painPoints.map((point, index) => (
@@ -284,9 +285,9 @@ export default function DashboardLandingCaseStudyPage() {
       <section className="px-5 py-16 sm:px-8 lg:px-12 lg:py-24">
         <div className="mx-auto max-w-7xl">
           <SectionHeader
-            kicker="Goals and success metrics"
-            title="Design goals connected to business signals."
-            body="I defined success around comprehension, qualified action, and internal decision speed. These indicators helped keep the design focused on product value, not just visual polish."
+            kicker="Goals and product objectives"
+            title="Design goals focused on discovery, engagement, and scalable implementation."
+            body="The project needed to feel modern and intuitive for users while also being practical to build with reusable components, responsive layouts, Firebase authentication, and real-time messaging."
             centered
           />
           <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
@@ -302,11 +303,12 @@ export default function DashboardLandingCaseStudyPage() {
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#9E62EC]">Research and discovery</p>
             <h2 className="mt-3 text-3xl font-semibold leading-tight text-white sm:text-4xl">
-              Discovery focused on what buyers needed before they trusted the studio.
+              Product thinking focused on artist needs, fan engagement, and digital discoverability.
             </h2>
             <p className="mt-4 text-lg leading-8 text-white/70">
-              I reviewed competitor studios, audited the existing page, mapped the buyer journey, and translated findings
-              into opportunities for messaging, structure, and analytics visibility.
+              I approached Found as both a UX design challenge and a front-end product system. The experience needed
+              clear browsing, expressive artist profiles, simple account access, and communication flows that worked
+              across devices.
             </p>
             <div className="mt-8 grid gap-4">
               {insights.map((item) => (
@@ -320,7 +322,7 @@ export default function DashboardLandingCaseStudyPage() {
           <ImageFrame
             src={visuals.discovery}
             alt="Artist dashboard interface detail"
-            caption="Audit focus: hero clarity, service grouping, proof placement, and CTA hierarchy."
+            caption="Product focus: profile hierarchy, content discovery, navigation clarity, and messaging access."
             className="border-white/10"
           />
         </div>
@@ -329,9 +331,9 @@ export default function DashboardLandingCaseStudyPage() {
       <section className="px-5 py-16 sm:px-8 lg:px-12 lg:py-24">
         <div className="mx-auto max-w-7xl">
           <SectionHeader
-            kicker="Design process"
-            title="From structure to interface, every decision had a conversion job."
-            body="The process moved from content strategy and IA into wireframes, visual exploration, prototype testing, and handoff-ready UI decisions. I treated the landing page and dashboard as one product system: attract the right user, then learn from their behavior."
+            kicker="Platform experience design"
+            title="From product structure to implemented front-end views."
+            body="The workflow moved from information architecture and responsive Figma design into React and Next.js implementation. The goal was to make the platform feel cohesive from browsing to profiles to messaging."
           />
           <div className="mt-10 grid gap-4 lg:grid-cols-4">
             {process.map((item) => (
@@ -346,12 +348,12 @@ export default function DashboardLandingCaseStudyPage() {
             <ImageFrame
               src={visuals.wireframes}
               alt="Wireframe and interface progression from the artist dashboard project"
-              caption="Validation artifact: outcome messaging helped test whether users understood the business value."
+              caption="Exploration artifact: layout hierarchy for discovery, profile content, and platform navigation."
             />
             <ImageFrame
               src={visuals.dashboard}
               alt="Artist analytics dashboard mockup"
-              caption="Dashboard concept: one view for demand, conversion, region, and campaign performance."
+              caption="Core interface concept: responsive platform structure for music discovery and user engagement."
             />
           </div>
         </div>
@@ -360,9 +362,9 @@ export default function DashboardLandingCaseStudyPage() {
       <section className="bg-white px-5 py-16 sm:px-8 lg:px-12 lg:py-24">
         <div className="mx-auto max-w-7xl">
           <SectionHeader
-            kicker="Final solution"
-            title="A premium case experience that is clearer, faster to scan, and easier to measure."
-            body="The final design balances high-impact visual presentation with practical product storytelling. It gives prospects a stronger reason to continue and gives the business a clearer view of acquisition performance."
+            kicker="Core product interfaces"
+            title="A polished platform experience for artists, fans, and music industry users."
+            body="The final solution combines responsive platform screens, artist profile interfaces, browsing flows, messaging patterns, and reusable UI decisions that translate cleanly into front-end views."
             centered
           />
           <div className="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
@@ -380,8 +382,8 @@ export default function DashboardLandingCaseStudyPage() {
         <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:items-start">
           <SectionHeader
             kicker="Design system and UI decisions"
-            title="A compact system built for contrast, speed, and repeatable patterns."
-            body="The visual language keeps the brand sharp without overwhelming the content. Components were designed to work across a persuasive landing page and a data-heavy dashboard."
+            title="A scalable UI system for a modern music platform."
+            body="The visual system aligns Figma design work with coded implementation. Typography, spacing, cards, navigation, profile modules, content layouts, and messaging patterns were designed to stay consistent across screen sizes."
           />
           <div>
             <div className="grid gap-4 sm:grid-cols-2">
@@ -417,8 +419,8 @@ export default function DashboardLandingCaseStudyPage() {
         <div className="mx-auto max-w-7xl">
           <SectionHeader
             kicker="Outcome and impact"
-            title="The project became a stronger product story, not only a stronger screen."
-            body="The redesign reframed the work around buyer confidence, service clarity, and measurable acquisition behavior. The biggest lesson was that premium UI only works when the strategy underneath makes the next decision obvious."
+            title="A stronger digital product foundation for artists and fans."
+            body="The project demonstrates how product design and front-end development can work together: a polished UX/UI concept supported by responsive implementation, reusable components, authentication, and real-time interaction patterns."
             centered
             tone="dark"
           />
@@ -434,7 +436,7 @@ export default function DashboardLandingCaseStudyPage() {
             <ImageFrame
               src={visuals.outcome}
               alt="Final artist dashboard outcome section"
-              caption="Reflection: the strongest design decisions came from pairing emotional trust cues with measurable product actions."
+              caption="Reflection: the strongest product decisions came from connecting artist identity, discovery behavior, and communication into one coherent system."
               className="border-white/10"
             />
           </div>
@@ -445,8 +447,8 @@ export default function DashboardLandingCaseStudyPage() {
         <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.85fr_1.15fr]">
           <SectionHeader
             kicker="Next steps"
-            title="How the product can keep evolving."
-            body="The next phase would move from prototype validation into live measurement, deeper segmentation, and more operational dashboard logic."
+            title="How Found can keep evolving."
+            body="The next phase would deepen artist tools, improve discovery quality, and expand the messaging and dashboard system while preserving the reusable React, Next.js, Tailwind CSS, and Firebase foundation."
           />
           <div className="grid gap-4">
             {nextSteps.map((step, index) => (
