@@ -32,6 +32,15 @@ export function ProjectsSection() {
       repoUrl: "https://github.com/Gflosada",
     },
     {
+      slug: "ai-grocery-planning-app",
+      title: "AI-Powered Grocery Planning Mobile App",
+      description: "A production-ready mobile grocery planning app that combines product browsing, favorites, smart lists, AI meal planning, nutrition summaries, and grocery-ready recipe ingredients into one polished UX/UI case study.",
+      tags: ["Product Design", "Mobile UX", "AI", "React Native"],
+      image: "/grocery-case-study/project-card-preview.png",
+      demoUrl: "https://www.behance.net/germanlosada",
+      repoUrl: "https://github.com/Gflosada",
+    },
+    {
       slug: "investment-dashboard",
       title: "Investment Dashboard UI/UX Desig",
       description:"complete UI/UX design system for a next-gen investment fintech dashboard—streamlined components, intuitive user flows, and data-driven visuals that empower smarter investing.",

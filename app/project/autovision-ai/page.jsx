@@ -1,3 +1,6 @@
+"use client"
+
+import { useRef, useState } from "react"
 import {
   ArrowRight,
   BadgeCheck,
@@ -11,8 +14,12 @@ import {
   Sparkles,
   Wand2,
 } from "lucide-react"
+import gsap from "gsap"
+import { useGSAP } from "@gsap/react"
 
 import { ProjectSideNavigation } from "@/components/project-side-navigation"
+
+gsap.registerPlugin(useGSAP)
 
 const assets = {
   home: "/autovision/home.png",
@@ -291,6 +298,170 @@ function NumberedItem({ index, children }) {
   )
 }
 
+function InteractivePreviewCards() {
+  const containerRef = useRef(null)
+  const galleryRef = useRef(null)
+  const shopRef = useRef(null)
+  const activeIndexRef = useRef(0)
+  const [activeCard, setActiveCard] = useState("gallery")
+
+  const getCards = () => [galleryRef.current, shopRef.current].filter(Boolean)
+
+  const animateCards = (nextIndex, duration = 0.75) => {
+    const cards = getCards()
+    if (cards.length !== 2) return
+
+    const [galleryCard, shopCard] = cards
+    const activeEl = nextIndex === 0 ? galleryCard : shopCard
+    const inactiveEl = nextIndex === 0 ? shopCard : galleryCard
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    const isDesktop = window.matchMedia("(min-width: 1024px)").matches
+
+    gsap.killTweensOf(cards)
+
+    if (!isDesktop) {
+      gsap.to(cards, {
+        scale: 1,
+        opacity: 1,
+        x: 0,
+        width: "100%",
+        boxShadow: "0 25px 50px -12px rgba(8, 47, 73, 0.25)",
+        borderColor: "rgba(255, 255, 255, 0.1)",
+        duration: reduceMotion ? 0 : 0.35,
+        ease: "power3.out",
+        overwrite: "auto",
+      })
+      return
+    }
+
+    const tl = gsap.timeline({
+      defaults: {
+        duration: reduceMotion ? 0 : duration,
+        ease: "power4.inOut",
+        overwrite: "auto",
+      },
+    })
+
+    tl.to(
+      activeEl,
+      {
+        width: "70%",
+        scale: 1,
+        opacity: 1,
+        x: 0,
+        zIndex: 2,
+        borderColor: "rgba(103, 232, 249, 0.5)",
+        boxShadow: "0 32px 80px -28px rgba(34, 211, 238, 0.58), 0 0 0 1px rgba(34, 211, 238, 0.2)",
+      },
+      0,
+    )
+      .to(
+        inactiveEl,
+        {
+          width: "30%",
+          scale: 0.92,
+          opacity: 0.55,
+          x: nextIndex === 0 ? 12 : -12,
+          zIndex: 1,
+          borderColor: "rgba(255, 255, 255, 0.1)",
+          boxShadow: "0 18px 45px -26px rgba(8, 47, 73, 0.42)",
+        },
+        0,
+      )
+      .to(
+        activeEl.querySelector("img"),
+        {
+          scale: 1,
+          filter: "saturate(1.08) contrast(1.04)",
+        },
+        0,
+      )
+      .to(
+        inactiveEl.querySelector("img"),
+        {
+          scale: 0.985,
+          filter: "saturate(0.72) contrast(0.92)",
+        },
+        0,
+      )
+  }
+
+  const { contextSafe } = useGSAP(
+    () => {
+      const cards = getCards()
+      const mm = gsap.matchMedia()
+
+      gsap.set(cards, {
+        transformOrigin: "center center",
+        willChange: "width, transform, opacity, box-shadow",
+      })
+
+      mm.add(
+        {
+          isDesktop: "(min-width: 1024px)",
+          reduceMotion: "(prefers-reduced-motion: reduce)",
+        },
+        () => {
+          animateCards(activeIndexRef.current, 0)
+        },
+      )
+
+      return () => mm.revert()
+    },
+    { scope: containerRef },
+  )
+
+  const activateCard = contextSafe((nextIndex) => {
+    if (activeIndexRef.current === nextIndex) return
+    activeIndexRef.current = nextIndex
+    setActiveCard(nextIndex === 0 ? "gallery" : "shop")
+    animateCards(nextIndex)
+  })
+
+  return (
+    <div ref={containerRef} className="mt-8 flex flex-col gap-4 lg:flex-row lg:items-stretch">
+      <article
+        ref={galleryRef}
+        className="group relative w-full shrink-0 cursor-pointer rounded-lg border border-cyan-300/20 outline-none"
+        aria-label="Activate AI Gallery preview"
+        aria-pressed={activeCard === "gallery"}
+        role="button"
+        tabIndex={0}
+        onClick={() => activateCard(0)}
+        onMouseEnter={() => activateCard(0)}
+        onFocus={() => activateCard(0)}
+        onKeyDown={(event) => {
+          if (event.key === "Enter" || event.key === " ") {
+            event.preventDefault()
+            activateCard(0)
+          }
+        }}
+      >
+        <ImageFrame src={assets.gallery} alt="AutoVision AI gallery screen" className="h-full border-0" />
+      </article>
+      <article
+        ref={shopRef}
+        className="group relative w-full shrink-0 cursor-pointer rounded-lg border border-white/10 outline-none"
+        aria-label="Activate Shop Dashboard preview"
+        aria-pressed={activeCard === "shop"}
+        role="button"
+        tabIndex={0}
+        onClick={() => activateCard(1)}
+        onMouseEnter={() => activateCard(1)}
+        onFocus={() => activateCard(1)}
+        onKeyDown={(event) => {
+          if (event.key === "Enter" || event.key === " ") {
+            event.preventDefault()
+            activateCard(1)
+          }
+        }}
+      >
+        <ImageFrame src={assets.admin} alt="AutoVision AI shop mode admin screen" className="h-full border-0" />
+      </article>
+    </div>
+  )
+}
+
 export default function AutoVisionAICaseStudyPage() {
   return (
     <main className="min-h-screen overflow-hidden bg-[#05070B] text-white">
@@ -360,10 +531,7 @@ export default function AutoVisionAICaseStudyPage() {
               </GlassCard>
             ))}
           </div>
-          <div className="mt-8 grid gap-4 lg:grid-cols-3">
-            <ImageFrame src={assets.gallery} alt="AutoVision AI gallery screen" className="lg:col-span-2" />
-            <ImageFrame src={assets.admin} alt="AutoVision AI shop mode admin screen" />
-          </div>
+          <InteractivePreviewCards />
         </div>
       </section>
 
