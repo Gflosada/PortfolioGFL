@@ -4,6 +4,25 @@ import { ProjectCard } from "@/components/project-card"
 export function ProjectsSection() {
   const projects = [
     {
+      slug: "new-digital-experience-project",
+      title: "New Digital Experience Project",
+      description: "A premium interactive web experience case study showcasing smooth motion, modern UI, video-led storytelling, and conversion-focused front-end design.",
+      tags: ["Product Design", "React", "Tailwind CSS", "Motion"],
+      image: "/new-digital-experience-project.png",
+      demoUrl: "https://www.behance.net/germanlosada",
+      websiteUrl: "https://arch-web-scrolling.vercel.app/",
+      repoUrl: "https://github.com/Gflosada",
+    },
+    {
+      slug: "ai-grocery-planning-app",
+      title: "AI-Powered Grocery Planning Mobile App",
+      description: "A production-ready mobile grocery planning app that combines product browsing, favorites, smart lists, AI meal planning, nutrition summaries, and grocery-ready recipe ingredients into one polished UX/UI case study.",
+      tags: ["Product Design", "Mobile UX", "AI", "React Native"],
+      image: "/grocery-case-study/project-card-preview.png",
+      demoUrl: "https://www.behance.net/germanlosada",
+      repoUrl: "https://github.com/Gflosada",
+    },
+    {
       slug: "dashboard-landing",
       title: "Product Design Dashboard",
       description: "A UI/UX design and front-end development project for Found, a music platform connecting independent artists, fans, and industry professionals through responsive discovery, artist profiles, authentication, and real-time messaging.",
@@ -31,15 +50,7 @@ export function ProjectsSection() {
       websiteUrl: "https://project-s3tpp.vercel.app/",
       repoUrl: "https://github.com/Gflosada",
     },
-    {
-      slug: "ai-grocery-planning-app",
-      title: "AI-Powered Grocery Planning Mobile App",
-      description: "A production-ready mobile grocery planning app that combines product browsing, favorites, smart lists, AI meal planning, nutrition summaries, and grocery-ready recipe ingredients into one polished UX/UI case study.",
-      tags: ["Product Design", "Mobile UX", "AI", "React Native"],
-      image: "/grocery-case-study/project-card-preview.png",
-      demoUrl: "https://www.behance.net/germanlosada",
-      repoUrl: "https://github.com/Gflosada",
-    },
+    
     {
       slug: "investment-dashboard",
       title: "Investment Dashboard UI/UX Desig",

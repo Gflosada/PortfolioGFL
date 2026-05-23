@@ -16,6 +16,44 @@ const visuals = {
   outcome: "/musicfin.png",
 }
 
+const interfaceGallery = [
+  {
+    src: "/mu2.png",
+    alt: "Found music platform discovery screen",
+    caption: "Discovery view: clear artist browsing with large media, compact metadata, and direct entry points into profiles.",
+  },
+  {
+    src: "/mu3.png",
+    alt: "Found artist profile interface",
+    caption: "Artist profile: structured identity, featured music, profile content, and a layout that supports scanning.",
+  },
+  {
+    src: "/mu4.png",
+    alt: "Found music app profile and content modules",
+    caption: "Profile modules: reusable card patterns for content, artist details, and platform actions.",
+  },
+  {
+    src: "/mu5.png",
+    alt: "Found music platform responsive interface screen",
+    caption: "Responsive interface: spacing, hierarchy, and controls planned for smaller viewing contexts.",
+  },
+  {
+    src: "/mu6.png",
+    alt: "Found dashboard content and messaging interface",
+    caption: "Engagement flow: dashboard content connects browsing behavior with communication moments.",
+  },
+  {
+    src: "/mu7.png",
+    alt: "Found account and platform interface detail",
+    caption: "Account experience: simple platform controls designed to stay consistent across product areas.",
+  },
+  {
+    src: "/mu8.png",
+    alt: "Found final visual system presentation",
+    caption: "Final system: combined product screens show the visual direction, component consistency, and product scope.",
+  },
+]
+
 const overview = [
   {
     title: "Product",
@@ -190,6 +228,76 @@ function ImageFrame({ src, alt, caption, className = "" }) {
   )
 }
 
+function AnimatedGallery({ images }) {
+  const slideDuration = 5
+  const animationDuration = `${images.length * slideDuration}s`
+
+  return (
+    <div className="overflow-hidden rounded-lg border border-[#D9DEE8] bg-white shadow-sm">
+      <div className="relative aspect-[1274/1035] bg-[#F5F7FA]">
+        {images.map((visual, index) => (
+          <div
+            key={visual.src}
+            className="dashboard-gallery-slide absolute inset-0 opacity-0"
+            style={{
+              animationDelay: `${index * slideDuration}s`,
+              animationDuration,
+            }}
+          >
+            <div className="flex h-full w-full items-center justify-center p-3 sm:p-5 lg:p-7">
+              <img src={visual.src} alt={visual.alt} className="h-full w-full object-contain" />
+            </div>
+          </div>
+        ))}
+      </div>
+      <div className="relative min-h-24 border-t border-[#D9DEE8] bg-white sm:min-h-20">
+        {images.map((visual, index) => (
+          <p
+            key={`${visual.src}-caption`}
+            className="dashboard-gallery-slide absolute inset-0 flex items-center px-4 py-3 text-sm leading-6 text-[#4B4F58] opacity-0 sm:px-5"
+            style={{
+              animationDelay: `${index * slideDuration}s`,
+              animationDuration,
+            }}
+          >
+            {visual.caption}
+          </p>
+        ))}
+      </div>
+      <div className="grid grid-cols-7 border-t border-[#D9DEE8] bg-white">
+        {images.map((visual, index) => (
+          <div key={`${visual.src}-indicator`} className="border-r border-[#D9DEE8] p-1 last:border-r-0 sm:p-2">
+            <div className="flex aspect-[4/3] items-center justify-center rounded-sm bg-[#F5F7FA]">
+              <img src={visual.src} alt="" aria-hidden="true" className="h-full w-full object-contain" />
+            </div>
+            <span className="sr-only">Slide {index + 1}</span>
+          </div>
+        ))}
+      </div>
+      <style>{`
+        .dashboard-gallery-slide {
+          animation-name: dashboardGalleryFade;
+          animation-iteration-count: infinite;
+          animation-timing-function: ease-in-out;
+        }
+
+        @keyframes dashboardGalleryFade {
+          0%,
+          11% {
+            opacity: 1;
+            transform: translateX(0) scale(1);
+          }
+          14%,
+          100% {
+            opacity: 0;
+            transform: translateX(-18px) scale(0.985);
+          }
+        }
+      `}</style>
+    </div>
+  )
+}
+
 export default function DashboardLandingCaseStudyPage() {
   return (
     <main className="min-h-screen bg-[#F5F7FA] text-[#101113]">
@@ -355,6 +463,20 @@ export default function DashboardLandingCaseStudyPage() {
               alt="Artist analytics dashboard mockup"
               caption="Core interface concept: responsive platform structure for music discovery and user engagement."
             />
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-white px-5 py-16 sm:px-8 lg:px-12 lg:py-24">
+        <div className="mx-auto max-w-7xl">
+          <SectionHeader
+            kicker="Interface gallery"
+            title="More product visuals from the Found dashboard experience."
+            body="The screens below are presented larger and uncropped so the interface details, spacing, navigation, and product modules are easier to see across desktop and mobile."
+            centered
+          />
+          <div className="mt-10">
+            <AnimatedGallery images={interfaceGallery} />
           </div>
         </div>
       </section>

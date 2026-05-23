@@ -17,10 +17,15 @@ export function AboutSection() {
           <div className="relative">
             <div className="absolute -inset-4 rounded-xl bg-gradient-to-r from-purple-500/20 to-pink-500/20 blur-xl opacity-70"></div>
             <div className="relative aspect-square rounded-xl overflow-hidden border border-zinc-800">
-              <img
-                src="/mee.gif?height=600&width=600"
-                alt="German Losada"
+              <video
+                src="/kling_20260509_Image_to_Video_crea_video_2936_0.mp4"
+                aria-label="German Losada"
                 className="w-full h-full object-cover"
+                autoPlay
+                loop
+                muted
+                playsInline
+                preload="metadata"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
               <div className="absolute bottom-0 left-0 w-full p-6">
@@ -35,7 +40,7 @@ export function AboutSection() {
           <div className="space-y-6">
             <GlassmorphicCard>
               <p className="text-lg text-zinc-300">
-                I'm an Innovative and detail-oriented Product Designer, Front-End Developer, and AI-Driven UX Specialist with a strong focus on fintech solutions and AI-powered design. I specialize in crafting user-centered products by seamlessly integrating intuitive UI/UX design, responsive front-end development, and AI-enhanced experiences.
+                Product Designer and Front-End Developer focused on building intuitive, high-performance digital experiences in fintech. I specialize in translating complex workflows into clean, user-centered interfaces, combining strong UI/UX design with scalable Front-End development.
               </p>
               <p className="text-lg text-zinc-300 mt-4">
               With extensive experience in agile methodologies, I excel in efficiently delivering cutting-edge financial products and AI-enhanced services.

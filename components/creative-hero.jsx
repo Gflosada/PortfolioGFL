@@ -13,9 +13,16 @@ export function CreativeHero() {
     const ctx = canvas.getContext("2d")
     if (!ctx) return
 
-    let devicePixelRatio
+    let animationFrame
+    let devicePixelRatio = 1
+    const pointer = {
+      x: 0,
+      y: 0,
+      targetX: 0,
+      targetY: 0,
+      active: false,
+    }
 
-    // Set canvas dimensions
     const setCanvasDimensions = () => {
       devicePixelRatio = window.devicePixelRatio || 1
       const rect = canvas.getBoundingClientRect()
@@ -23,178 +30,87 @@ export function CreativeHero() {
       canvas.width = rect.width * devicePixelRatio
       canvas.height = rect.height * devicePixelRatio
 
-      ctx.scale(devicePixelRatio, devicePixelRatio)
+      ctx.setTransform(devicePixelRatio, 0, 0, devicePixelRatio, 0, 0)
+
+      pointer.x = rect.width / 2
+      pointer.y = rect.height / 2
+      pointer.targetX = pointer.x
+      pointer.targetY = pointer.y
     }
 
     setCanvasDimensions()
     window.addEventListener("resize", setCanvasDimensions)
 
-    // Mouse position
-    let mouseX = 0
-    let mouseY = 0
-    let targetX = 0
-    let targetY = 0
-
-    window.addEventListener("mousemove", (e) => {
+    const updatePointer = (e) => {
       const rect = canvas.getBoundingClientRect()
-      targetX = e.clientX - rect.left
-      targetY = e.clientY - rect.top
-    })
-
-    // Particle class
-    class Particle {
-      constructor(x, y) {
-        this.x = x
-        this.y = y
-        this.baseX = x
-        this.baseY = y
-        this.size = Math.random() * 5 + 2
-        this.density = Math.random() * 30 + 1
-        this.distance = 0
-
-        // Apple-inspired colors for particles
-        const colors = [
-          "rgba(255, 59, 48, 0.6)", // Red
-          "rgba(255, 149, 0, 0.6)", // Orange
-          "rgba(255, 204, 0, 0.6)", // Yellow
-          "rgba(52, 199, 89, 0.6)", // Green
-          "rgba(0, 122, 255, 0.6)", // Blue
-          "rgba(88, 86, 214, 0.6)", // Indigo
-          "rgba(175, 82, 222, 0.6)", // Purple
-          "rgba(255, 45, 85, 0.6)", // Pink
-        ]
-        this.color = colors[Math.floor(Math.random() * colors.length)]
-      }
-
-      update() {
-        // Calculate distance between mouse and particle
-        const dx = mouseX - this.x
-        const dy = mouseY - this.y
-        this.distance = Math.sqrt(dx * dx + dy * dy)
-
-        const forceDirectionX = dx / this.distance
-        const forceDirectionY = dy / this.distance
-
-        const maxDistance = 100
-        const force = (maxDistance - this.distance) / maxDistance
-
-        if (this.distance < maxDistance) {
-          const directionX = forceDirectionX * force * this.density
-          const directionY = forceDirectionY * force * this.density
-
-          this.x -= directionX
-          this.y -= directionY
-        } else {
-          if (this.x !== this.baseX) {
-            const dx = this.x - this.baseX
-            this.x -= dx / 10
-          }
-          if (this.y !== this.baseY) {
-            const dy = this.y - this.baseY
-            this.y -= dy / 10
-          }
-        }
-      }
-
-      draw() {
-        ctx.fillStyle = this.color
-        ctx.beginPath()
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2)
-        ctx.closePath()
-        ctx.fill()
-      }
+      pointer.targetX = e.clientX - rect.left
+      pointer.targetY = e.clientY - rect.top
+      pointer.active = true
     }
 
-    // Create particle grid
-    const particlesArray = []
-    const gridSize = 30
-
-    function init() {
-      particlesArray.length = 0
-
-      const canvasWidth = canvas.width / devicePixelRatio
-      const canvasHeight = canvas.height / devicePixelRatio
-
-      const numX = Math.floor(canvasWidth / gridSize)
-      const numY = Math.floor(canvasHeight / gridSize)
-
-      for (let y = 0; y < numY; y++) {
-        for (let x = 0; x < numX; x++) {
-          const posX = x * gridSize + gridSize / 2
-          const posY = y * gridSize + gridSize / 2
-          particlesArray.push(new Particle(posX, posY))
-        }
-      }
+    const resetPointer = () => {
+      const rect = canvas.getBoundingClientRect()
+      pointer.targetX = rect.width / 2
+      pointer.targetY = rect.height / 2
+      pointer.active = false
     }
 
-    init()
+    canvas.addEventListener("pointermove", updatePointer)
+    canvas.addEventListener("pointerleave", resetPointer)
 
-    // Animated Apple-style spiral
-    class AnimatedAppleSpiral {
+    class RainbowSpiral {
       constructor() {
-        this.centerX = canvas.width / (2 * devicePixelRatio)
-        this.centerY = canvas.height / (2 * devicePixelRatio)
-        this.baseRadius = Math.min(canvas.width, canvas.height) / (3 * devicePixelRatio)
-
-        // Animation properties
         this.rotation = 0
-        this.rotationSpeed = 0.008 // Smooth rotation speed
-        this.scale = 1
-        this.scaleDirection = 0.003
-        this.maxScale = 1.3
-        this.minScale = 0.7
         this.time = 0
-
-        // Apple's vibrant color palette
-        this.colors = [
-          "#FF3B30", // Red
-          "#FF9500", // Orange
-          "#FFCC00", // Yellow
-          "#34C759", // Green
-          "#007AFF", // Blue
-          "#5856D6", // Indigo
-          "#AF52DE", // Purple
-          "#FF2D55", // Pink
-        ]
+        this.colors = ["#FF3B30", "#FF9500", "#FFCC00", "#34C759", "#007AFF", "#5856D6", "#AF52DE", "#FF2D55"]
       }
 
       update() {
-        // Update rotation
-        this.rotation += this.rotationSpeed
-
-        // Update scale with smooth sine wave
-        this.time += 0.02
-        this.scale = 1 + Math.sin(this.time) * 0.2 // Oscillates between 0.8 and 1.2
-
-        // Update center position based on canvas size changes
-        this.centerX = canvas.width / (2 * devicePixelRatio)
-        this.centerY = canvas.height / (2 * devicePixelRatio)
+        this.rotation += 0.004
+        this.time += 0.018
       }
 
       draw() {
+        const width = canvas.width / devicePixelRatio
+        const height = canvas.height / devicePixelRatio
+        const centerX = width / 2
+        const centerY = height / 2
+        const radius = Math.min(width, height) * 0.47
+        const pointerDx = pointer.x - centerX
+        const pointerDy = pointer.y - centerY
+        const pointerDistance = Math.hypot(pointerDx, pointerDy)
+        const pull = pointer.active ? Math.min(pointerDistance / radius, 1) : 0
+        const pointerAngle = Math.atan2(pointerDy, pointerDx) - this.rotation
+        const localPointerX = Math.cos(pointerAngle) * pointerDistance
+        const localPointerY = Math.sin(pointerAngle) * pointerDistance
+
         ctx.save()
-        ctx.translate(this.centerX, this.centerY)
+        ctx.translate(centerX, centerY)
         ctx.rotate(this.rotation)
-        ctx.scale(this.scale, this.scale)
 
-        const arms = 6
-        const turns = 4
-        const pointsPerTurn = 80
-        const totalPoints = turns * pointsPerTurn
+        const arms = 8
+        const turns = 7.4
+        const totalPoints = 760
+        const pulse = Math.sin(this.time) * 0.05
 
-        // Draw multiple spirals with different colors
-        for (let spiralIndex = 0; spiralIndex < arms; spiralIndex++) {
+        for (let arm = 0; arm < arms; arm++) {
           ctx.beginPath()
 
-          const spiralOffset = (spiralIndex * Math.PI * 2) / arms
-          const color = this.colors[spiralIndex % this.colors.length]
+          const offset = (arm * Math.PI * 2) / arms
+          const color = this.colors[arm % this.colors.length]
 
           for (let i = 0; i < totalPoints; i++) {
-            const angle = (i / pointsPerTurn) * Math.PI * 2 + spiralOffset
-            const distance = (i / totalPoints) * this.baseRadius
+            const progress = i / (totalPoints - 1)
+            const angle = progress * turns * Math.PI * 2 + offset
+            const distance = progress * radius * (0.92 + pulse)
+            const wave = Math.sin(progress * 18 + this.time * 2 + arm) * 10 * progress
+            const angularPull = Math.cos(angle - pointerAngle)
+            const deformation = pointer.active ? angularPull * pull * 46 * progress : 0
+            const twist = pointer.active ? Math.sin(pointerDistance * 0.012 + progress * 10) * pull * 0.34 : 0
+            const deformedAngle = angle + twist * progress
 
-            const x = Math.cos(angle) * distance
-            const y = Math.sin(angle) * distance
+            const x = Math.cos(deformedAngle) * (distance + wave + deformation)
+            const y = Math.sin(deformedAngle) * (distance + wave - deformation * 0.35)
 
             if (i === 0) {
               ctx.moveTo(x, y)
@@ -203,104 +119,120 @@ export function CreativeHero() {
             }
           }
 
-          // Create radial gradient for each spiral arm with enhanced opacity
-          const gradient = ctx.createRadialGradient(0, 0, 0, 0, 0, this.baseRadius)
-          gradient.addColorStop(0, color + "CC") // 80% opacity at center
-          gradient.addColorStop(0.5, color + "80") // 50% opacity
-          gradient.addColorStop(0.8, color + "40") // 25% opacity
-          gradient.addColorStop(1, color + "00") // Transparent at edges
-
+          const gradient = ctx.createRadialGradient(0, 0, 4, 0, 0, radius)
+          gradient.addColorStop(0, `${color}F2`)
+          gradient.addColorStop(0.48, `${color}A6`)
+          gradient.addColorStop(0.78, `${color}66`)
+          gradient.addColorStop(1, `${color}08`)
           ctx.strokeStyle = gradient
-          ctx.lineWidth = 3
+          ctx.lineWidth = 1.45 + pull * 0.9
           ctx.lineCap = "round"
           ctx.lineJoin = "round"
+          ctx.setLineDash([10 - pull * 5, 11 + pull * 13])
           ctx.stroke()
+          ctx.setLineDash([])
         }
 
-        // Add animated center glow that pulses with the scale
-        const glowIntensity = 0.1 + (this.scale - 0.8) * 0.1
-        const centerGradient = ctx.createRadialGradient(0, 0, 0, 0, 0, 40)
-        centerGradient.addColorStop(0, `rgba(255, 255, 255, ${glowIntensity})`)
-        centerGradient.addColorStop(0.5, `rgba(255, 255, 255, ${glowIntensity * 0.5})`)
-        centerGradient.addColorStop(1, "rgba(255, 255, 255, 0)")
+        for (let arm = 0; arm < arms; arm++) {
+          const offset = (arm * Math.PI * 2) / arms
+          const color = this.colors[arm % this.colors.length]
 
-        ctx.fillStyle = centerGradient
+          for (let i = 18; i < totalPoints; i += 8) {
+            const progress = i / (totalPoints - 1)
+            const angle = progress * turns * Math.PI * 2 + offset
+            const distance = progress * radius * (0.92 + pulse)
+            const wave = Math.sin(progress * 18 + this.time * 2 + arm) * 10 * progress
+            const angularPull = Math.cos(angle - pointerAngle)
+            const deformation = pointer.active ? angularPull * pull * 46 * progress : 0
+            const twist = pointer.active ? Math.sin(pointerDistance * 0.012 + progress * 10) * pull * 0.34 : 0
+            const deformedAngle = angle + twist * progress
+            const baseX = Math.cos(deformedAngle) * (distance + wave + deformation)
+            const baseY = Math.sin(deformedAngle) * (distance + wave - deformation * 0.35)
+            const dx = baseX - localPointerX
+            const dy = baseY - localPointerY
+            const distanceFromPointer = Math.max(Math.hypot(dx, dy), 0.001)
+            const influence = pointer.active ? Math.max(0, 1 - distanceFromPointer / (170 + pull * 90)) : 0
+            const scatter = influence * influence
+            const repel = scatter * (86 + progress * 82)
+            const orbit = scatter * Math.sin(this.time * 6 + arm + progress * 24) * 48
+            const float = Math.sin(this.time * 2.8 + i * 0.17 + arm) * 4 * progress
+            const particleX = baseX + (dx / distanceFromPointer) * repel + (-dy / distanceFromPointer) * orbit
+            const particleY = baseY + (dy / distanceFromPointer) * repel + (dx / distanceFromPointer) * orbit + float
+            const size = 1.35 + progress * 2.3 + scatter * 3.6
+            const opacity = 0.18 + progress * 0.5 + scatter * 0.32
+
+            ctx.fillStyle = `${color}${Math.round(Math.min(opacity, 0.92) * 255)
+              .toString(16)
+              .padStart(2, "0")}`
+            ctx.beginPath()
+            ctx.arc(particleX, particleY, size, 0, Math.PI * 2)
+            ctx.fill()
+          }
+        }
+
+        const centerGlow = ctx.createRadialGradient(0, 0, 0, 0, 0, 80)
+        centerGlow.addColorStop(0, "rgba(255, 255, 255, 0.42)")
+        centerGlow.addColorStop(0.42, "rgba(0, 122, 255, 0.16)")
+        centerGlow.addColorStop(1, "rgba(0, 122, 255, 0)")
+        ctx.fillStyle = centerGlow
         ctx.beginPath()
-        ctx.arc(0, 0, 40, 0, Math.PI * 2)
+        ctx.arc(0, 0, 80, 0, Math.PI * 2)
         ctx.fill()
 
-        // Add subtle outer glow
-        const outerGlow = ctx.createRadialGradient(0, 0, this.baseRadius * 0.8, 0, 0, this.baseRadius * 1.2)
-        outerGlow.addColorStop(0, "rgba(0, 122, 255, 0)")
-        outerGlow.addColorStop(1, `rgba(0, 122, 255, ${0.05 * this.scale})`)
-
+        const outerGlow = ctx.createRadialGradient(0, 0, radius * 0.2, 0, 0, radius * 1.08)
+        outerGlow.addColorStop(0, "rgba(255, 255, 255, 0)")
+        outerGlow.addColorStop(0.55, "rgba(0, 122, 255, 0.08)")
+        outerGlow.addColorStop(1, "rgba(175, 82, 222, 0)")
         ctx.fillStyle = outerGlow
         ctx.beginPath()
-        ctx.arc(0, 0, this.baseRadius * 1.2, 0, Math.PI * 2)
+        ctx.arc(0, 0, radius * 1.08, 0, Math.PI * 2)
         ctx.fill()
+
+        ctx.strokeStyle = "rgba(255, 255, 255, 0.13)"
+        ctx.lineWidth = 1
+        ctx.beginPath()
+        ctx.arc(0, 0, radius * 0.74 + Math.sin(this.time) * 10, 0, Math.PI * 2)
+        ctx.stroke()
 
         ctx.restore()
       }
     }
 
-    const animatedSpiral = new AnimatedAppleSpiral()
+    const spiral = new RainbowSpiral()
 
-    // Animation loop
     const animate = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height)
+      const width = canvas.width / devicePixelRatio
+      const height = canvas.height / devicePixelRatio
 
-      // Smooth mouse following
-      mouseX += (targetX - mouseX) * 0.1
-      mouseY += (targetY - mouseY) * 0.1
+      ctx.clearRect(0, 0, width, height)
 
-      // Update and draw animated spiral
-      animatedSpiral.update()
-      animatedSpiral.draw()
+      pointer.x += (pointer.targetX - pointer.x) * 0.09
+      pointer.y += (pointer.targetY - pointer.y) * 0.09
 
-      // Draw particles and connections
-      for (let i = 0; i < particlesArray.length; i++) {
-        particlesArray[i].update()
-        particlesArray[i].draw()
+      spiral.update()
+      spiral.draw()
 
-        // Draw connections with Apple colors
-        for (let j = i; j < particlesArray.length; j++) {
-          const dx = particlesArray[i].x - particlesArray[j].x
-          const dy = particlesArray[i].y - particlesArray[j].y
-          const distance = Math.sqrt(dx * dx + dy * dy)
-
-          if (distance < 30) {
-            ctx.beginPath()
-            ctx.strokeStyle = `rgba(0, 122, 255, ${0.1 - distance / 300})` // Apple blue
-            ctx.lineWidth = 0.5
-            ctx.moveTo(particlesArray[i].x, particlesArray[i].y)
-            ctx.lineTo(particlesArray[j].x, particlesArray[j].y)
-            ctx.stroke()
-          }
-        }
-      }
-
-      requestAnimationFrame(animate)
+      animationFrame = requestAnimationFrame(animate)
     }
 
     animate()
 
-    // Handle window resize
-    window.addEventListener("resize", init)
-
     return () => {
+      cancelAnimationFrame(animationFrame)
       window.removeEventListener("resize", setCanvasDimensions)
-      window.removeEventListener("resize", init)
+      canvas.removeEventListener("pointermove", updatePointer)
+      canvas.removeEventListener("pointerleave", resetPointer)
     }
   }, [])
 
   return (
     <motion.div
-      className="w-full h-[400px] md:h-[500px] relative"
+      className="relative h-[360px] w-full max-w-[720px] md:h-[520px]"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 1 }}
     >
-      <canvas ref={canvasRef} className="w-full h-full" style={{ display: "block" }} />
+      <canvas ref={canvasRef} className="h-full w-full" style={{ display: "block" }} />
     </motion.div>
   )
 }

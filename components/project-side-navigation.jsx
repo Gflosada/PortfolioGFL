@@ -5,15 +5,18 @@ import { usePathname } from "next/navigation"
 import { ChevronLeft, ChevronRight } from "lucide-react"
 
 const projects = [
+  { slug: "new-digital-experience-project", title: "New Digital Experience Project" },
+  { slug: "ai-grocery-planning-app", title: "AI-Powered Grocery Planning Mobile App" },
   { slug: "dashboard-landing", title: "Product Design Dashboard" },
   { slug: "financial-app", title: "Financial App" },
   { slug: "autovision-ai", title: "AutoVision AI" },
-  { slug: "ai-grocery-planning-app", title: "AI Grocery Planning App" },
   { slug: "investment-dashboard", title: "Investment Dashboard UI/UX Design" },
   { slug: "web-design-development", title: "Web Design & Development" },
   { slug: "digital-marketing-agency", title: "Digital Marketing Agency" },
   { slug: "nft-website", title: "NFT Website" },
   { slug: "meal-plan-app", title: "Meal Plan App" },
+  { slug: "graphic-design", title: "Graphic Design" },
+  { slug: "portfolio-website", title: "Portfolio Website" },
 ]
 
 const projectsSectionLink = {

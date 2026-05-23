@@ -36,7 +36,7 @@ export function ProjectCard({ title, description, tags, image, demoUrl, repoUrl,
             />
           </div>
 
-          <div className="p-6 flex-grow">
+          <div className="flex flex-grow flex-col p-6">
             <h3 className="text-xl font-bold mb-2">{title}</h3>
             <p className="text-zinc-400 mb-4">{description}</p>
 
@@ -85,7 +85,7 @@ export function ProjectCard({ title, description, tags, image, demoUrl, repoUrl,
                     href={`/project/${slug}`}
                     className="flex items-center gap-2"
                   >
-                    Live Demo
+                    Show Case
                     <ArrowUpRight className="h-4 w-4" />
                   </Link>
                 </Button>

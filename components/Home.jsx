@@ -10,7 +10,7 @@ import { Footer } from "@/components/footer"
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-zinc-900 via-zinc-900 to-black text-white overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-b from-zinc-900 via-zinc-900 to-black text-white overflow-x-hidden">
       <ScrollProgress />
 
       <HeroSection />
