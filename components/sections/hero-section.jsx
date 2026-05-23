@@ -128,31 +128,31 @@ export function HeroSection() {
         <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(255,255,255,0.08),rgba(255,255,255,0.02)_52%,rgba(0,87,186,0.14))]"></div>
       </div>
 
-      <div className="container relative z-10 grid min-h-screen grid-cols-1 items-end gap-4 pt-14 lg:grid-cols-[0.38fr_0.62fr] lg:pt-16">
-        <div className="space-y-5 pb-16 sm:space-y-6 lg:pb-[8vh]">
+      <div className="container relative z-10 grid min-h-screen grid-cols-1 items-end gap-5 pt-14 lg:grid-cols-[0.38fr_0.62fr] lg:pt-16">
+        <div className="space-y-[1.375rem] pb-16 sm:space-y-[1.65rem] lg:pb-[8vh]">
           <div className="hero-eyebrow inline-block">
-            <div className="relative px-5 py-2 pl-8 text-sm font-bold rounded-full bg-blue-950/55 text-white shadow-lg shadow-blue-950/20 ring-1 ring-white/20 mb-4 backdrop-blur-sm">
+            <div className="relative px-[1.375rem] py-[0.55rem] pl-[2.2rem] text-[0.96rem] font-bold rounded-full bg-blue-950/55 text-white shadow-lg shadow-blue-950/20 ring-1 ring-white/20 mb-4 backdrop-blur-sm">
               <span className="relative z-10">Product Designer & Web Developer</span>
               <span className="absolute left-4 top-1/2 h-1.5 w-1.5 -translate-y-1/2 rounded-full bg-white/90"></span>
             </div>
           </div>
-          <h1 className="hero-title text-5xl font-black tracking-normal leading-[0.95] sm:text-6xl md:text-7xl xl:text-8xl">
+          <h1 className="hero-title text-[3.3rem] font-black tracking-normal leading-[0.95] sm:text-[4.125rem] md:text-[4.95rem] xl:text-[6.6rem]">
             <span className="block text-white drop-shadow-[0_6px_18px_rgba(37,99,235,0.24)]">Hi, I'm</span>
             <span className="block text-blue-950 drop-shadow-[0_5px_16px_rgba(255,255,255,0.35)]">
-              German Losada
+              Germán Losada
             </span>
           </h1>
-          <p ref={copyRef} className="hero-copy max-w-[560px] text-base leading-7 text-white/90 md:text-lg md:leading-8">
+          <p ref={copyRef} className="hero-copy max-w-[616px] text-[1.1rem] leading-[1.925rem] text-white/90 md:text-[1.2375rem] md:leading-[2.2rem]">
             {displayPersona.description}
           </p>
           <div className="hero-actions flex flex-wrap gap-4 pt-4">
-            <Button className="relative overflow-hidden group h-12 rounded-lg bg-blue-950/70 px-6 font-bold text-white shadow-xl shadow-blue-950/25 hover:bg-blue-950">
+            <Button className="relative overflow-hidden group h-[3.3rem] rounded-lg bg-blue-950/70 px-[1.65rem] font-bold text-white shadow-xl shadow-blue-950/25 hover:bg-blue-950">
               <Link href="#projects" className="relative z-10 flex items-center">
                 View Projects <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
               </Link>
             </Button>
            
-            <Button variant="outline" className="h-12 rounded-lg border-white/70 bg-white px-6 font-bold text-blue-600 shadow-xl shadow-blue-600/15 hover:bg-blue-50 hover:text-blue-700">
+            <Button variant="outline" className="h-[3.3rem] rounded-lg border-white/70 bg-white px-[1.65rem] font-bold text-blue-600 shadow-xl shadow-blue-600/15 hover:bg-blue-50 hover:text-blue-700">
               <Link href="/ResumeGL .docx.pdf" download className="relative z-10 flex items-center">
                 Download Resume <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
               </Link>
@@ -163,7 +163,7 @@ export function HeroSection() {
               <Button
                 variant="ghost"
                 size="icon"
-                className="rounded-full bg-white text-blue-600 shadow-lg shadow-blue-600/15 hover:bg-blue-50 hover:text-blue-700 flex items-center justify-center"
+                className="h-11 w-11 rounded-full bg-white text-blue-600 shadow-lg shadow-blue-600/15 hover:bg-blue-50 hover:text-blue-700 flex items-center justify-center"
               >
                 <Github className="h-5 w-5" />
                 <span className="sr-only">GitHub</span>
@@ -173,7 +173,7 @@ export function HeroSection() {
               <Button
                 variant="ghost"
                 size="icon"
-                className="rounded-full bg-white text-blue-600 shadow-lg shadow-blue-600/15 hover:bg-blue-50 hover:text-blue-700 flex items-center justify-center"
+                className="h-11 w-11 rounded-full bg-white text-blue-600 shadow-lg shadow-blue-600/15 hover:bg-blue-50 hover:text-blue-700 flex items-center justify-center"
               >
                 <Linkedin className="h-5 w-5" />
                 <span className="sr-only">LinkedIn</span>
@@ -183,7 +183,7 @@ export function HeroSection() {
               <Button
                 variant="ghost"
                 size="icon"
-                className="rounded-full bg-white text-blue-600 shadow-lg shadow-blue-600/15 hover:bg-blue-50 hover:text-blue-700 flex items-center justify-center"
+                className="h-11 w-11 rounded-full bg-white text-blue-600 shadow-lg shadow-blue-600/15 hover:bg-blue-50 hover:text-blue-700 flex items-center justify-center"
               >
                 <Eye className="h-5 w-5" />
                 <span className="sr-only">Behance</span>
@@ -193,14 +193,14 @@ export function HeroSection() {
               <Button
                 variant="ghost"
                 size="icon"
-                className="rounded-full bg-white text-blue-600 shadow-lg shadow-blue-600/15 hover:bg-blue-50 hover:text-blue-700 flex items-center justify-center"
+                className="h-11 w-11 rounded-full bg-white text-blue-600 shadow-lg shadow-blue-600/15 hover:bg-blue-50 hover:text-blue-700 flex items-center justify-center"
               >
                 <Mail className="h-5 w-5" />
                 <span className="sr-only">Email</span>
               </Button>
             </Link>
           </div>
-          <div className="hero-selector grid w-full max-w-[430px] grid-cols-3 rounded-lg bg-white/18 p-1 shadow-xl shadow-blue-950/10 backdrop-blur-sm">
+          <div className="hero-selector grid w-full max-w-[473px] grid-cols-3 rounded-lg bg-white/18 p-1 shadow-xl shadow-blue-950/10 backdrop-blur-sm">
             {personas.map((persona) => {
               const isActive = persona.id === activePersona.id
 
@@ -211,7 +211,7 @@ export function HeroSection() {
                   aria-label={`Show ${persona.title} persona`}
                   aria-pressed={isActive}
                   onClick={() => selectPersona(persona.id)}
-                  className={`relative h-12 rounded-md px-3 text-sm font-bold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white ${
+                  className={`relative h-[3.3rem] rounded-md px-3 text-[0.96rem] font-bold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white ${
                     isActive
                       ? "bg-blue-950/80 text-white shadow-lg shadow-blue-950/25"
                       : "text-white/80 hover:bg-white/12 hover:text-white"
@@ -226,11 +226,11 @@ export function HeroSection() {
             })}
           </div>
         </div>
-        <div className="hero-visual relative flex min-h-[460px] items-end justify-center overflow-visible px-6 sm:min-h-[540px] md:min-h-[min(84vh,800px)] lg:justify-end lg:px-10">
+        <div className="hero-visual relative hidden min-h-[506px] items-end justify-center overflow-visible px-6 sm:min-h-[594px] md:flex md:min-h-[min(92vh,880px)] lg:justify-end lg:px-10">
           <div
             ref={wordRef}
             aria-hidden="true"
-            className="pointer-events-none absolute left-1/2 top-[18%] z-0 w-[calc(100%-3rem)] max-w-[980px] -translate-x-1/2 select-none overflow-hidden text-[4.2rem] font-black uppercase leading-none tracking-normal text-white/25 md:top-[13%] md:w-[calc(100%-5rem)] md:text-[clamp(6.5rem,10vw,11.5rem)]"
+            className="pointer-events-none absolute left-1/2 top-[18%] z-0 w-[calc(100%-3rem)] max-w-[1078px] -translate-x-1/2 select-none overflow-hidden text-[4.6rem] font-black uppercase leading-none tracking-normal text-white/25 md:top-[13%] md:w-[calc(100%-5rem)] md:text-[clamp(7.15rem,11vw,12.65rem)]"
           >
             <span ref={wordTrackRef} className="block w-max whitespace-nowrap">
               {displayPersona.heroWord}

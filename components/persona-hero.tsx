@@ -53,8 +53,8 @@ function getPersonaLayout(personaId: PersonaId, activePersonaId: PersonaId, isMo
   if (relativePosition === 0) {
     return {
       x: 0,
-      y: isMobile ? -10 : -26,
-      scale: isMobile ? 1.05 : 1.3,
+      y: isMobile ? -10 : -29,
+      scale: isMobile ? 1.05 : 1.43,
       autoAlpha: 1,
       zIndex: 30,
     }
@@ -62,18 +62,18 @@ function getPersonaLayout(personaId: PersonaId, activePersonaId: PersonaId, isMo
 
   if (relativePosition === 1) {
     return {
-      x: isMobile ? 124 : 315,
-      y: isMobile ? 92 : 88,
-      scale: isMobile ? 0.5 : 0.7,
+      x: isMobile ? 124 : 347,
+      y: isMobile ? 92 : 97,
+      scale: isMobile ? 0.5 : 0.77,
       autoAlpha: 0.74,
       zIndex: 12,
     }
   }
 
   return {
-    x: isMobile ? -124 : -315,
-    y: isMobile ? 92 : 88,
-    scale: isMobile ? 0.5 : 0.7,
+    x: isMobile ? -124 : -347,
+    y: isMobile ? 92 : 97,
+    scale: isMobile ? 0.5 : 0.77,
     autoAlpha: 0.74,
     zIndex: 12,
   }
@@ -182,7 +182,7 @@ export function PersonaHero({ activePersonaId, onSelectPersona }: PersonaHeroPro
   return (
     <div
       ref={rootRef}
-      className="relative z-10 h-[440px] w-full max-w-[820px] overflow-visible sm:h-[520px] md:h-[clamp(560px,78vh,760px)] lg:max-w-[940px]"
+      className="relative z-10 h-[484px] w-full max-w-[902px] overflow-visible sm:h-[572px] md:h-[clamp(616px,85.8vh,836px)] lg:max-w-[1034px]"
       aria-label="Interactive professional persona character stage"
     >
       <div
@@ -204,7 +204,7 @@ export function PersonaHero({ activePersonaId, onSelectPersona }: PersonaHeroPro
               aria-label={`Show ${persona.title} persona`}
               aria-pressed={isActive}
               onClick={() => onSelectPersona(persona.id)}
-              className={`absolute bottom-0 flex h-[360px] w-[265px] origin-bottom items-end justify-center rounded-lg outline-none transition-[filter] duration-300 focus-visible:ring-2 focus-visible:ring-white sm:h-[450px] sm:w-[330px] md:h-[clamp(500px,70vh,700px)] md:w-[min(42vw,460px)] ${
+              className={`absolute bottom-0 flex h-[396px] w-[292px] origin-bottom items-end justify-center rounded-lg outline-none transition-[filter] duration-300 focus-visible:ring-2 focus-visible:ring-white sm:h-[495px] sm:w-[363px] md:h-[clamp(550px,77vh,770px)] md:w-[min(46vw,506px)] ${
                 isActive ? "saturate-110" : "saturate-95"
               }`}
             >
