@@ -7,6 +7,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react"
 const projects = [
   { slug: "new-digital-experience-project", title: "New Digital Experience Project" },
   { slug: "ai-grocery-planning-app", title: "AI-Powered Grocery Planning Mobile App" },
+  { slug: "app-lawyer", title: "App Lawyer" },
   { slug: "dashboard-landing", title: "Product Design Dashboard" },
   { slug: "financial-app", title: "Financial App" },
   { slug: "autovision-ai", title: "AutoVision AI" },

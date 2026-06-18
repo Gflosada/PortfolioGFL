@@ -23,6 +23,15 @@ export function ProjectsSection() {
       repoUrl: "https://github.com/Gflosada",
     },
     {
+      slug: "app-lawyer",
+      title: "App Lawyer",
+      description: "An AI legal-tech mobile app case study for Canadian immigration workflows, case intake, document organization, deadline tracking, and case-aware AI support.",
+      tags: ["AI Legal-Tech", "Product Design", "React Native", "Expo"],
+      image: "/appLawyer/ChatGPT Image Jun 18, 2026, 04_27_10 PM.png",
+      demoUrl: "https://www.behance.net/germanlosada",
+      repoUrl: "https://github.com/Gflosada",
+    },
+    {
       slug: "dashboard-landing",
       title: "Product Design Dashboard",
       description: "A UI/UX design and front-end development project for Found, a music platform connecting independent artists, fans, and industry professionals through responsive discovery, artist profiles, authentication, and real-time messaging.",
@@ -53,10 +62,11 @@ export function ProjectsSection() {
     
     {
       slug: "investment-dashboard",
-      title: "Investment Dashboard UI/UX Desig",
-      description:"complete UI/UX design system for a next-gen investment fintech dashboard—streamlined components, intuitive user flows, and data-driven visuals that empower smarter investing.",
+      title: "Investment Dashboard UI/UX Design",
+      description:"Complete UI/UX design system for a next-gen investment fintech dashboard: streamlined components, intuitive user flows, and data-driven visuals that empower smarter investing.",
       tags: ["Figma", "User Research", "Prototyping", "Mockups"],
-      image: "/dashboard.png?w-full h-full object-contain",
+      image: "/dashboard.png",
+      imageFit: "contain",
       demoUrl: "https://www.behance.net/gallery/224271611/Investment-Dashboard-UIUX",
       repoUrl: "https://github.com/Gflosada",
     },

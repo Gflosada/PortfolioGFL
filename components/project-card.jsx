@@ -8,8 +8,20 @@ import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 
-export function ProjectCard({ title, description, tags, image, demoUrl, repoUrl, websiteUrl, slug, hideActions = false }) {
+export function ProjectCard({
+  title,
+  description,
+  tags,
+  image,
+  demoUrl,
+  repoUrl,
+  websiteUrl,
+  slug,
+  hideActions = false,
+  imageFit = "cover",
+}) {
   const [isHovered, setIsHovered] = useState(false)
+  const fitClass = imageFit === "contain" ? "object-contain p-3" : "object-cover"
 
   return (
     <motion.div
@@ -32,7 +44,7 @@ export function ProjectCard({ title, description, tags, image, demoUrl, repoUrl,
             <img
               src={image || "/placeholder.svg"}
               alt={title}
-              className={`w-full h-full object-cover transition-transform duration-700 ${isHovered ? "scale-110" : "scale-100"}`}
+              className={`w-full h-full ${fitClass} transition-transform duration-700 ${isHovered ? "scale-105" : "scale-100"}`}
             />
           </div>
 

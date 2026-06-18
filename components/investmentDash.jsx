@@ -222,7 +222,7 @@ function SectionHeader({ kicker, title, body, tone = "light", centered = false }
 function ImageFrame({ src, alt, caption, className = "" }) {
   return (
     <figure className={`overflow-hidden rounded-lg border border-white/10 bg-[#0B1020] shadow-sm ${className}`}>
-      <img src={src} alt={alt} className="h-full w-full object-cover" />
+      <img src={src} alt={alt} className="mx-auto max-h-[82vh] w-auto max-w-full object-contain" />
       {caption ? (
         <figcaption className="border-t border-white/10 bg-[#0B1020] px-4 py-3 text-sm leading-6 text-white/70">
           {caption}
@@ -270,16 +270,13 @@ function ShowcaseGallery() {
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >
-      <div className="relative aspect-[16/10] w-full">
-        {slides.map((slide, slideIndex) => (
-          <img
-            key={slide.src}
-            src={slide.src}
-            alt={slide.alt}
-            className="absolute inset-0 h-full w-full object-cover transition-opacity duration-700"
-            style={{ opacity: slideIndex === index ? 1 : 0 }}
-          />
-        ))}
+      <div className="w-full bg-[#060916]">
+        <img
+          key={slides[index].src}
+          src={slides[index].src}
+          alt={slides[index].alt}
+          className="h-auto w-full object-contain transition-opacity duration-700"
+        />
       </div>
       <div className="flex items-center justify-between gap-4 border-t border-white/10 px-4 py-3">
         <p className="text-sm text-white/70">Prototype screens: overview, charts, transactions, and analytics states.</p>
