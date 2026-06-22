@@ -166,14 +166,14 @@ const journeyStages = [
   },
   {
     label: "08",
-    eyebrow: "Review and risk",
-    title: "The case dashboard connects progress, requirements, evidence, and risk review.",
-    body: "The dashboard, evidence matrix, document statuses, and risk review screens show how the product turns a case into an operational workspace instead of a scattered set of files and notes.",
+    eyebrow: "CASE INTAKE",
+    title: "Users add their case details so the AI can understand their situation.",
+    body: "This workflow collects the user’s personal information, immigration history, goals, documents, and concerns so the AI assistant can give more relevant guidance based on their own case, not a generic answer.",
     screens: [16, 17, 18, 19].map((order) => ({
       ...screenByOrder.get(order),
       alt: `App Lawyer case dashboard and review screen ${order}`,
     })),
-    points: ["Case dashboard", "Evidence matrix", "Risk review", "Preparation checklist"],
+    points: ["Case intake", "Personalized AI", "User profile", "Immigration history", "Case context"],
     layout: "quad",
     featured: true,
   },
@@ -528,9 +528,9 @@ export default function AppLawyerCaseStudyPage() {
       <section id="product-journey" className="px-5 py-16 sm:px-8 lg:px-12 lg:py-24">
         <div className="mx-auto max-w-7xl">
           <SectionHeader
-            eyebrow="User journey"
-            title="A numbered screen story from launch to case-aware AI support."
-            body="The screenshots are used in numeric order and grouped into meaningful product stages so the page explains how the experience works instead of presenting a generic gallery."
+            eyebrow="APP WORKFLOW"
+            title="A complete journey through the App Lawyer experience."
+            body="This section presents the app flow from launch and onboarding to case creation, document organization, deadlines, and case-aware AI support, showing how each feature connects into one guided immigration preparation experience."
             centered
           />
           <div className="mt-12 grid gap-8">
