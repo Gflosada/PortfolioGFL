@@ -15,6 +15,7 @@ import {
 } from "lucide-react"
 
 import { ProjectSideNavigation } from "@/components/project-side-navigation"
+import { ScrollActivatedBannerVideo } from "./scroll-activated-banner-video"
 
 export const metadata = {
   title: "App Lawyer Case Study | German Losada",
@@ -443,12 +444,11 @@ export default function AppLawyerCaseStudyPage() {
           </div>
 
           <div className="relative">
-            <div className="absolute inset-8 rounded-full bg-indigo-300/20 blur-3xl" />
-            <PhoneFrame
-              src="/appLawyer/6.jpeg"
-              alt="App Lawyer home dashboard with active cases and AI assistant entry points"
-              priority
-              className="relative max-w-[315px]"
+            <div className="absolute -inset-4 rounded-full bg-indigo-300/25 blur-3xl" />
+            <ScrollActivatedBannerVideo
+              src="/appLawyer/Design_Factory.mp4"
+              poster="/appLawyer/ChatGPT Image Jun 18, 2026, 04_27_10 PM.png"
+              title="App Lawyer banner product video"
             />
           </div>
         </div>

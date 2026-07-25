@@ -1,15 +1,15 @@
 import Link from "next/link"
 import { Github, Linkedin, Mail, Eye } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import styles from "@/components/landing-cyberpunk.module.css"
 
 export function Footer() {
   return (
-    <footer className="border-t border-zinc-800 py-12">
+    <footer className={styles.footer}>
       <div className="container flex flex-col md:flex-row justify-between items-center gap-6">
         <div>
-          <Link href="/" className="font-bold text-xl">
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-slate-400 to-blue-500">German</span>
-            <span className="text-white">Losada</span>
+          <Link href="/" className={styles.footerBrand}>
+            <span>German Losada_</span>
           </Link>
           <p className="text-sm text-zinc-500 mt-2">© {new Date().getFullYear()} German Losada. All rights reserved.</p>
         </div>
@@ -18,7 +18,7 @@ export function Footer() {
             <Button
               variant="ghost"
               size="icon"
-              className="rounded-full bg-zinc-800/50 hover:bg-zinc-800 text-zinc-400 hover:text-white flex items-center justify-center"
+              className="rounded-none border border-white/15 bg-white/5 text-zinc-400 hover:bg-white/10 hover:text-white flex items-center justify-center"
             >
               <Github className="h-5 w-5" />
               <span className="sr-only">GitHub</span>
@@ -28,7 +28,7 @@ export function Footer() {
             <Button
               variant="ghost"
               size="icon"
-              className="rounded-full bg-zinc-800/50 hover:bg-zinc-800 text-zinc-400 hover:text-white flex items-center justify-center"
+              className="rounded-none border border-white/15 bg-white/5 text-zinc-400 hover:bg-white/10 hover:text-white flex items-center justify-center"
             >
               <Linkedin className="h-5 w-5" />
               <span className="sr-only">LinkedIn</span>
@@ -38,7 +38,7 @@ export function Footer() {
             <Button
               variant="ghost"
               size="icon"
-              className="rounded-full bg-zinc-800/50 hover:bg-zinc-800 text-zinc-400 hover:text-white flex items-center justify-center"
+              className="rounded-none border border-white/15 bg-white/5 text-zinc-400 hover:bg-white/10 hover:text-white flex items-center justify-center"
             >
               <Eye className="h-5 w-5" />
               <span className="sr-only">Behance</span>
@@ -48,7 +48,7 @@ export function Footer() {
             <Button
               variant="ghost"
               size="icon"
-              className="rounded-full bg-zinc-800/50 hover:bg-zinc-800 text-zinc-400 hover:text-white flex items-center justify-center"
+              className="rounded-none border border-white/15 bg-white/5 text-zinc-400 hover:bg-white/10 hover:text-white flex items-center justify-center"
             >
               <Mail className="h-5 w-5" />
               <span className="sr-only">Email</span>

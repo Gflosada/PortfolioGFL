@@ -1,48 +1,43 @@
-import { Mail, Linkedin, Github, Globe } from "lucide-react"
+import { Mail, Linkedin, Github } from "lucide-react"
 import { SectionHeading } from "@/components/section-heading"
-import { GlassmorphicCard } from "@/components/glassmorphic-card"
 import { ContactForm } from "@/components/contact-form"
+import styles from "@/components/landing-cyberpunk.module.css"
 
 export function ContactSection() {
   return (
-    <section id="contact" className="py-32 relative">
-      <div className="absolute inset-0 z-0">
-        <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-pink-500 rounded-full mix-blend-multiply filter blur-3xl opacity-10"></div>
-        <div className="absolute bottom-1/3 right-1/3 w-64 h-64 bg-purple-500 rounded-full mix-blend-multiply filter blur-3xl opacity-10"></div>
-      </div>
-
+    <section id="contact" className={styles.cyberSection}>
       <div className="container relative z-10">
-        <SectionHeading title="Get In Touch" subtitle="Let's work together" />
+        <SectionHeading number="06" title="Get In Touch" subtitle="Contact" />
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center mt-16">
-          <GlassmorphicCard>
+          <div className={styles.contactPanel} data-landing-card>
             <h3 className="text-2xl font-bold mb-6">Contact Information</h3>
             <div className="space-y-6">
               <div className="flex items-center gap-4">
-                <div className="w-12 h-12 shrink-0 rounded-full bg-zinc-800 flex items-center justify-center">
-                  <Mail className="h-5 w-5 text-blue-400" />
+                <div className={`${styles.sectionIcon} shrink-0`}>
+                  <Mail className="h-5 w-5" />
                 </div>
                 <div className="min-w-0">
-                  <div className="text-sm text-zinc-500">Email</div>
-                  <div className="break-all font-medium">gflosadaz@gmail.com</div>
+                  <div className={styles.contactLabel}>Email</div>
+                  <div className={`${styles.contactValue} break-all`}>gflosadaz@gmail.com</div>
                 </div>
               </div>
               <div className="flex items-center gap-4">
-                <div className="w-12 h-12 shrink-0 rounded-full bg-zinc-800 flex items-center justify-center">
-                  <Linkedin className="h-5 w-5 text-blue-400" />
+                <div className={`${styles.sectionIcon} shrink-0`}>
+                  <Linkedin className="h-5 w-5" />
                 </div>
                 <div className="min-w-0">
-                  <div className="text-sm text-zinc-500">LinkedIn</div>
-                  <div className="break-all font-medium">linkedin.com/in/innovativedesigner</div>
+                  <div className={styles.contactLabel}>LinkedIn</div>
+                  <div className={`${styles.contactValue} break-all`}>linkedin.com/in/innovativedesigner</div>
                 </div>
               </div>
               <div className="flex items-center gap-4">
-                <div className="w-12 h-12 shrink-0 rounded-full bg-zinc-800 flex items-center justify-center">
-                  <Github className="h-5 w-5 text-blue-400" />
+                <div className={`${styles.sectionIcon} shrink-0`}>
+                  <Github className="h-5 w-5" />
                 </div>
                 <div className="min-w-0">
-                  <div className="text-sm text-zinc-500">GitHub</div>
-                  <div className="break-all font-medium">github.com/Gflosada</div>
+                  <div className={styles.contactLabel}>GitHub</div>
+                  <div className={`${styles.contactValue} break-all`}>github.com/Gflosada</div>
                 </div>
               </div>
             </div>
@@ -62,9 +57,11 @@ export function ContactSection() {
                 <div className="text-sm text-zinc-400">Board Certified Behavior Analyst</div>
               </div>
             </div>
-          </GlassmorphicCard>
+          </div>
 
-          <ContactForm />
+          <div data-landing-card>
+            <ContactForm />
+          </div>
         </div>
       </div>
     </section>

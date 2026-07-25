@@ -1,5 +1,6 @@
 import { SectionHeading } from "@/components/section-heading"
 import { ProjectCard } from "@/components/project-card"
+import styles from "@/components/landing-cyberpunk.module.css"
 
 export function ProjectsSection() {
   const projects = [
@@ -131,14 +132,9 @@ export function ProjectsSection() {
   ]
 
   return (
-    <section id="projects" className="py-32 relative">
-      <div className="absolute inset-0 z-0">
-        <div className="absolute top-1/4 left-1/3 w-64 h-64 bg-pink-500 rounded-full mix-blend-multiply filter blur-3xl opacity-10"></div>
-        <div className="absolute bottom-1/3 right-1/4 w-64 h-64 bg-yellow-500 rounded-full mix-blend-multiply filter blur-3xl opacity-10"></div>
-      </div>
-
+    <section id="projects" className={styles.cyberSection}>
       <div className="container relative z-10">
-        <SectionHeading title="Featured Projects" subtitle="Some of my recent work" />
+        <SectionHeading number="02" title="Featured Projects" subtitle="Selected Work" />
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-16">
           {projects.map((project, index) => (

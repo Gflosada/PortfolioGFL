@@ -1,7 +1,6 @@
 "use client"
 
 import { useState } from "react"
-import { motion } from "framer-motion"
 import { Send } from "lucide-react"
 import emailjs from '@emailjs/browser'
 
@@ -9,6 +8,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { useToast } from "@/hooks/use-toast"
+import styles from "@/components/landing-cyberpunk.module.css"
 
 export function ContactForm() {
   const { toast } = useToast()
@@ -73,16 +73,8 @@ export function ContactForm() {
   }
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
-      viewport={{ once: true }}
-    >
-      <div className="relative overflow-hidden rounded-xl bg-zinc-800/50 backdrop-blur-sm border border-zinc-700/50 p-6 transition-all duration-300 hover:border-blue-500/50">
-        <div className="absolute -inset-1 bg-gradient-to-r from-slate-500/10 to-blue-500/10 rounded-xl blur opacity-25 hover:opacity-100 transition duration-1000 hover:duration-200"></div>
-
-        <div className="relative">
+    <div className={`${styles.contactPanel} h-full`}>
+        <div className="relative z-10">
           <h3 className="text-2xl font-bold mb-6">Send Me a Message</h3>
 
           <form onSubmit={handleSubmit} className="space-y-6">
@@ -93,7 +85,7 @@ export function ContactForm() {
                 onChange={handleChange}
                 placeholder="Your Name"
                 required
-                className="bg-zinc-900/50 border-zinc-700 focus:border-blue-500 focus:ring-blue-500/20"
+                className="rounded-none border-white/15 bg-black/45 text-white placeholder:text-zinc-500 focus:border-white/50 focus:ring-white/20"
               />
             </div>
             <div className="space-y-2">
@@ -104,7 +96,7 @@ export function ContactForm() {
                 type="email"
                 placeholder="Your Email"
                 required
-                className="bg-zinc-900/50 border-zinc-700 focus:border-blue-500 focus:ring-blue-500/20"
+                className="rounded-none border-white/15 bg-black/45 text-white placeholder:text-zinc-500 focus:border-white/50 focus:ring-white/20"
               />
             </div>
             <div className="space-y-2">
@@ -114,7 +106,7 @@ export function ContactForm() {
                 onChange={handleChange}
                 placeholder="Subject"
                 required
-                className="bg-zinc-900/50 border-zinc-700 focus:border-blue-500 focus:ring-blue-500/20"
+                className="rounded-none border-white/15 bg-black/45 text-white placeholder:text-zinc-500 focus:border-white/50 focus:ring-white/20"
               />
             </div>
             <div className="space-y-2">
@@ -125,12 +117,12 @@ export function ContactForm() {
                 placeholder="Your Message"
                 rows={5}
                 required
-                className="bg-zinc-900/50 border-zinc-700 focus:border-blue-500 focus:ring-blue-500/20"
+                className="rounded-none border-white/15 bg-black/45 text-white placeholder:text-zinc-500 focus:border-white/50 focus:ring-white/20"
               />
             </div>
             <Button
               type="submit"
-              className="w-full bg-gradient-to-r from-slate-600 to-blue-600 hover:from-blue-600 hover:to-slate-600 font-medium py-3 px-6 rounded-xl flex justify-center items-center gap-2"
+              className="flex w-full items-center justify-center gap-2 rounded-none border border-white/20 bg-white px-6 py-3 font-medium text-black hover:bg-zinc-200"
               disabled={isSubmitting}
             >
               {isSubmitting ? (
@@ -143,7 +135,6 @@ export function ContactForm() {
             </Button>
           </form>
         </div>
-      </div>
-    </motion.div>
+    </div>
   )
 }

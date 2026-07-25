@@ -1,21 +1,16 @@
 import { Button } from "@/components/ui/button"
 import { SectionHeading } from "@/components/section-heading"
-import { GlassmorphicCard } from "@/components/glassmorphic-card"
+import styles from "@/components/landing-cyberpunk.module.css"
 
 export function AboutSection() {
   return (
-    <section id="about" className="py-32 relative">
-      <div className="absolute inset-0 z-0">
-        <div className="absolute bottom-1/3 left-1/3 w-64 h-64 bg-blue-400 rounded-full mix-blend-multiply filter blur-3xl opacity-8"></div>
-      </div>
-
+    <section id="about" className={styles.cyberSection}>
       <div className="container relative z-10">
-        <SectionHeading title="About Me" subtitle="My background and journey" />
+        <SectionHeading number="01" title="About Me" subtitle="About Me" />
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center mt-16">
-          <div className="relative">
-            <div className="absolute -inset-4 rounded-xl bg-gradient-to-r from-purple-500/20 to-pink-500/20 blur-xl opacity-70"></div>
-            <div className="relative aspect-square rounded-xl overflow-hidden border border-zinc-800">
+          <div className="relative" data-landing-reveal data-landing-parallax>
+            <div className={`relative aspect-square overflow-hidden ${styles.hudPanel}`}>
               <video
                 src="/kling_20260509_Image_to_Video_crea_video_2936_0.mp4"
                 aria-label="German Losada"
@@ -30,14 +25,14 @@ export function AboutSection() {
               <div className="absolute bottom-0 left-0 w-full p-6">
                 <div className="flex items-center gap-2">
                   <div className="w-3 h-3 rounded-full bg-green-500 animate-pulse"></div>
-                  <span className="text-sm font-medium">Available for work</span>
+                  <span className={styles.contactLabel}>Available for work</span>
                 </div>
               </div>
             </div>
           </div>
 
           <div className="space-y-6">
-            <GlassmorphicCard>
+            <div className={`${styles.hudPanel} p-6`} data-landing-card>
               <p className="text-lg text-zinc-300">
                 Product Designer and Front-End Developer focused on building intuitive, high-performance digital experiences in fintech. I specialize in translating complex workflows into clean, user-centered interfaces, combining strong UI/UX design with scalable Front-End development.
               </p>
@@ -68,9 +63,9 @@ export function AboutSection() {
               </div>
 
               <div className="mt-8">
-                <Button className="bg-zinc-800 hover:bg-zinc-700 text-white">Download Resume</Button>
+                <Button className="rounded-none border border-white/20 bg-white/10 text-white hover:bg-white/15">Download Resume</Button>
               </div>
-            </GlassmorphicCard>
+            </div>
           </div>
         </div>
       </div>
