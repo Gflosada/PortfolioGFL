@@ -3,6 +3,7 @@ import { Orbitron, Rajdhani } from 'next/font/google'
 import localFont from 'next/font/local'
 import './globals.css'
 import { FloatingNav } from '@/components/floating-nav'
+import { GoogleAnalytics } from '@/components/google-analytics'
 import { SitePreloader } from '@/components/site-preloader'
 
 const orbitron = Orbitron({
@@ -59,6 +60,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${orbitron.variable} ${rajdhani.variable} ${superSliced.variable}`} suppressHydrationWarning>
+        <GoogleAnalytics />
         <SitePreloader />
         <FloatingNav />
         {children}
