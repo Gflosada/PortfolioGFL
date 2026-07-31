@@ -4,26 +4,26 @@ import styles from "@/components/landing-cyberpunk.module.css"
 
 export function SkillsSection() {
   const skills = [
-    "HTML/CSS",
-    "JavaScript\nTypeScript",
-    "React.js",
-    "Next.js",
-    "Angular",
-    "Tailwind CSS",
-    "UI/UX Design",
-    "Figma/Adobe XD",
-    "Photoshop\nIllustrator",
-    "PHP/SQL",
-    "PostgreSQL",
-    "APIs",
-    "SEO",
-    "Digital Marketing",
-    "3D Modeling",
-    "Agile/Scrum",
-    "User Research",
-    "Prototyping",
-    "Wireframing",
-    "A/B Testing",
+    { name: "HTML/CSS", stackLabel: "Tech Stack" },
+    { name: "JavaScript\nTypeScript", stackLabel: "Tech Stack" },
+    { name: "React.js", stackLabel: "Tech Stack" },
+    { name: "Next.js", stackLabel: "Tech Stack" },
+    { name: "Angular", stackLabel: "Tech Stack" },
+    { name: "Tailwind CSS", stackLabel: "Tech Stack" },
+    { name: "UI/UX Design", stackLabel: "Design Stack" },
+    { name: "Figma/Adobe XD", stackLabel: "Design Stack" },
+    { name: "Photoshop\nIllustrator", stackLabel: "Design Stack" },
+    { name: "PHP/SQL", stackLabel: "Tech Stack" },
+    { name: "PostgreSQL", stackLabel: "Tech Stack" },
+    { name: "APIs", stackLabel: "Tech Stack" },
+    { name: "SEO", stackLabel: "Tech Stack" },
+    { name: "Digital Marketing", stackLabel: "Design Stack" },
+    { name: "3D Modeling", stackLabel: "Design Stack" },
+    { name: "Agile/Scrum", stackLabel: "Design Stack" },
+    { name: "User Research", stackLabel: "Design Stack" },
+    { name: "Prototyping", stackLabel: "Design Stack" },
+    { name: "Wireframing", stackLabel: "Design Stack" },
+    { name: "A/B Testing", stackLabel: "Design Stack" },
   ]
 
   return (
@@ -32,8 +32,8 @@ export function SkillsSection() {
         <SectionHeading number="04" title="My Skills" subtitle="Tool Stack" />
 
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-16">
-          {skills.map((skill, index) => (
-            <SkillBadge key={index} name={skill} />
+          {skills.map((skill) => (
+            <SkillBadge key={skill.name} name={skill.name} stackLabel={skill.stackLabel} />
           ))}
         </div>
       </div>

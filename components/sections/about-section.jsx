@@ -12,17 +12,19 @@ export function AboutSection() {
           <div className="relative" data-landing-reveal data-landing-parallax>
             <div className={`relative aspect-square overflow-hidden ${styles.hudPanel}`}>
               <video
-                src="/kling_20260509_Image_to_Video_crea_video_2936_0.mp4"
-                aria-label="German Losada"
-                className="w-full h-full object-cover"
-                autoPlay
-                loop
+                src="/videos/GFL_Design_Factory.mp4"
+                className="h-full w-full bg-[#071014] object-cover object-center"
                 muted
+                loop
                 playsInline
-                preload="metadata"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
-              <div className="absolute bottom-0 left-0 w-full p-6">
+                autoPlay
+                preload="auto"
+                data-landing-banner-video
+              >
+                Your browser does not support embedded video playback.
+              </video>
+              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/45 via-black/10 to-transparent"></div>
+              <div className="pointer-events-none absolute bottom-0 left-0 w-full p-6">
                 <div className="flex items-center gap-2">
                   <div className="w-3 h-3 rounded-full bg-green-500 animate-pulse"></div>
                   <span className={styles.contactLabel}>Available for work</span>

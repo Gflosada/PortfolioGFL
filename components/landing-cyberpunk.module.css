@@ -510,6 +510,7 @@
   z-index: 4;
   left: 50%;
   width: 100vw;
+  margin-top: clamp(1.25rem, 2.6vw, 2.5rem);
   margin-left: -50vw;
   overflow: hidden;
   border-top: 1px solid rgba(255, 255, 255, 0.14);
@@ -783,13 +784,15 @@
 .skillMeta {
   display: inline-flex;
   margin-top: 1rem;
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(202, 255, 37, 0.52);
+  background: rgba(202, 255, 37, 0.14);
   padding: 0.42rem 0.58rem;
-  color: var(--cyber-dim);
+  color: #d9ff59;
   font-size: 0.62rem;
   font-weight: 800;
   letter-spacing: 0.16em;
+  opacity: 0.7;
+  box-shadow: 0 0 18px rgba(202, 255, 37, 0.08);
 }
 
 .contactPanel {
@@ -914,8 +917,8 @@
     width: min(100% - 1.5rem, 1280px);
   }
 
-  .landingRoot :global([data-landing-reveal]),
-  .landingRoot :global([data-landing-card]),
+  .landingRoot :global([data-landing-reveal]:not([data-mobile-scroll-reveal])),
+  .landingRoot :global([data-landing-card]:not([data-mobile-scroll-reveal])),
   .hero :global([data-landing-hero-copy]) {
     visibility: visible !important;
     opacity: 1 !important;
@@ -1071,6 +1074,7 @@
   }
 
   .heroTicker {
+    margin-top: 0;
     border-top-color: rgba(255, 255, 255, 0.1);
   }
 

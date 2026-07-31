@@ -73,6 +73,7 @@ export function Timeline() {
           <div
             className={`w-full md:w-1/2 ${index % 2 === 0 ? "md:pl-10" : "md:pr-10"}`}
             data-landing-card
+            data-mobile-scroll-reveal
           >
             <div className={`${styles.hudPanel} p-6`}>
               <div className="relative">

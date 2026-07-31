@@ -49,6 +49,7 @@ export function LandingMotion({ children }) {
       mm.add(
         {
           desktop: "(min-width: 1024px)",
+          mobile: "(max-width: 1023px)",
           reduceMotion: "(prefers-reduced-motion: reduce)",
         },
         (context) => {

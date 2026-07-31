@@ -21,7 +21,7 @@ export function ProjectCard({
   const fitClass = imageFit === "contain" ? "object-contain p-3" : "object-cover"
 
   return (
-    <article className={styles.projectCard} data-landing-card>
+    <article className={styles.projectCard} data-landing-card data-mobile-scroll-reveal>
       <div className={styles.projectImage}>
         <img src={image || "/placeholder.svg"} alt={title} className={`${fitClass}`} />
       </div>

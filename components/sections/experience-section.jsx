@@ -6,7 +6,7 @@ export function ExperienceSection() {
   return (
     <section id="experience" className={styles.cyberSection}>
       <div className="container relative z-10">
-        <SectionHeading number="03" title="Work Experience" subtitle="Professional Journey" />
+        <SectionHeading number="03" title="Work Experience" subtitle="Professional Journey" mobileScrollReveal />
 
         <div className="mt-16">
           <Timeline />

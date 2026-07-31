@@ -134,7 +134,7 @@ export function ProjectsSection() {
   return (
     <section id="projects" className={styles.cyberSection}>
       <div className="container relative z-10">
-        <SectionHeading number="02" title="Featured Projects" subtitle="Selected Work" />
+        <SectionHeading number="02" title="Featured Projects" subtitle="Selected Work" mobileScrollReveal />
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-16">
           {projects.map((project, index) => (
