@@ -84,6 +84,7 @@ function BrowserVideoFrame({ label = "Project preview", className = "" }) {
           muted
           loop
           playsInline
+          preload="auto"
           className="w-full rounded-2xl shadow-2xl"
         />
       </div>

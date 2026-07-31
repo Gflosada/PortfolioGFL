@@ -291,9 +291,11 @@ function VideoFrame({ src, poster, title, caption }) {
         title={title}
         poster={poster}
         muted
+        autoPlay
+        loop
         playsInline
         controls
-        preload="metadata"
+        preload="auto"
         className="aspect-[9/16] max-h-[680px] w-full rounded-[1.55rem] bg-black object-contain"
       >
         Your browser does not support embedded video playback.

@@ -224,6 +224,7 @@ function VideoFrame({ src, title }) {
         loop
         playsInline
         controls
+        preload="auto"
         className="aspect-[9/16] max-h-[640px] w-full rounded-[1.55rem] bg-black object-contain"
       />
     </figure>

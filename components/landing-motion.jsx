@@ -65,6 +65,8 @@ export function LandingMotion({ children }) {
             return
           }
 
+          const videoCleanups = []
+
           gsap
             .timeline({ defaults: { ease: "power3.out" } })
             .to(heroCopy, { autoAlpha: 1, y: 0, duration: 0.82, stagger: 0.08 })
@@ -136,25 +138,32 @@ export function LandingMotion({ children }) {
           bannerVideos.forEach((video) => {
             const playVideo = () => {
               video.muted = true
+              video.loop = true
+              video.playsInline = true
               video.play().catch(() => {
                 // Muted autoplay is broadly supported, but some browsers retry after scroll.
               })
             }
 
-            video.addEventListener("loadedmetadata", playVideo, { once: true })
-
-            ScrollTrigger.create({
-              trigger: video,
-              start: "top bottom",
-              end: "bottom top",
-              onEnter: playVideo,
-              onEnterBack: playVideo,
-              onLeave: () => video.pause(),
-              onLeaveBack: () => video.pause(),
+            video.addEventListener("loadedmetadata", playVideo)
+            video.addEventListener("canplay", playVideo)
+            video.addEventListener("ended", playVideo)
+            window.addEventListener("focus", playVideo)
+            document.addEventListener("visibilitychange", playVideo)
+            videoCleanups.push(() => {
+              video.removeEventListener("loadedmetadata", playVideo)
+              video.removeEventListener("canplay", playVideo)
+              video.removeEventListener("ended", playVideo)
+              window.removeEventListener("focus", playVideo)
+              document.removeEventListener("visibilitychange", playVideo)
             })
 
             playVideo()
           })
+
+          return () => {
+            videoCleanups.forEach((cleanup) => cleanup())
+          }
         },
       )
 

@@ -12,46 +12,28 @@ export function ScrollActivatedBannerVideo({ src, poster, title }) {
       return undefined
     }
 
-    let isVisible = false
-
-    const playWhenVisible = () => {
-      if (!isVisible) {
-        return
-      }
-
+    const playVideo = () => {
       video.muted = true
+      video.loop = true
+      video.playsInline = true
       video.play().catch(() => {
-        // Browsers can still block playback in uncommon cases; the video remains visible.
+        // Muted autoplay can still be delayed until the browser is ready.
       })
     }
 
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        isVisible = entry.isIntersecting
-
-        if (isVisible) {
-          playWhenVisible()
-          return
-        }
-
-        video.pause()
-        video.currentTime = 0
-      },
-      { threshold: 0.42 }
-    )
-
-    const handleScroll = () => {
-      playWhenVisible()
-    }
-
-    video.addEventListener("loadedmetadata", playWhenVisible)
-    observer.observe(video)
-    window.addEventListener("scroll", handleScroll, { passive: true })
+    video.addEventListener("loadedmetadata", playVideo)
+    video.addEventListener("canplay", playVideo)
+    video.addEventListener("ended", playVideo)
+    window.addEventListener("focus", playVideo)
+    document.addEventListener("visibilitychange", playVideo)
+    playVideo()
 
     return () => {
-      video.removeEventListener("loadedmetadata", playWhenVisible)
-      observer.disconnect()
-      window.removeEventListener("scroll", handleScroll)
+      video.removeEventListener("loadedmetadata", playVideo)
+      video.removeEventListener("canplay", playVideo)
+      video.removeEventListener("ended", playVideo)
+      window.removeEventListener("focus", playVideo)
+      document.removeEventListener("visibilitychange", playVideo)
     }
   }, [])
 
@@ -67,7 +49,7 @@ export function ScrollActivatedBannerVideo({ src, poster, title }) {
         loop
         playsInline
         autoPlay
-        preload="metadata"
+        preload="auto"
         className="relative aspect-[16/10] max-h-[620px] w-full rounded-[1.55rem] bg-indigo-950 object-cover"
       >
         Your browser does not support embedded video playback.
