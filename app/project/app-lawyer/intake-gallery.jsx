@@ -4,9 +4,9 @@ import { Children, useEffect, useState } from "react"
 import useEmblaCarousel from "embla-carousel-react"
 import { ArrowLeft, ArrowRight } from "lucide-react"
 
-const labels = ["Personal ties", "Host details", "Immigration history", "Documents"]
+const intakeLabels = ["Personal ties", "Host details", "Immigration history", "Documents"]
 
-export function IntakeGallery({ children }) {
+export function IntakeGallery({ children, labels = intakeLabels, label = "Case intake screens" }) {
   const [viewport, api] = useEmblaCarousel({ align: "center", loop: false })
   const [selected, setSelected] = useState(0)
 
@@ -31,7 +31,7 @@ export function IntakeGallery({ children }) {
       className="min-w-0"
       role="region"
       aria-roledescription="carousel"
-      aria-label="Case intake screens"
+      aria-label={label}
       onKeyDown={(event) => {
         if (event.key === "ArrowLeft" || event.key === "ArrowRight") {
           event.preventDefault()

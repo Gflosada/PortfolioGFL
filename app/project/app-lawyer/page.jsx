@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { ArrowLeft, ArrowRight, ClipboardList, Files, House, ListChecks, MessageCircle, Route } from "lucide-react"
+import { ArrowLeft, ArrowRight, House, UserRound, Compass } from "lucide-react"
 
 import { ProjectSideNavigation } from "@/components/project-side-navigation"
 import { IntakeGallery } from "./intake-gallery"
@@ -269,6 +269,95 @@ function FlowDiagram({ title, description, steps }) {
   )
 }
 
+const proposedJourney = [
+  ["Discover requirements", "Find what applies", "Rules feel scattered", "Explain requirements in plain language"],
+  ["Choose application", "Choose the right path", "Unsure which route fits", "Keep the selected path in context"],
+  ["Complete intake", "Share personal details", "Too much to answer at once", "Break questions into clear steps"],
+  ["Upload documents", "Gather supporting files", "Unclear what is still needed", "Show what is missing and received"],
+  ["AI review", "Understand potential gaps", "Feedback can feel generic", "Link findings to a correction"],
+  ["Prepare application", "Check what remains", "Hard to judge readiness", "Summarize preparation status"],
+]
+
+function ProposedJourneyMap() {
+  return (
+    <figure className="mt-10">
+      <figcaption className="mb-5 max-w-3xl">
+        <h3 className="text-lg font-semibold text-[#151824]">A proposed applicant journey</h3>
+        <p className="mt-2 text-sm leading-6 text-[#626B7C]">Design assumption for discussion; this journey is not based on observed user research.</p>
+      </figcaption>
+      <ol className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+        {proposedJourney.map(([stage, action, friction, opportunity], index) => (
+          <li key={stage} className="relative min-w-0 rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
+            <div className="flex items-center gap-3">
+              <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-md bg-indigo-100 text-sm font-bold text-indigo-700">{String(index + 1).padStart(2, "0")}</span>
+              <h4 className="font-semibold text-[#151824]">{stage}</h4>
+              {index < proposedJourney.length - 1 ? <ArrowRight aria-hidden="true" className="ml-auto hidden h-4 w-4 text-indigo-500 xl:block" /> : null}
+            </div>
+            <p className="mt-4 text-sm leading-6 text-[#626B7C]"><span className="font-semibold text-[#151824]">Action · </span>{action}</p>
+            <p className="mt-2 text-sm leading-6 text-[#626B7C]"><span className="font-semibold text-[#151824]">Friction · </span>{friction}</p>
+            <p className="mt-2 text-sm leading-6 text-[#626B7C]"><span className="font-semibold text-indigo-700">Opportunity · </span>{opportunity}</p>
+          </li>
+        ))}
+      </ol>
+    </figure>
+  )
+}
+
+function InformationArchitecture() {
+  const navigation = [
+    { title: "Home", status: "Screens shown", items: ["Start application · choose type", "Recent applications", "Continue an application"] },
+    { title: "Cases", status: "Screens shown", items: ["All applications", "Open an individual case ↓"] },
+    { title: "Ask YuYo AI", status: "UI shown · live AI unverified", items: ["General immigration questions", "Case context · when authorized"] },
+    { title: "Documents", status: "Status UI shown · actions unverified", items: ["Case-linked files", "Upload · view · replace · remove", "Verification and review status"] },
+    { title: "Profile / Settings", status: "Planned / unverified", items: ["Account information", "Privacy and AI consent", "Account / data deletion"] },
+  ]
+  const workflow = [
+    { title: "Application overview", status: "Screen shown" },
+    { title: "Smart intake", status: "Visitor Visa implemented" },
+    { title: "Document checklist & uploads", status: "Processing mocked" },
+    { title: "AI application review", status: "Planned" },
+    { title: "Contextual AI assistance", status: "Interface shown · live AI unverified" },
+    { title: "Application package", status: "Planned" },
+  ]
+  return (
+    <figure className="mt-10">
+      <figcaption className="mb-5"><h3 className="text-lg font-semibold text-[#151824]">Information architecture</h3><p className="mt-2 text-sm leading-6 text-[#626B7C]">Global navigation opens into independent cases. Visitor Visa is the implemented intake shown here; other workflow capabilities are labeled by their current evidence.</p></figcaption>
+      <div className="rounded-lg border border-slate-200 bg-white p-5 sm:p-8">
+        <div className="mx-auto flex max-w-xs items-center justify-center gap-3 rounded-lg border border-indigo-200 bg-indigo-50 px-5 py-3 font-semibold text-indigo-950"><House aria-hidden="true" className="h-5 w-5" />YuYo</div>
+        <div className="mx-auto h-7 w-px bg-slate-300" aria-hidden="true" />
+        <div className="mx-auto mb-2 max-w-xs text-center text-xs font-bold uppercase tracking-[0.18em] text-slate-500">Global navigation</div>
+        <div className="relative pt-5">
+          <div aria-hidden="true" className="absolute left-[10%] right-[10%] top-0 hidden h-px bg-slate-300 lg:block" />
+          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
+            {navigation.map(({ title, status, items }) => <section key={title} className="relative min-w-0 rounded-lg border border-slate-200 bg-slate-50 p-4 lg:min-h-[174px]">
+              <div aria-hidden="true" className="absolute -top-5 left-1/2 hidden h-5 w-px bg-slate-300 lg:block" />
+              <h4 className="text-center text-sm font-semibold leading-5 text-[#151824]">{title}</h4>
+              <p className="mt-1 text-center text-[10px] leading-4 text-indigo-700">{status}</p>
+              <ul className="mt-3 space-y-2 border-t border-slate-200 pt-3">{items.map((item) => <li key={item} className="text-center text-xs leading-5 text-[#626B7C]">{item}</li>)}</ul>
+            </section>)}
+          </div>
+        </div>
+        <div className="mx-auto mt-5 flex max-w-xs items-center justify-center gap-2 text-xs font-bold uppercase tracking-[0.16em] text-indigo-700"><span aria-hidden="true" className="h-5 w-px bg-indigo-300" />Cases ↓ individual case<span aria-hidden="true" className="h-5 w-px bg-indigo-300" /></div>
+        <section className="mt-2 rounded-lg border border-indigo-200 bg-indigo-50/60 p-4 sm:p-5" aria-label="Individual case workflow">
+          <div className="mb-4 flex flex-wrap items-center justify-between gap-2">
+            <h4 className="font-semibold text-[#151824]">Inside an individual case</h4>
+            <span className="rounded-full border border-indigo-200 bg-white px-3 py-1 text-xs font-semibold text-indigo-700">Visitor Visa · primary implemented workflow</span>
+          </div>
+          <ol className="grid gap-3 sm:grid-cols-2 xl:grid-cols-6">
+            {workflow.map(({ title, status }, index) => <li key={title} className="relative flex min-w-0 flex-col rounded-md border border-slate-200 bg-white p-3 text-center shadow-sm">
+              {index < workflow.length - 1 ? <ArrowRight aria-hidden="true" className="absolute -right-3 top-1/2 z-10 hidden h-5 w-5 -translate-y-1/2 rounded-full bg-white text-indigo-500 xl:block" /> : null}
+              <span className="mx-auto flex h-7 w-7 items-center justify-center rounded-full bg-indigo-100 text-xs font-bold text-indigo-700">{String(index + 1).padStart(2, "0")}</span>
+              <span className="mt-2 text-xs font-semibold leading-5 text-[#151824]">{title}</span>
+              <span className="mt-2 text-[11px] leading-4 text-[#626B7C]">{status}</span>
+            </li>)}
+          </ol>
+        </section>
+        <p className="mt-4 text-center text-xs leading-5 text-[#626B7C]">Planned and unverified mark requested product scope without claiming those features are implemented.</p>
+      </div>
+    </figure>
+  )
+}
+
 function CaseSection({ id, eyebrow, title, body, children, tinted = false }) {
   return (
     <section id={id} className={`scroll-mt-24 border-t border-slate-200 px-5 py-16 sm:px-8 lg:px-12 lg:py-24 ${tinted ? "bg-indigo-50" : "bg-white"}`}>
@@ -418,14 +507,63 @@ export default function AppLawyerCaseStudyPage() {
 
       <CaseSection id="problem" eyebrow="02 - The problem" title="A complex process needs a clear next step." body="Applicants must interpret unfamiliar instructions, understand requirements, gather supporting documents, and keep track of what still needs attention. When those tasks are spread across different sources, it can be difficult to see how they fit together.">
         <div className="mt-8 grid gap-5 md:grid-cols-2">
-          <FeatureCard title="The user challenge" body="The experience must help people distinguish a missing document from an incomplete answer, understand sensitive requests, and decide what to do next without implying that preparation guarantees approval." />
-          <FeatureCard title="The design opportunity" body="Organize requirements around each application, reveal questions in manageable steps, and put guidance beside the task. The design hypothesis is that visible progress and clear next actions can make a document-heavy journey easier to follow." />
+          <FeatureCard title="Problem" body="Complex requirements, scattered information, and uncertainty about documents and next steps make immigration preparation difficult to navigate." />
+          <FeatureCard title="Design challenge" body="How might we simplify application preparation through a guided, transparent, AI-assisted experience?" />
         </div>
-        <blockquote className="mt-8 max-w-3xl border-l-4 border-indigo-600 pl-6 text-xl font-semibold leading-8 text-indigo-950">How might we transform a complex immigration process into a clear, guided, and trustworthy mobile experience?</blockquote>
-        <p className="mt-3 text-sm leading-6 text-[#626B7C]">This framing comes from product and interface analysis; formal user-research findings are not available for this case study.</p>
       </CaseSection>
 
-      <CaseSection id="team" eyebrow="03 - My role and team collaboration" title="Four people, with shared design decisions." body="I worked alongside a UX Designer and two Developers. My contribution focused on UI hierarchy, interaction design, reusable interface patterns, design-system foundations, and functional front-end prototyping. We shared experience decisions; the developers contributed engineering implementation and feasibility input.">
+      <CaseSection id="ux-process" eyebrow="03 - UX discovery and direction" title="Start with the applicant’s uncertainty." body="These artifacts make the design framing visible. The persona and journey are working assumptions for the product direction, not validated research findings." tinted>
+        <div className="grid gap-8 lg:grid-cols-[0.8fr_1.2fr]">
+          <article className="rounded-lg border border-slate-200 bg-white p-6 shadow-sm">
+            <div className="flex items-center gap-4">
+              <div aria-hidden="true" className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-indigo-100 text-indigo-700"><UserRound className="h-8 w-8" /></div>
+              <div><p className="text-xs font-bold uppercase tracking-[0.18em] text-indigo-600">Proto-Persona (Design Assumption)</p><h3 className="mt-1 text-xl font-semibold text-[#151824]">Sofia Martinez</h3><p className="text-sm text-[#626B7C]">Independent Applicant · 28</p></div>
+            </div>
+            <p className="mt-5 text-sm leading-6 text-[#626B7C]">Preparing a Canadian Visitor Visa application. Comfortable with technology, with limited immigration knowledge.</p>
+            <div className="mt-5 grid gap-4 border-t border-slate-200 pt-5 sm:grid-cols-2">
+              <div><h4 className="text-sm font-semibold text-[#151824]">Goal</h4><p className="mt-1 text-sm leading-6 text-[#626B7C]">Prepare her application independently.</p></div>
+              <div><h4 className="text-sm font-semibold text-[#151824]">Frictions</h4><p className="mt-1 text-sm leading-6 text-[#626B7C]">Complex requirements, unclear documents, uncertain progress.</p></div>
+              <div className="sm:col-span-2"><h4 className="text-sm font-semibold text-[#151824]">Needs</h4><p className="mt-1 text-sm leading-6 text-[#626B7C]">Step-by-step guidance, organized documents, and clear feedback.</p></div>
+            </div>
+          </article>
+          <div className="rounded-lg border border-slate-200 bg-white p-6 shadow-sm">
+            <div className="flex items-center gap-3"><Compass aria-hidden="true" className="h-5 w-5 text-indigo-600" /><h3 className="text-lg font-semibold text-[#151824]">Design principles</h3></div>
+            <div className="mt-5 grid gap-4 sm:grid-cols-2">
+              {[
+                ["Guided experience", "Break complex applications into manageable steps."],
+                ["Clear progress", "Show what is complete and what needs attention."],
+                ["Document transparency", "Distinguish missing, uploaded, reviewing, and accepted states."],
+                ["Actionable AI", "Connect review findings to specific corrections."],
+              ].map(([title, body], index) => <div key={title} className="border-l-2 border-indigo-200 pl-4"><p className="text-xs font-bold uppercase tracking-[0.16em] text-indigo-600">0{index + 1}</p><h4 className="mt-1 font-semibold text-[#151824]">{title}</h4><p className="mt-1 text-sm leading-6 text-[#626B7C]">{body}</p></div>)}
+            </div>
+          </div>
+        </div>
+        <ProposedJourneyMap />
+        <InformationArchitecture />
+        <figure className="mt-10">
+          <figcaption className="mb-5 max-w-3xl">
+            <h3 className="text-lg font-semibold text-[#151824]">YuYo workflow diagrams</h3>
+            <p className="mt-2 text-sm leading-6 text-[#626B7C]">Explore the architecture, individual case workflow, main journey, and document relationships. These diagrams show intended product structure; Visitor Visa intake is the primary implemented workflow.</p>
+          </figcaption>
+          <IntakeGallery
+            label="YuYo workflow diagrams"
+            labels={["Information architecture", "Inside a YuYo case", "Main user workflow", "How documents connect"]}
+          >
+            {[
+              ["ChatGPT Image Oct 15, 2026, 12_38_15 PM-1.png", "Information architecture diagram showing YuYo global navigation and the case workspace."],
+              ["ChatGPT Image Oct 15, 2026, 12_38_16 PM-2.png", "Diagram of the sections inside one independent YuYo application case."],
+              ["ChatGPT Image Oct 15, 2026, 12_38_17 PM-3.png", "Proposed user workflow from choosing an application through package preparation."],
+              ["ChatGPT Image Oct 15, 2026, 12_38_18 PM-4.png", "Diagram showing how case intake, documents, and AI assistance relate."],
+            ].map(([image, alt]) => (
+              <figure key={image} className="mx-auto w-full max-w-5xl overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm">
+                <img src={`/appLawyer/${image}`} alt={alt} loading="lazy" className="mx-auto block h-auto max-h-[70vh] w-full object-contain" />
+              </figure>
+            ))}
+          </IntakeGallery>
+        </figure>
+      </CaseSection>
+
+      <CaseSection id="team" eyebrow="04 - My role and team collaboration" title="Four people, with shared design decisions." body="I worked alongside a UX Designer and two Developers. My contribution focused on UI hierarchy, interaction design, reusable interface patterns, design-system foundations, and functional front-end prototyping. We shared experience decisions; the developers contributed engineering implementation and feasibility input.">
         <figure className="mt-8">
           <figcaption className="mb-5 text-lg font-semibold">Team structure and collaboration</figcaption>
           <ul className="grid gap-5 lg:grid-cols-3">
@@ -439,7 +577,7 @@ export default function AppLawyerCaseStudyPage() {
         </figure>
       </CaseSection>
 
-      <CaseSection id="process" eyebrow="04 - Design process" title="From understanding the task to making behaviour tangible." body="The design connects three questions: what information belongs to this case, what does the user need to do now, and what feedback helps them continue? The screens and prototype recordings make those questions tangible. Formal usability validation remains a next step." tinted>
+      <CaseSection id="process" eyebrow="05 - Design process" title="From understanding the task to making behaviour tangible." body="The design connects three questions: what information belongs to this case, what does the user need to do now, and what feedback helps them continue? The screens and prototype recordings make those questions tangible. Formal usability validation remains a next step." tinted>
         <FlowDiagram title="Iterative product design workflow" description="A working model for connecting experience decisions, interface detail, and implementation feedback. Stages overlap, and review can return to earlier decisions." steps={[
           ["Understanding the problem", "Frame unfamiliar requirements, document collection, and uncertainty about the next step as design challenges."],
           ["Defining user flows", "Connect intake, case context, documents, and next actions in the proposed journey."],
@@ -451,7 +589,7 @@ export default function AppLawyerCaseStudyPage() {
         ]} />
       </CaseSection>
 
-      <CaseSection id="product-journey" eyebrow="05 - Information architecture and user journey" title="One case provides the context for each task." body="The proposed architecture separates immigration applications into independent cases. Intake answers, documents, guidance, and progress belong to the relevant case, helping users understand what information applies to their current task.">
+      <CaseSection id="product-journey" eyebrow="06 - Product UI exploration" title="One case provides the context for each task." body="The proposed product flow separates immigration applications into independent cases. Intake answers, documents, guidance, and progress belong to the relevant case, helping users understand what information applies to their current task.">
         <FlowDiagram title="Application user journey" description="Intended end-to-end scope, from account access to submission guidance. The screens below demonstrate parts of the interface; document processing is explicitly mocked, and persistence, AI review, package generation, and live integrations remain unverified." steps={[
           ["Welcome → Home", "Welcome and authentication lead to the Home dashboard, where users choose an application type or find a saved case."],
           ["Start or resume a case", "Keep each application's answers, documents, and progress together.", ["New: select the application on Home → create its case → open the relevant intake, without selecting the type again.", "Existing: select a saved case → return to its current progress point."]],
@@ -461,29 +599,6 @@ export default function AppLawyerCaseStudyPage() {
           ["Check readiness and prepare export", "Assess preparation completeness, not the likelihood of government approval.", ["Not ready: show outstanding requirements and progress → return to the relevant intake or document step.", "Ready: generate a supported application package → provide guidance for official IRCC submission. This is intended scope, not a demonstrated export or submission service."]],
         ]} />
         <div className="mt-12 grid gap-8">{journeyStages.map((stage) => <ScreenStoryBlock key={stage.label} stage={stage} />)}</div>
-      </CaseSection>
-
-      <CaseSection id="decisions" eyebrow="06 - UI/UX design decisions" title="The reasoning behind the interface." body="Six choices shaped how the experience helps people start, continue, and prepare an application. The screens show the design direction; the next steps identify what still needs validation." tinted>
-        <div className="mt-8 grid gap-5 lg:grid-cols-2">
-          {[
-            { icon: House, title: "Select the application once", challenge: "A second selection step would interrupt someone who already chose a pathway on Home.", decision: "Carry that choice into a new case and its intake. I focused on making the primary action predictable while keeping new applications distinct from saved cases.", next: "Confirm the full navigation path and remove any repeated selection. This remains a refinement priority." },
-            { icon: ClipboardList, title: "Progressive intake", challenge: "A long application asks for more information than users can handle at once.", decision: "The visitor-visa design groups questions into eight steps with progress, required labels, and save feedback. I kept controls and hierarchy consistent; reliable state preservation is the trade-off.", next: "Check question clarity, validation feedback, and whether people can resume without lost answers." },
-            { icon: Files, title: "Document status and recovery", challenge: "An uploaded file can still need processing or review.", decision: "The document detail separates file and review status and labels mock processing. I paired each state with a next action; engineering must map those labels to actual processing states.", next: "Specify missing, failed-upload, replacement, and removal paths. These recovery states are not yet verified." },
-            { icon: Route, title: "Independent application cases", challenge: "Answers and documents can become confusing when someone manages more than one application.", decision: "The design separates starting fresh from continuing an existing case. I focused on making the active case and its next action visible; case identification matters more as the list grows.", next: "Validate switching and data isolation in the working product before claiming reliable persistence." },
-            { icon: MessageCircle, title: "Contextual AI assistance", challenge: "Generic guidance can lose the context of the current application.", decision: "The assistant design names the active application and communicates AI limitations. I focused on actionable, case-aware feedback while keeping consent and source reliability in view.", next: "Evaluate whether users understand the guidance and its limits. Live AI accuracy and integration remain unverified." },
-            { icon: ListChecks, title: "Readiness over prediction", challenge: "People need to know what remains without mistaking preparation for government approval.", decision: "The intended direction is a checklist of missing evidence and unresolved findings, linked back to corrections. I focused on actionable feedback over a single score.", next: "Existing screens retain risk labels. Refine that messaging toward preparation readiness and test comprehension." },
-          ].map(({ icon: Icon, title, challenge, decision, next }, index) => <article key={title} className="min-w-0 rounded-lg border border-slate-200 bg-white p-6 shadow-sm">
-            <div className="flex items-start gap-4">
-              <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-indigo-100 text-indigo-700"><Icon aria-hidden="true" className="h-6 w-6" /></span>
-              <div className="min-w-0"><p className="text-xs font-bold uppercase tracking-[0.18em] text-indigo-600">Decision {String(index + 1).padStart(2, "0")}</p><h3 className="mt-1 text-lg font-semibold leading-7 text-[#151824]">{title}</h3></div>
-            </div>
-            <div className="mt-5 space-y-4 border-l-2 border-indigo-200 pl-4">
-              <div><p className="text-xs font-bold uppercase tracking-[0.16em] text-indigo-700">Challenge</p><p className="mt-1 text-sm leading-6 text-[#626B7C]">{challenge}</p></div>
-              <div><p className="text-xs font-bold uppercase tracking-[0.16em] text-indigo-700">Design decision</p><p className="mt-1 text-sm leading-6 text-[#626B7C]">{decision}</p></div>
-            </div>
-            <p className="mt-5 rounded-md bg-indigo-50 px-4 py-3 text-sm leading-6 text-indigo-950"><strong>Next to validate: </strong>{next}</p>
-          </article>)}
-        </div>
       </CaseSection>
 
       <CaseSection id="design-system" eyebrow="07 - Design system and component architecture" title="Building a Consistent and Scalable Interface" body="I focused on reusable UI patterns so intake, case management, and document tasks could share a consistent interaction language. Design-system work connects visual foundations to states and behaviour, not only styling. The artifacts show recurring patterns; a complete production library and token inventory are not verified.">
