@@ -59,10 +59,10 @@ export function ProjectCard({
               className="rounded-none border border-[#caff25]/70 bg-white text-[#166534] hover:bg-[#f4ffe6] hover:text-[#14532d]"
               asChild
             >
-              <Link href={`/project/${slug}`} className={styles.projectCta}>
+              <a href={`/project/${slug}`} className={styles.projectCta}>
                 Show Case
                 <ArrowUpRight className="h-4 w-4" />
-              </Link>
+              </a>
             </Button>
           </div>
         ) : demoUrl ? (
