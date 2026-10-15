@@ -1,25 +1,13 @@
 import Link from "next/link"
-import {
-  ArrowLeft,
-  ArrowRight,
-  Bot,
-  BrainCircuit,
-  CheckCircle2,
-  FileText,
-  FolderOpen,
-  MessageSquareText,
-  Scale,
-  ShieldCheck,
-  Sparkles,
-  UploadCloud,
-} from "lucide-react"
+import { ArrowLeft, ArrowRight, ClipboardList, Files, House, ListChecks, MessageCircle, Route } from "lucide-react"
 
 import { ProjectSideNavigation } from "@/components/project-side-navigation"
+import { IntakeGallery } from "./intake-gallery"
 
 export const metadata = {
   title: "App Lawyer Case Study | German Losada",
   description:
-    "A product design and mobile development case study for App Lawyer, an AI-guided Canadian immigration workflow app.",
+    "UI/UX design, reusable interface patterns, and React-based prototyping for App Lawyer / YuYo, a Canadian immigration preparation product in development.",
 }
 
 const projectScreens = Array.from({ length: 21 }, (_, index) => {
@@ -28,49 +16,19 @@ const projectScreens = Array.from({ length: 21 }, (_, index) => {
   return {
     order,
     image: `/appLawyer/${order}.jpeg`,
+    // This capture includes extra blank space beneath the bottom action buttons.
+    cropBottom: order === 12 ? 80 : 0,
   }
 })
 
 const screenByOrder = new Map(projectScreens.map((screen) => [screen.order, screen]))
 
 const projectFacts = [
-  { label: "Role", value: "Product Designer and Front-End Developer" },
-  { label: "Platform", value: "iOS and Android" },
-  { label: "Stack", value: "React Native, Expo, TypeScript, Expo Router, Zustand, Supabase-ready" },
-  { label: "Focus", value: "UX strategy, AI workflows, mobile UI, product architecture" },
+  { label: "My role", value: "Product Designer (UI/UX) & Front-End Prototyping" },
+  { label: "Team", value: "1 Product Designer, 1 UX Designer, 2 Developers" },
+  { label: "Platform", value: "Mobile application" },
+  { label: "Focus", value: "UI/UX, Design Systems, React Prototyping" },
   { label: "Status", value: "Product in development" },
-]
-
-const goals = [
-  {
-    title: "Simplify complexity",
-    body: "Break Canadian immigration workflows into clear tasks, understandable language, and manageable next steps.",
-  },
-  {
-    title: "Centralize case information",
-    body: "Keep intake answers, documents, deadlines, risk notes, and progress in one connected case workspace.",
-  },
-  {
-    title: "Make AI context-aware",
-    body: "Use case details to support more relevant answers instead of treating every question as isolated chat.",
-  },
-  {
-    title: "Support user action",
-    body: "Move users from questions into checklists, document review, deadlines, and preparation tasks.",
-  },
-  {
-    title: "Maintain responsible boundaries",
-    body: "Position the product as information and preparation support, not a replacement for authorized legal advice.",
-  },
-]
-
-const roleItems = [
-  "Defined the product vision and MVP scope",
-  "Mapped the immigration case journey and information architecture",
-  "Designed onboarding, authentication, case creation, intake, document, deadline, review, and AI flows",
-  "Built a reusable mobile interface system for legal-tech workflows",
-  "Developed the app foundation with React Native, Expo, TypeScript, Expo Router, and Zustand",
-  "Prepared the architecture for Supabase authentication, database records, file storage, and future AI orchestration",
 ]
 
 const journeyStages = [
@@ -92,47 +50,52 @@ const journeyStages = [
     label: "02",
     eyebrow: "Onboarding",
     title: "The first-run experience explains the product promise in small, clear steps.",
-    body: "The onboarding sequence introduces immigration pathfinding, specialized IRCC AI agents, and document preparation without overwhelming the user before sign-in.",
+    body: "The onboarding sequence introduces immigration pathfinding, AI-assisted guidance, and document preparation without overwhelming the user before sign-in.",
     screens: [2, 3, 4].map((order) => ({
       ...screenByOrder.get(order),
       alt: `App Lawyer onboarding screen ${order - 1}`,
     })),
-    points: ["Value proposition", "Progressive disclosure", "Lower cognitive load"],
+    points: ["Value proposition", "Progressive disclosure", "Step-by-step introduction"],
     layout: "triple",
   },
   {
     label: "03",
     eyebrow: "Authentication",
     title: "Sign-in is designed as a calm gateway into a personal case workspace.",
-    body: "The authentication screen supports email and social sign-in paths while reinforcing that case information belongs inside a structured, private product experience.",
+    body: "The sign-in design brings account access before the case workspace. Email and social options are visible interface choices; this screen alone does not establish authentication integrations or data security.",
     screens: [
       {
         ...screenByOrder.get(5),
         alt: "App Lawyer sign-in screen with email and social authentication options",
       },
     ],
-    points: ["Account access", "Privacy framing", "Fast entry"],
+    points: ["Account access", "Privacy framing", "Sign-in options"],
     layout: "single",
   },
   {
     label: "04",
     eyebrow: "Case workspace",
-    title: "Returning users see active cases, progress, deadlines, and next actions.",
-    body: "The home and case continuation screens create a case-first experience. Users can start a new matter, resume an existing one, and understand what requires attention.",
+    title: "Users choose an application, start a new case, or continue where they left off.",
+    body: "Home gives application selection a clear starting point. The intended flow carries that choice into a new case without asking again, while saved cases resume in their own context. The case cards shown here pair progress with a next action; their risk labels are a refinement priority, not an approval prediction.",
     screens: [
+      {
+        order: "home-video",
+        video: "/WhatsApp Video 2026-10-15 at 8.59.48 AM.mp4",
+        alt: "App Lawyer home screen showing users which application they can start",
+      },
       {
         ...screenByOrder.get(7),
         alt: "App Lawyer continue case screen with active applications and progress",
       },
     ],
-    points: ["Active cases", "Progress visibility", "Next recommended steps"],
-    layout: "single",
+    points: ["Application selection", "Active cases", "Next recommended steps"],
+    layout: "double",
   },
   {
     label: "05",
     eyebrow: "Document organization",
     title: "Documents are treated as part of the workflow, not a detached file cabinet.",
-    body: "The product gives users a place to upload, categorize, review, and connect evidence to their immigration case while the AI assistant can explain missing or relevant documentation.",
+    body: "The document detail separates file status from review status and explicitly labels mock processing. That distinction matters: an uploaded file is not automatically verified evidence. The intended AI guidance would explain missing or relevant documents; its accuracy and integration still require validation.",
     screens: [8, 9].map((order) => ({
       ...screenByOrder.get(order),
       alt: `App Lawyer document workflow screen ${order}`,
@@ -144,7 +107,7 @@ const journeyStages = [
     label: "06",
     eyebrow: "Case setup and intake",
     title: "Structured intake turns a complex legal path into a guided product flow.",
-    body: "Users choose an immigration goal, decide whether to start or continue a case, and answer structured intake questions that can later inform documents, deadlines, review, and AI guidance.",
+    body: "These screens show case setup and grouped intake questions. The visitor-visa screen pairs a step count with completion progress and a save confirmation, giving users both orientation and feedback. The intended Home-to-intake flow preserves the selected application; cross-session saving still needs validation.",
     screens: [10, 11, 12].map((order) => ({
       ...screenByOrder.get(order),
       alt: `App Lawyer case setup and intake screen ${order}`,
@@ -161,17 +124,17 @@ const journeyStages = [
       ...screenByOrder.get(order),
       alt: `App Lawyer deadline and intake detail screen ${order}`,
     })),
-    points: ["Deadline tracking", "Detailed intake", "Save-and-continue behavior"],
+    points: ["Deadline tracking", "Detailed intake", "Intake continuity"],
     layout: "triple",
   },
   {
     label: "08",
     eyebrow: "CASE INTAKE",
-    title: "Users add their case details so the AI can understand their situation.",
-    body: "This workflow collects the user’s personal information, immigration history, goals, documents, and concerns so the AI assistant can give more relevant guidance based on their own case, not a generic answer.",
+    title: "Structured case details are intended to give guidance relevant context.",
+    body: "The intake groups personal ties, host details, immigration history, and documents into distinct steps. My interaction-design focus is keeping labels, selection controls, and navigation consistent as the questions change. Any use of these answers for AI guidance needs clear consent and case boundaries.",
     screens: [16, 17, 18, 19].map((order) => ({
       ...screenByOrder.get(order),
-      alt: `App Lawyer case dashboard and review screen ${order}`,
+      alt: `App Lawyer case intake screen ${order}`,
     })),
     points: ["Case intake", "Personalized AI", "User profile", "Immigration history", "Case context"],
     layout: "quad",
@@ -181,7 +144,7 @@ const journeyStages = [
     label: "09",
     eyebrow: "Case-aware AI",
     title: "AI is designed as a workflow layer, not a standalone chat tab.",
-    body: "The assistant can answer questions in the context of the active case, then connect guidance to checklists, documents, missing information, and next actions.",
+    body: "The assistant screen identifies the active application, labels case-specific guidance, and reminds users that AI can make mistakes. These cues connect the conversation to its context while setting expectations. Their presence does not establish legal accuracy or a live AI integration.",
     screens: [20, 21].map((order) => ({
       ...screenByOrder.get(order),
       alt: `App Lawyer AI assistant and checklist screen ${order}`,
@@ -189,64 +152,6 @@ const journeyStages = [
     points: ["Case context", "Actionable responses", "Document checklist"],
     layout: "double",
   },
-]
-
-const aiCapabilities = [
-  "Immigration questions and case-specific explanations",
-  "Intake clarification and missing-context prompts",
-  "Personalized document checklist generation",
-  "Missing-document explanations and preparation guidance",
-  "Refusal-letter and risk review support",
-  "Deadline explanations and suggested next steps",
-]
-
-const technicalItems = [
-  "React Native",
-  "Expo",
-  "TypeScript",
-  "Expo Router",
-  "Zustand",
-  "Reusable mobile components",
-  "Supabase-ready authentication",
-  "Supabase-ready database and file storage",
-  "Secure storage planning",
-  "Notification planning",
-  "Document upload integration",
-  "Separated AI service layer",
-]
-
-const productDecisions = [
-  {
-    title: "Case-first architecture",
-    body: "AI conversations, documents, deadlines, and review states are attached to a specific immigration matter.",
-  },
-  {
-    title: "Structured intake before guidance",
-    body: "The product gathers relevant facts before relying on AI support, reducing generic or under-contextual responses.",
-  },
-  {
-    title: "Action-oriented AI",
-    body: "AI responses are designed to lead into tasks, checklists, documents, drafts, or follow-up questions.",
-  },
-  {
-    title: "Progressive disclosure",
-    body: "Complex immigration details are introduced gradually so users can keep moving without reading dense legal content first.",
-  },
-  {
-    title: "Clear legal boundaries",
-    body: "The interface separates preparation support from advice that should come from a licensed lawyer or authorized representative.",
-  },
-]
-
-const outcomes = [
-  "Complete mobile product concept and visual system",
-  "End-to-end immigration case workflow",
-  "Functional React Native and Expo application foundation",
-  "Reusable component architecture",
-  "Case-aware AI workflow design",
-  "Document, intake, deadline, and review experiences",
-  "Supabase-ready data and backend architecture",
-  "Product prepared for further validation and production integration",
 ]
 
 function SectionHeader({ eyebrow, title, body, centered = false, light = false }) {
@@ -267,17 +172,38 @@ function SectionHeader({ eyebrow, title, body, centered = false, light = false }
   )
 }
 
-function PhoneFrame({ src, alt, priority = false, className = "" }) {
+function PhoneFrame({ src, video, alt, cropBottom = 0, priority = false, className = "" }) {
   return (
     <figure
-      className={`mx-auto flex w-full max-w-[250px] items-center justify-center overflow-hidden rounded-[2rem] border border-slate-200 bg-white p-2 shadow-2xl shadow-indigo-950/12 ${className}`}
+      className={`mx-auto h-fit w-full max-w-[250px] self-start overflow-hidden rounded-[2rem] border border-slate-200 bg-white p-2 shadow-2xl shadow-indigo-950/12 ${className}`}
     >
-      <img
-        src={src}
-        alt={alt}
-        loading={priority ? "eager" : "lazy"}
-        className="aspect-[946/2048] h-auto w-full rounded-[1.45rem] object-contain"
-      />
+      {video ? (
+        <video
+          src={video}
+          aria-label={alt}
+          muted
+          autoPlay
+          loop
+          playsInline
+          controls
+          preload="metadata"
+          className="block h-auto w-full rounded-[1.5rem] bg-black"
+        >
+          Your browser does not support embedded video playback.
+        </video>
+      ) : (
+        <div
+          className="w-full overflow-hidden rounded-[1.5rem]"
+          style={cropBottom ? { aspectRatio: `946 / ${2048 - cropBottom}` } : undefined}
+        >
+          <img
+            src={src}
+            alt={alt}
+            loading={priority ? "eager" : "lazy"}
+            className="block h-auto w-full"
+          />
+        </div>
+      )}
     </figure>
   )
 }
@@ -318,31 +244,61 @@ function FeatureCard({ icon: Icon, title, body, dark = false }) {
   )
 }
 
-function FlowDiagram({ steps, dark = false }) {
+// Static, semantic diagrams keep the narrative readable without client-side JavaScript.
+function FlowDiagram({ title, description, steps }) {
   return (
-    <div className="grid gap-3">
-      {steps.map((step, index) => (
-        <div
-          key={step}
-          className={`grid grid-cols-[auto_1fr] items-center gap-4 rounded-lg border p-4 ${
-            dark ? "border-white/10 bg-white/[0.055]" : "border-slate-200 bg-white"
-          }`}
-        >
-          <span
-            className={`flex h-9 w-9 items-center justify-center rounded-md text-sm font-bold ${
-              dark ? "bg-indigo-200 text-indigo-950" : "bg-indigo-600 text-white"
-            }`}
-          >
-            {String(index + 1).padStart(2, "0")}
-          </span>
-          <p className={`text-sm font-semibold leading-6 sm:text-base ${dark ? "text-white/82" : "text-[#2F3547]"}`}>{step}</p>
-        </div>
-      ))}
-    </div>
+    <figure className="mt-8">
+      <figcaption className="mb-5 max-w-3xl">
+        <h3 className="text-lg font-semibold text-[#151824]">{title}</h3>
+        <p className="mt-2 text-sm leading-6 text-[#626B7C]">{description}</p>
+      </figcaption>
+      <ol className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+        {steps.map(([label, body, branches], index) => (
+          <li key={label} className="min-w-0 rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
+            <div className="flex items-center justify-between gap-3">
+              <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-md bg-indigo-600 text-sm font-bold text-white">{String(index + 1).padStart(2, "0")}</span>
+              {index < steps.length - 1 ? <ArrowRight aria-hidden="true" className="h-5 w-5 rotate-90 text-indigo-600 md:rotate-0" /> : null}
+            </div>
+            <p className="mt-4 font-semibold leading-6 text-[#151824]">{label}</p>
+            <p className="mt-2 text-sm leading-6 text-[#626B7C]">{body}</p>
+            {branches ? <ul className="mt-3 list-disc space-y-2 pl-4 text-sm leading-6 text-[#626B7C]">{branches.map((branch) => <li key={branch}>{branch}</li>)}</ul> : null}
+          </li>
+        ))}
+      </ol>
+    </figure>
+  )
+}
+
+function CaseSection({ id, eyebrow, title, body, children, tinted = false }) {
+  return (
+    <section id={id} className={`scroll-mt-24 border-t border-slate-200 px-5 py-16 sm:px-8 lg:px-12 lg:py-24 ${tinted ? "bg-indigo-50" : "bg-white"}`}>
+      <div className="mx-auto max-w-7xl">
+        <SectionHeader eyebrow={eyebrow} title={title} body={body} />
+        {children}
+      </div>
+    </section>
+  )
+}
+
+function ReviewSequence({ label, steps }) {
+  return (
+    <ol aria-label={label} className="mt-6 flex flex-wrap gap-x-6 gap-y-3 text-sm font-semibold leading-6 text-indigo-950">
+      {steps.map((step, index) => <li key={step}>{index + 1}. {step}</li>)}
+    </ol>
   )
 }
 
 function ScreensGrid({ stage }) {
+  if (stage.featured) {
+    return (
+      <IntakeGallery>
+        {stage.screens.map((screen) => (
+          <PhoneFrame key={screen.order} src={screen.image} alt={screen.alt} cropBottom={screen.cropBottom} />
+        ))}
+      </IntakeGallery>
+    )
+  }
+
   const gridClass =
     stage.layout === "quad"
       ? "grid-cols-2 lg:grid-cols-4"
@@ -353,14 +309,16 @@ function ScreensGrid({ stage }) {
           : "grid-cols-1"
 
   return (
-    <div className={`grid gap-5 ${gridClass} ${stage.layout === "single" ? "place-items-center" : ""}`}>
+    <div className={`grid items-start gap-5 ${gridClass} ${stage.layout === "single" ? "place-items-center" : ""}`}>
       {stage.screens.map((screen, index) => (
         <PhoneFrame
           key={screen.order}
           src={screen.image}
+          video={screen.video}
+          cropBottom={screen.cropBottom}
           alt={screen.alt}
           priority={screen.order <= 4}
-          className={index % 2 === 1 ? "sm:mt-8" : ""}
+          className={!stage.screens.some((item) => item.video) && index % 2 === 1 ? "sm:mt-8" : ""}
         />
       ))}
     </div>
@@ -374,7 +332,7 @@ function ScreenStoryBlock({ stage }) {
         stage.featured ? "border-indigo-200 bg-indigo-50" : "border-slate-200 bg-white"
       }`}
     >
-      <div className="grid gap-8 lg:grid-cols-[0.82fr_1.18fr] lg:items-center">
+      <div className="grid min-w-0 gap-8 lg:grid-cols-[minmax(0,0.82fr)_minmax(0,1.18fr)] lg:items-center">
         <div>
           <div className="flex items-center gap-4">
             <span className="flex h-12 w-12 items-center justify-center rounded-lg bg-indigo-600 text-sm font-bold text-white">
@@ -410,18 +368,18 @@ export default function AppLawyerCaseStudyPage() {
         <div className="relative mx-auto grid max-w-7xl gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
           <div>
             <p className="inline-flex rounded-md border border-indigo-200 bg-white/80 px-4 py-2 text-xs font-bold uppercase tracking-[0.22em] text-indigo-700 shadow-sm">
-              AI Legal-Tech - Product Design - Mobile App Development
+              Product Design / Immigration Support / Coded Prototyping
             </p>
             <h1 className="mt-6 max-w-4xl text-5xl font-semibold leading-[1.02] tracking-normal text-[#151824] sm:text-6xl lg:text-7xl">
               App Lawyer
             </h1>
             <p className="mt-5 max-w-3xl text-2xl font-semibold leading-tight text-indigo-950 sm:text-3xl">
-              Designing an AI-guided immigration platform that turns complex IRCC processes into clear, manageable steps.
+              Simplifying Complex Immigration Journeys
             </p>
             <p className="mt-6 max-w-2xl text-lg leading-8 text-[#535D72]">
-              App Lawyer helps users organize Canadian immigration cases, understand requirements, prepare documents,
-              track deadlines, and receive personalized support from a case-aware AI assistant. It provides information
-              and preparation support, not a replacement for a licensed lawyer or authorized immigration representative.
+              App Lawyer / YuYo is an AI-assisted mobile product in development for people preparing Canadian immigration applications.
+              I focused on UI and interaction design, reusable components, and React-based prototypes to help make requirements, documents, and next steps understandable.
+              The product supports preparation; it does not provide legal representation, official IRCC advice, or guaranteed outcomes.
             </p>
 
             <div className="mt-8 grid gap-3 sm:grid-cols-2">
@@ -451,333 +409,148 @@ export default function AppLawyerCaseStudyPage() {
               <img
                 src="/appLawyer/ChatGPT Image Jun 18, 2026, 04_27_10 PM.png"
                 alt="App Lawyer product concept illustration"
-                className="relative aspect-[16/10] max-h-[620px] w-full rounded-[1.55rem] bg-indigo-950 object-cover"
+                className="relative h-auto max-h-[620px] w-full rounded-[1.55rem] bg-indigo-950 object-contain"
               />
             </figure>
           </div>
         </div>
       </section>
 
-      <section className="px-5 py-16 sm:px-8 lg:px-12 lg:py-24">
-        <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.85fr_1.15fr]">
-          <SectionHeader
-            eyebrow="Project summary"
-            title="Immigration information exists, but the experience is fragmented."
-            body="Canadian immigration applications can involve unfamiliar terminology, multiple documents, changing deadlines, government sources, personal notes, online forums, and case-specific uncertainty. App Lawyer brings those pieces into one structured mobile experience."
-          />
-          <div className="grid gap-5 md:grid-cols-2">
-            <FeatureCard
-              icon={FolderOpen}
-              title="The challenge"
-              body="Users need to understand which path applies, what documents are required, what information is missing, and what should happen next without relying on disconnected tools."
-            />
-            <FeatureCard
-              icon={ShieldCheck}
-              title="The solution"
-              body="The app connects case intake, requirements, documents, deadlines, risk review, and AI support around an active immigration matter."
-            />
-          </div>
+      <CaseSection id="problem" eyebrow="02 - The problem" title="A complex process needs a clear next step." body="Applicants must interpret unfamiliar instructions, understand requirements, gather supporting documents, and keep track of what still needs attention. When those tasks are spread across different sources, it can be difficult to see how they fit together.">
+        <div className="mt-8 grid gap-5 md:grid-cols-2">
+          <FeatureCard title="The user challenge" body="The experience must help people distinguish a missing document from an incomplete answer, understand sensitive requests, and decide what to do next without implying that preparation guarantees approval." />
+          <FeatureCard title="The design opportunity" body="Organize requirements around each application, reveal questions in manageable steps, and put guidance beside the task. The design hypothesis is that visible progress and clear next actions can make a document-heavy journey easier to follow." />
         </div>
-      </section>
+        <blockquote className="mt-8 max-w-3xl border-l-4 border-indigo-600 pl-6 text-xl font-semibold leading-8 text-indigo-950">How might we transform a complex immigration process into a clear, guided, and trustworthy mobile experience?</blockquote>
+        <p className="mt-3 text-sm leading-6 text-[#626B7C]">This framing comes from product and interface analysis; formal user-research findings are not available for this case study.</p>
+      </CaseSection>
 
-      <section className="border-y border-slate-200 bg-white px-5 py-16 sm:px-8 lg:px-12 lg:py-24">
-        <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[1fr_1fr]">
-          <div>
-            <SectionHeader
-              eyebrow="My role"
-              title="I connected product strategy, UX design, mobile UI, and front-end implementation."
-              body="I designed App Lawyer from product concept through mobile implementation, defining the workflow, interface system, AI experience, and technical foundation."
-            />
-          </div>
-          <FlowDiagram steps={roleItems} />
-        </div>
-      </section>
-
-      <section className="bg-[#111827] px-5 py-16 text-white sm:px-8 lg:px-12 lg:py-24">
-        <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
-          <div>
-            <SectionHeader
-              eyebrow="Product flow"
-              title="Experience the complete product flow."
-              body="The first product video shows how the mobile experience moves through case setup, navigation, AI support, and task-oriented legal-tech workflows."
-              light
-            />
-            <div className="mt-8 grid gap-4 sm:grid-cols-2">
-              {[
-                ["User profile", "Case intake", "Personalized case workspace"],
-                ["Documents", "Deadlines", "Case-aware AI guidance"],
-              ].map((items) => (
-                <div key={items.join("-")} className="rounded-lg border border-white/10 bg-white/[0.055] p-5">
-                  {items.map((item, index) => (
-                    <div key={item} className="flex items-center gap-3 py-2">
-                      <span className="flex h-7 w-7 items-center justify-center rounded-md bg-indigo-200 text-xs font-bold text-indigo-950">
-                        {index + 1}
-                      </span>
-                      <span className="font-semibold text-white/84">{item}</span>
-                    </div>
-                  ))}
-                </div>
-              ))}
-            </div>
-          </div>
-          <VideoFrame
-            src="/appLawyer/video AI bot.mp4"
-            poster="/appLawyer/6.jpeg"
-            title="App Lawyer product flow video"
-            caption="Product overview video with muted inline playback and native controls."
-          />
-        </div>
-      </section>
-
-      <section id="product-journey" className="px-5 py-16 sm:px-8 lg:px-12 lg:py-24">
-        <div className="mx-auto max-w-7xl">
-          <SectionHeader
-            eyebrow="APP WORKFLOW"
-            title="A complete journey through the App Lawyer experience."
-            body="This section presents the app flow from launch and onboarding to case creation, document organization, deadlines, and case-aware AI support, showing how each feature connects into one guided immigration preparation experience."
-            centered
-          />
-          <div className="mt-12 grid gap-8">
-            {journeyStages.map((stage) => (
-              <ScreenStoryBlock key={stage.label} stage={stage} />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="border-y border-slate-200 bg-indigo-50 px-5 py-16 sm:px-8 lg:px-12 lg:py-24">
-        <div className="mx-auto max-w-7xl">
-          <SectionHeader
-            eyebrow="Product goals"
-            title="The product is designed to make a complex process feel clear, connected, and responsible."
-            centered
-          />
-          <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
-            {goals.map((goal) => (
-              <FeatureCard key={goal.title} icon={CheckCircle2} title={goal.title} body={goal.body} />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="px-5 py-16 sm:px-8 lg:px-12 lg:py-24">
-        <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.82fr_1.18fr]">
-          <SectionHeader
-            eyebrow="AI experience"
-            title="From a generic chatbot to a case-aware assistant."
-            body="The assistant is designed to work with the rest of the product. It can use the active case, intake answers, uploaded documents, deadlines, and previous chat context to provide more relevant support while keeping legal boundaries visible."
-          />
-          <div className="grid gap-4 sm:grid-cols-2">
-            {aiCapabilities.map((capability, index) => {
-              const icons = [MessageSquareText, BrainCircuit, FileText, UploadCloud, Scale, Bot]
-              const Icon = icons[index]
-
-              return <FeatureCard key={capability} icon={Icon} title={capability} body="Designed as part of the product workflow rather than isolated from case progress." />
-            })}
-          </div>
-        </div>
-      </section>
-
-      <section className="bg-[#111827] px-5 py-16 text-white sm:px-8 lg:px-12 lg:py-24">
-        <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
-          <VideoFrame
-            src="/appLawyer/video app.mp4"
-            poster="/appLawyer/20.jpeg"
-            title="App Lawyer case-aware AI and document workflow video"
-            caption="Second product video focused on AI, documents, and case workflow support."
-          />
-          <div>
-            <SectionHeader
-              eyebrow="AI architecture"
-              title="Case-aware AI in action."
-              body="The AI layer should separate known facts from assumptions, identify missing context, avoid guaranteeing outcomes, reference official sources when available, and recommend professional help for high-risk situations."
-              light
-            />
-            <div className="mt-8">
-              <FlowDiagram
-                dark
-                steps={[
-                  "User question",
-                  "Active case selected",
-                  "Case data gathered from profile, intake, documents, deadlines, and chat history",
-                  "Relevant immigration information considered",
-                  "AI response generated with safety and boundary checks",
-                  "Personalized response returns with next actions",
-                ]}
-              />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="px-5 py-16 sm:px-8 lg:px-12 lg:py-24">
-        <div className="mx-auto max-w-7xl">
-          <SectionHeader
-            eyebrow="UX workflow"
-            title="The core workflow connects onboarding, case intake, documents, AI, deadlines, and review."
-            centered
-          />
-          <div className="mt-10 grid gap-3 md:grid-cols-2 lg:grid-cols-5">
+      <CaseSection id="team" eyebrow="03 - My role and team collaboration" title="Four people, with shared design decisions." body="I worked alongside a UX Designer and two Developers. My contribution focused on UI hierarchy, interaction design, reusable interface patterns, design-system foundations, and functional front-end prototyping. We shared experience decisions; the developers contributed engineering implementation and feasibility input.">
+        <figure className="mt-8">
+          <figcaption className="mb-5 text-lg font-semibold">Team structure and collaboration</figcaption>
+          <ul className="grid gap-5 lg:grid-cols-3">
             {[
-              "Onboarding",
-              "Account creation",
-              "Create a case",
-              "Complete intake",
-              "Generate requirements",
-              "Upload documents",
-              "Ask case-specific questions",
-              "Track deadlines and tasks",
-              "Review missing items and risks",
-              "Prepare the case package",
-            ].map((step, index) => (
-              <div key={step} className="rounded-lg border border-slate-200 bg-white p-4 shadow-sm">
-                <p className="text-sm font-bold text-indigo-600">{String(index + 1).padStart(2, "0")}</p>
-                <p className="mt-3 font-semibold leading-6 text-[#151824]">{step}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+              ["UX Designer", "Shared UX direction", "UX collaboration, information architecture, and experience design, connecting individual screens to the wider application journey."],
+              ["My role", "Product Designer (UI/UX) & Front-End Prototyping", "I translated experience requirements into UI hierarchy, reusable components, interaction states, and React-based prototypes for design-to-development discussion."],
+              ["Two Developers", "Engineering collaboration", "Engineering implementation and technical feasibility input, helping connect interface behaviour with data dependencies and implementation constraints."],
+            ].map(([title, role, body]) => <li key={title} className="rounded-lg border border-slate-200 bg-white p-6 shadow-sm"><h3 className="text-lg font-semibold">{title}</h3><p className="mt-2 font-semibold text-indigo-700">{role}</p><p className="mt-3 text-sm leading-6 text-[#626B7C]">{body}</p></li>)}
+          </ul>
+          <p className="mt-5 rounded-lg border border-indigo-200 bg-indigo-50 p-5 text-sm leading-7 text-indigo-950">We connected UX direction, UI detail, and engineering through shared decisions. My contribution was making the visual and interactive intent concrete enough for the team to discuss and refine.</p>
+        </figure>
+      </CaseSection>
 
-      <section className="border-y border-slate-200 bg-white px-5 py-16 sm:px-8 lg:px-12 lg:py-24">
-        <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.85fr_1.15fr]">
-          <SectionHeader
-            eyebrow="Information architecture"
-            title="Global tools and case-specific spaces work together."
-            body="The architecture supports quick access to important tools while keeping case-specific information connected to the active immigration matter."
-          />
-          <div className="rounded-lg border border-slate-200 bg-slate-50 p-6 font-mono text-sm leading-7 text-slate-700 shadow-sm">
-            <p>App Lawyer</p>
-            <p>|-- Home</p>
-            <p>|-- Cases</p>
-            <p>|   |-- Case overview</p>
-            <p>|   |-- Intake</p>
-            <p>|   |-- Documents</p>
-            <p>|   |-- Deadlines</p>
-            <p>|   |-- AI chat</p>
-            <p>|   |-- Review</p>
-            <p>|-- Ask AI</p>
-            <p>|-- Documents</p>
-            <p>|-- Profile</p>
-          </div>
-        </div>
-      </section>
+      <CaseSection id="process" eyebrow="04 - Design process" title="From understanding the task to making behaviour tangible." body="The design connects three questions: what information belongs to this case, what does the user need to do now, and what feedback helps them continue? The screens and prototype recordings make those questions tangible. Formal usability validation remains a next step." tinted>
+        <FlowDiagram title="Iterative product design workflow" description="A working model for connecting experience decisions, interface detail, and implementation feedback. Stages overlap, and review can return to earlier decisions." steps={[
+          ["Understanding the problem", "Frame unfamiliar requirements, document collection, and uncertainty about the next step as design challenges."],
+          ["Defining user flows", "Connect intake, case context, documents, and next actions in the proposed journey."],
+          ["UX exploration", "Group related questions and separate starting a case from returning to one; explore how much detail belongs at each step."],
+          ["UI design", "Make hierarchy, navigation, and task context visible in the screen designs below."],
+          ["Interactive prototyping", "Use the recorded experience to communicate movement between screens and intended behaviour."],
+          ["Feedback and iteration", "Next, evaluate whether people understand progress, document statuses, and how to recover from incomplete information."],
+          ["Development collaboration", "Use interaction examples to discuss feasibility, state changes, and data dependencies with developers."],
+        ]} />
+      </CaseSection>
 
-      <section className="px-5 py-16 sm:px-8 lg:px-12 lg:py-24">
-        <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[1.05fr_0.95fr]">
-          <div>
-            <SectionHeader
-              eyebrow="Design system"
-              title="A mobile interface system for clarity, trust, and support."
-              body="The visual system uses soft lavender surfaces, strong purple action states, concise cards, progress indicators, document states, deadline cards, AI message modules, and friendly brand illustration moments to make a serious workflow feel approachable."
-            />
-            <div className="mt-8 grid gap-4 sm:grid-cols-2">
-              {["Typography", "Color palette", "Buttons", "Form fields", "Status tags", "Progress indicators", "AI messages", "Document cards"].map((item) => (
-                <div key={item} className="rounded-lg border border-slate-200 bg-white p-4 shadow-sm">
-                  <p className="font-semibold text-[#151824]">{item}</p>
-                </div>
-              ))}
+      <CaseSection id="product-journey" eyebrow="05 - Information architecture and user journey" title="One case provides the context for each task." body="The proposed architecture separates immigration applications into independent cases. Intake answers, documents, guidance, and progress belong to the relevant case, helping users understand what information applies to their current task.">
+        <FlowDiagram title="Application user journey" description="Intended end-to-end scope, from account access to submission guidance. The screens below demonstrate parts of the interface; document processing is explicitly mocked, and persistence, AI review, package generation, and live integrations remain unverified." steps={[
+          ["Welcome → Home", "Welcome and authentication lead to the Home dashboard, where users choose an application type or find a saved case."],
+          ["Start or resume a case", "Keep each application's answers, documents, and progress together.", ["New: select the application on Home → create its case → open the relevant intake, without selecting the type again.", "Existing: select a saved case → return to its current progress point."]],
+          ["Complete intake and save", "Collect personal and application information in manageable steps, with visible progress.", ["Incomplete: identify missing fields → edit and save → return to the last relevant intake step.", "Complete: save the information → continue to the document checklist."]],
+          ["Prepare and check documents", "Explain required documents, accept uploads, and distinguish processing from verification.", ["Not ready: identify missing files or upload/verification errors → explain requirements → replace or remove files → check again.", "Ready: continue to AI-assisted application review."]],
+          ["Review findings and correct", "Connect each finding to the relevant intake answer or document, with an explanation of why it matters.", ["Issues found: ask YuYo AI for context → correct information or replace documents → re-review when needed.", "No unresolved requirements: continue to the final readiness checklist."]],
+          ["Check readiness and prepare export", "Assess preparation completeness, not the likelihood of government approval.", ["Not ready: show outstanding requirements and progress → return to the relevant intake or document step.", "Ready: generate a supported application package → provide guidance for official IRCC submission. This is intended scope, not a demonstrated export or submission service."]],
+        ]} />
+        <div className="mt-12 grid gap-8">{journeyStages.map((stage) => <ScreenStoryBlock key={stage.label} stage={stage} />)}</div>
+      </CaseSection>
+
+      <CaseSection id="decisions" eyebrow="06 - UI/UX design decisions" title="The reasoning behind the interface." body="Six choices shaped how the experience helps people start, continue, and prepare an application. The screens show the design direction; the next steps identify what still needs validation." tinted>
+        <div className="mt-8 grid gap-5 lg:grid-cols-2">
+          {[
+            { icon: House, title: "Select the application once", challenge: "A second selection step would interrupt someone who already chose a pathway on Home.", decision: "Carry that choice into a new case and its intake. I focused on making the primary action predictable while keeping new applications distinct from saved cases.", next: "Confirm the full navigation path and remove any repeated selection. This remains a refinement priority." },
+            { icon: ClipboardList, title: "Progressive intake", challenge: "A long application asks for more information than users can handle at once.", decision: "The visitor-visa design groups questions into eight steps with progress, required labels, and save feedback. I kept controls and hierarchy consistent; reliable state preservation is the trade-off.", next: "Check question clarity, validation feedback, and whether people can resume without lost answers." },
+            { icon: Files, title: "Document status and recovery", challenge: "An uploaded file can still need processing or review.", decision: "The document detail separates file and review status and labels mock processing. I paired each state with a next action; engineering must map those labels to actual processing states.", next: "Specify missing, failed-upload, replacement, and removal paths. These recovery states are not yet verified." },
+            { icon: Route, title: "Independent application cases", challenge: "Answers and documents can become confusing when someone manages more than one application.", decision: "The design separates starting fresh from continuing an existing case. I focused on making the active case and its next action visible; case identification matters more as the list grows.", next: "Validate switching and data isolation in the working product before claiming reliable persistence." },
+            { icon: MessageCircle, title: "Contextual AI assistance", challenge: "Generic guidance can lose the context of the current application.", decision: "The assistant design names the active application and communicates AI limitations. I focused on actionable, case-aware feedback while keeping consent and source reliability in view.", next: "Evaluate whether users understand the guidance and its limits. Live AI accuracy and integration remain unverified." },
+            { icon: ListChecks, title: "Readiness over prediction", challenge: "People need to know what remains without mistaking preparation for government approval.", decision: "The intended direction is a checklist of missing evidence and unresolved findings, linked back to corrections. I focused on actionable feedback over a single score.", next: "Existing screens retain risk labels. Refine that messaging toward preparation readiness and test comprehension." },
+          ].map(({ icon: Icon, title, challenge, decision, next }, index) => <article key={title} className="min-w-0 rounded-lg border border-slate-200 bg-white p-6 shadow-sm">
+            <div className="flex items-start gap-4">
+              <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-indigo-100 text-indigo-700"><Icon aria-hidden="true" className="h-6 w-6" /></span>
+              <div className="min-w-0"><p className="text-xs font-bold uppercase tracking-[0.18em] text-indigo-600">Decision {String(index + 1).padStart(2, "0")}</p><h3 className="mt-1 text-lg font-semibold leading-7 text-[#151824]">{title}</h3></div>
             </div>
-          </div>
-          <div className="rounded-lg border border-slate-200 bg-white p-6 shadow-sm">
-            <p className="text-xs font-bold uppercase tracking-[0.2em] text-slate-500">Palette</p>
-            <div className="mt-5 grid gap-3">
-              {[
-                ["Trust purple", "#6166F5"],
-                ["Soft lavender", "#EEF2FF"],
-                ["Deep ink", "#151824"],
-                ["Slate text", "#626B7C"],
-                ["Signal amber", "#F59E0B"],
-                ["Success green", "#22C55E"],
-              ].map(([name, hex]) => (
-                <div key={name} className="grid grid-cols-[72px_1fr_auto] items-center gap-4">
-                  <span className="h-12 rounded-lg border border-slate-200" style={{ backgroundColor: hex }} />
-                  <span className="font-semibold text-[#151824]">{name}</span>
-                  <span className="font-mono text-sm text-slate-500">{hex}</span>
-                </div>
-              ))}
+            <div className="mt-5 space-y-4 border-l-2 border-indigo-200 pl-4">
+              <div><p className="text-xs font-bold uppercase tracking-[0.16em] text-indigo-700">Challenge</p><p className="mt-1 text-sm leading-6 text-[#626B7C]">{challenge}</p></div>
+              <div><p className="text-xs font-bold uppercase tracking-[0.16em] text-indigo-700">Design decision</p><p className="mt-1 text-sm leading-6 text-[#626B7C]">{decision}</p></div>
             </div>
-          </div>
+            <p className="mt-5 rounded-md bg-indigo-50 px-4 py-3 text-sm leading-6 text-indigo-950"><strong>Next to validate: </strong>{next}</p>
+          </article>)}
         </div>
-      </section>
+      </CaseSection>
 
-      <section className="border-y border-slate-200 bg-indigo-50 px-5 py-16 sm:px-8 lg:px-12 lg:py-24">
-        <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.82fr_1.18fr]">
-          <SectionHeader
-            eyebrow="Development"
-            title="Designing the interface and building the product."
-            body="The product was implemented as a mobile application foundation, not only a static prototype. The architecture separates navigation, screens, reusable components, application state, AI orchestration, and future backend integration."
-          />
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {technicalItems.map((item) => (
-              <div key={item} className="rounded-lg border border-indigo-100 bg-white p-4 shadow-sm">
-                <Sparkles className="h-5 w-5 text-indigo-600" />
-                <p className="mt-3 font-semibold leading-6 text-[#151824]">{item}</p>
-              </div>
-            ))}
-          </div>
+      <CaseSection id="design-system" eyebrow="07 - Design system and component architecture" title="Building a Consistent and Scalable Interface" body="I focused on reusable UI patterns so intake, case management, and document tasks could share a consistent interaction language. Design-system work connects visual foundations to states and behaviour, not only styling. The artifacts show recurring patterns; a complete production library and token inventory are not verified.">
+        <div className="mt-8 grid gap-5 md:grid-cols-2">
+          <FeatureCard title="Foundations and tokens" body="Colour roles distinguish primary actions, supporting surfaces, and feedback. Type hierarchy separates task titles, labels, and help; spacing and rounded surfaces group related information. Naming these decisions as colour, type, spacing, and radius tokens would make changes reusable across screens. Exact mobile values and a design-to-code token mapping remain to be documented." />
+          <FeatureCard title="Document detail and status" body="Purpose: connect one document to its status and next action. The shown detail includes File: Uploaded, Review: Ok, Mock Processing, Open file, and Ask AI. Reusing the pattern across document types requires keeping file and review states separate. Engineering must map each state to available actions; missing, uploading, failed, replace, and remove paths still need specification and validation." />
+          <FeatureCard title="Intake fields and actions" body="Purpose: reuse clear data entry across intake steps. The visitor-visa screen shows labeled fields, a Required marker, a selection control, a muted Back action, and Save and next. I focus on consistent hierarchy and interaction patterns. Implementation needs associated labels, appropriate input semantics, preserved values, and understandable validation; visible styling alone does not prove accessible or disabled behaviour." />
+          <FeatureCard title="Application progress" body="Purpose: keep the current stage and next action visible. Intake shows Step 1 of 8, 13% complete, and Changes saved; case cards pair completeness with a next task. Reuse the pattern while distinguishing intake progress from overall readiness. Engineering needs defined calculation and save states, responsive labels, and accessible announcements. These percentages describe example screen content, not measured outcomes." />
         </div>
-      </section>
+        <FlowDiagram title="Design system to development architecture" description="The intended architecture: share foundations, encode repeatable decisions, and compose screens from agreed patterns. This supports consistent updates and fewer repeated design decisions; complete token implementation remains to be documented." steps={[
+          ["Design foundations", "Define roles for colour, type, spacing, radius, and layout."],
+          ["Design tokens", "Name reusable values so intent can be discussed and maintained."],
+          ["Reusable components", "Specify controls, content patterns, variants, and feedback."],
+          ["Product screens", "Compose consistent patterns around the user’s task."],
+          ["Consistent experience", "Review design-to-code behaviour with developers and reuse the patterns as workflows expand."],
+        ]} />
+      </CaseSection>
 
-      <section className="px-5 py-16 sm:px-8 lg:px-12 lg:py-24">
+      <section id="prototype" className="scroll-mt-24 bg-[#111827] px-5 py-16 text-white sm:px-8 lg:px-12 lg:py-24">
         <div className="mx-auto max-w-7xl">
-          <SectionHeader
-            eyebrow="Product decisions"
-            title="Key decisions that shaped the product experience."
-            centered
-          />
-          <div className="mt-10 grid gap-4 md:grid-cols-5">
-            {productDecisions.map((decision) => (
-              <FeatureCard key={decision.title} title={decision.title} body={decision.body} />
-            ))}
+          <SectionHeader eyebrow="08 - From design to functional prototypes" title="Make the interaction available for discussion." body="My role included React-based front-end prototyping alongside UI and interaction design. A working prototype gives the team a concrete way to discuss how users move between screens, interact with components, and recover from errors. The recordings show a product demonstration; live integrations and production readiness remain unverified." light />
+          <div className="mt-8 rounded-lg border border-white/15 bg-white p-6">
+            <h3 className="font-semibold text-[#151824]">Design-to-prototype workflow</h3>
+            <p className="mt-2 text-sm leading-6 text-[#626B7C]">A review approach for connecting interface decisions with behaviour and engineering feedback.</p>
+            <ReviewSequence label="Design-to-prototype workflow" steps={["UI design", "Interaction specifications", "React-based prototype", "Team review", "Refinement", "Engineering implementation"]} />
           </div>
-        </div>
-      </section>
-
-      <section className="border-y border-slate-200 bg-white px-5 py-16 sm:px-8 lg:px-12 lg:py-24">
-        <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.9fr_1.1fr]">
-          <SectionHeader
-            eyebrow="Challenges and learnings"
-            title="Designing for complexity, trust, and uncertainty."
-            body="The hardest design work was balancing useful AI support with responsible boundaries, translating complex immigration language into user actions, and making structured workflows feel supportive for users who may be stressed or uncertain."
-          />
-          <FlowDiagram
-            steps={[
-              "Create trust without positioning the AI as a licensed lawyer.",
-              "Connect conversational AI with structured case workflows.",
-              "Balance friendly branding with a serious legal context.",
-              "Maintain consistency across many document, deadline, and review states.",
-              "Design an architecture that can grow beyond mock data.",
-            ]}
-          />
-        </div>
-      </section>
-
-      <section className="px-5 py-16 sm:px-8 lg:px-12 lg:py-24">
-        <div className="mx-auto max-w-5xl text-center">
-          <SectionHeader
-            eyebrow="Results and status"
-            title="A complete product foundation currently in development."
-            body="App Lawyer demonstrates how product thinking, UX design, interface systems, AI experience design, and front-end development can transform a highly complex service into a clearer and more actionable mobile product."
-            centered
-          />
-          <div className="mt-10 grid gap-4 sm:grid-cols-2">
-            {outcomes.map((outcome) => (
-              <div key={outcome} className="rounded-lg border border-slate-200 bg-white p-5 text-left shadow-sm">
-                <CheckCircle2 className="h-5 w-5 text-indigo-600" />
-                <p className="mt-3 font-semibold leading-7 text-[#151824]">{outcome}</p>
-              </div>
-            ))}
+          <div className="mt-10 grid items-start gap-10 md:grid-cols-2">
+            <VideoFrame src="/appLawyer/video AI bot.mp4" poster="/appLawyer/6.jpeg" title="App Lawyer product flow video" caption="Product-flow demonstration: use the transitions to discuss navigation, task order, and where users need feedback." />
+            <VideoFrame src="/appLawyer/video app.mp4" poster="/appLawyer/20.jpeg" title="App Lawyer case-aware AI and document workflow video" caption="AI and document-workflow demonstration: discuss how case context, document status, and guidance connect." />
           </div>
+          <p className="mt-8 max-w-3xl text-base leading-8 text-white/80">My focus is translating reusable interface patterns into interactions the team can inspect. Prototypes also give us a place to explore narrow layouts, incomplete answers, and error recovery before committing to implementation. These are review priorities; the recordings are not formal usability-test results.</p>
         </div>
       </section>
 
-      <section className="border-t border-slate-200 bg-[#111827] px-5 py-16 text-white sm:px-8 lg:px-12 lg:py-24">
+      <CaseSection id="collaboration" eyebrow="09 - Working with developers" title="Use the interface to make implementation questions concrete." body="I worked alongside the UX designer and two developers. UI and front-end knowledge help me describe intended behaviour in terms the team can inspect: which state is active, what changes after an action, and what happens when something fails.">
+        <div className="mt-8 grid gap-5 md:grid-cols-2">
+          <FeatureCard title="What design needs to communicate" body="Component behaviour, navigation, field requirements, loading and error states, and how the interface responds to incomplete information. These details make a design discussion more specific than a static screen alone." />
+          <FeatureCard title="What engineering needs to inform" body="Developers bring feasibility, platform constraints, data dependencies, and integration behaviour into the discussion. For document feedback, the interface needs to reflect the actual processing state before it can offer a meaningful next action." />
+        </div>
+        <h3 className="mt-8 text-lg font-semibold">A review loop for continued development</h3>
+        <p className="mt-2 max-w-3xl text-sm leading-7 text-[#626B7C]">Carry questions back into UX and UI exploration as prototype behaviour and implementation constraints become clearer.</p>
+        <ReviewSequence label="Developer collaboration review loop" steps={["UX exploration", "UI design", "Functional prototype", "Developer feedback", "Refinement"]} />
+      </CaseSection>
+
+      <CaseSection id="accessibility-trust" eyebrow="10 - Accessibility, trust and sensitive workflows" title="Clarity matters most when the information is sensitive." body="An immigration experience can involve personal records and uncertain outcomes. The design must help people understand both the task and the limits of the product. These are design considerations and validation priorities, not compliance or security certifications." tinted>
+        <div className="mt-8 grid gap-5 md:grid-cols-2">
+          <FeatureCard title="Readable and understandable" body="Review text size, hierarchy, contrast, and plain-language instructions. Form errors should identify the issue and explain how to correct it without depending on colour alone." />
+          <FeatureCard title="Perceivable interaction states" body="Test keyboard access, focus, screen-reader announcements, and loading feedback. Clearly distinguish uploaded, processed, and verified documents so completion indicators do not create false confidence." />
+          <FeatureCard title="Sensitive information" body="Explain why information is requested and how it will be used. Data handling, retention, access controls, and privacy expectations require product and engineering validation beyond the interface shown here." />
+          <FeatureCard title="Transparent AI guidance" body="Identify AI-generated explanations, communicate uncertainty, and avoid misleading approval predictions. Guidance should not be confused with official requirements, legal advice, or an immigration decision." />
+        </div>
+      </CaseSection>
+
+      <CaseSection id="outcomes" eyebrow="11 - Outcomes and learnings" title="A design direction to evaluate, with development still in progress." body="The outcome so far is a mobile interface direction and recorded prototype experience covering key preparation tasks. The product remains in development; formal usability and business outcomes have not been measured here.">
+        <div className="mt-8 grid gap-5 lg:grid-cols-3">
+          <FeatureCard title="What was delivered" body="The case study includes screen designs for onboarding, case intake, documents, and contextual AI, plus Home and product-flow recordings. My contribution centered on UI, reusable interaction patterns, and front-end prototyping within the four-person team." />
+          <FeatureCard title="What I take forward" body="The distinction between an uploaded file and reviewed evidence is a key lesson from this interface. Progress also needs a clear scope: finishing intake is not the same as preparing a complete case. Reusable patterns and working prototypes give those distinctions a concrete form to discuss with developers." />
+          <FeatureCard title="What comes next" body="Evaluate task completion, case switching, document status comprehension, and error recovery with users. Test accessibility and AI expectations, then use the findings to prioritize iteration with the team." />
+        </div>
+      </CaseSection>
+
+      <section className="border-t border-slate-200 bg-[#111827] px-5 pb-32 pt-16 text-white sm:px-8 lg:px-12 lg:py-24">
         <div className="mx-auto max-w-5xl text-center">
           <p className="text-xs font-bold uppercase tracking-[0.24em] text-indigo-200">Final reflection</p>
           <h2 className="mt-4 text-3xl font-semibold leading-tight sm:text-4xl lg:text-5xl">
-            More than individual screens, this project connects user data, immigration workflows, documents, deadlines,
-            and conversational AI into one product experience.
+            For complex, regulated experiences, I want to make the next action clear, the system’s limits visible,
+            and design decisions concrete enough for the whole team to evaluate.
           </h2>
           <div className="mt-10 flex flex-wrap justify-center gap-4">
             <Link
