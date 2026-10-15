@@ -577,19 +577,7 @@ export default function AppLawyerCaseStudyPage() {
         </figure>
       </CaseSection>
 
-      <CaseSection id="process" eyebrow="05 - Design process" title="From understanding the task to making behaviour tangible." body="The design connects three questions: what information belongs to this case, what does the user need to do now, and what feedback helps them continue? The screens and prototype recordings make those questions tangible. Formal usability validation remains a next step." tinted>
-        <FlowDiagram title="Iterative product design workflow" description="A working model for connecting experience decisions, interface detail, and implementation feedback. Stages overlap, and review can return to earlier decisions." steps={[
-          ["Understanding the problem", "Frame unfamiliar requirements, document collection, and uncertainty about the next step as design challenges."],
-          ["Defining user flows", "Connect intake, case context, documents, and next actions in the proposed journey."],
-          ["UX exploration", "Group related questions and separate starting a case from returning to one; explore how much detail belongs at each step."],
-          ["UI design", "Make hierarchy, navigation, and task context visible in the screen designs below."],
-          ["Interactive prototyping", "Use the recorded experience to communicate movement between screens and intended behaviour."],
-          ["Feedback and iteration", "Next, evaluate whether people understand progress, document statuses, and how to recover from incomplete information."],
-          ["Development collaboration", "Use interaction examples to discuss feasibility, state changes, and data dependencies with developers."],
-        ]} />
-      </CaseSection>
-
-      <CaseSection id="product-journey" eyebrow="06 - Product UI exploration" title="One case provides the context for each task." body="The proposed product flow separates immigration applications into independent cases. Intake answers, documents, guidance, and progress belong to the relevant case, helping users understand what information applies to their current task.">
+      <CaseSection id="product-journey" eyebrow="05 - Product UI exploration" title="One case provides the context for each task." body="The proposed product flow separates immigration applications into independent cases. Intake answers, documents, guidance, and progress belong to the relevant case, helping users understand what information applies to their current task.">
         <FlowDiagram title="Application user journey" description="Intended end-to-end scope, from account access to submission guidance. The screens below demonstrate parts of the interface; document processing is explicitly mocked, and persistence, AI review, package generation, and live integrations remain unverified." steps={[
           ["Welcome → Home", "Welcome and authentication lead to the Home dashboard, where users choose an application type or find a saved case."],
           ["Start or resume a case", "Keep each application's answers, documents, and progress together.", ["New: select the application on Home → create its case → open the relevant intake, without selecting the type again.", "Existing: select a saved case → return to its current progress point."]],
@@ -601,7 +589,7 @@ export default function AppLawyerCaseStudyPage() {
         <div className="mt-12 grid gap-8">{journeyStages.map((stage) => <ScreenStoryBlock key={stage.label} stage={stage} />)}</div>
       </CaseSection>
 
-      <CaseSection id="design-system" eyebrow="07 - Design system and component architecture" title="Building a Consistent and Scalable Interface" body="I focused on reusable UI patterns so intake, case management, and document tasks could share a consistent interaction language. Design-system work connects visual foundations to states and behaviour, not only styling. The artifacts show recurring patterns; a complete production library and token inventory are not verified.">
+      <CaseSection id="design-system" eyebrow="06 - Design system and component architecture" title="Building a Consistent and Scalable Interface" body="I focused on reusable UI patterns so intake, case management, and document tasks could share a consistent interaction language. Design-system work connects visual foundations to states and behaviour, not only styling. The artifacts show recurring patterns; a complete production library and token inventory are not verified.">
         <div className="mt-8 grid gap-5 md:grid-cols-2">
           <FeatureCard title="Foundations and tokens" body="Colour roles distinguish primary actions, supporting surfaces, and feedback. Type hierarchy separates task titles, labels, and help; spacing and rounded surfaces group related information. Naming these decisions as colour, type, spacing, and radius tokens would make changes reusable across screens. Exact mobile values and a design-to-code token mapping remain to be documented." />
           <FeatureCard title="Document detail and status" body="Purpose: connect one document to its status and next action. The shown detail includes File: Uploaded, Review: Ok, Mock Processing, Open file, and Ask AI. Reusing the pattern across document types requires keeping file and review states separate. Engineering must map each state to available actions; missing, uploading, failed, replace, and remove paths still need specification and validation." />
@@ -619,7 +607,7 @@ export default function AppLawyerCaseStudyPage() {
 
       <section id="prototype" className="scroll-mt-24 bg-[#111827] px-5 py-16 text-white sm:px-8 lg:px-12 lg:py-24">
         <div className="mx-auto max-w-7xl">
-          <SectionHeader eyebrow="08 - From design to functional prototypes" title="Make the interaction available for discussion." body="My role included React-based front-end prototyping alongside UI and interaction design. A working prototype gives the team a concrete way to discuss how users move between screens, interact with components, and recover from errors. The recordings show a product demonstration; live integrations and production readiness remain unverified." light />
+          <SectionHeader eyebrow="07 - From design to functional prototypes" title="Make the interaction available for discussion." body="My role included React-based front-end prototyping alongside UI and interaction design. A working prototype gives the team a concrete way to discuss how users move between screens, interact with components, and recover from errors. The recordings show a product demonstration; live integrations and production readiness remain unverified." light />
           <div className="mt-8 rounded-lg border border-white/15 bg-white p-6">
             <h3 className="font-semibold text-[#151824]">Design-to-prototype workflow</h3>
             <p className="mt-2 text-sm leading-6 text-[#626B7C]">A review approach for connecting interface decisions with behaviour and engineering feedback.</p>
@@ -633,7 +621,7 @@ export default function AppLawyerCaseStudyPage() {
         </div>
       </section>
 
-      <CaseSection id="collaboration" eyebrow="09 - Working with developers" title="Use the interface to make implementation questions concrete." body="I worked alongside the UX designer and two developers. UI and front-end knowledge help me describe intended behaviour in terms the team can inspect: which state is active, what changes after an action, and what happens when something fails.">
+      <CaseSection id="collaboration" eyebrow="08 - Working with developers" title="Use the interface to make implementation questions concrete." body="I worked alongside the UX designer and two developers. UI and front-end knowledge help me describe intended behaviour in terms the team can inspect: which state is active, what changes after an action, and what happens when something fails.">
         <div className="mt-8 grid gap-5 md:grid-cols-2">
           <FeatureCard title="What design needs to communicate" body="Component behaviour, navigation, field requirements, loading and error states, and how the interface responds to incomplete information. These details make a design discussion more specific than a static screen alone." />
           <FeatureCard title="What engineering needs to inform" body="Developers bring feasibility, platform constraints, data dependencies, and integration behaviour into the discussion. For document feedback, the interface needs to reflect the actual processing state before it can offer a meaningful next action." />
@@ -643,7 +631,7 @@ export default function AppLawyerCaseStudyPage() {
         <ReviewSequence label="Developer collaboration review loop" steps={["UX exploration", "UI design", "Functional prototype", "Developer feedback", "Refinement"]} />
       </CaseSection>
 
-      <CaseSection id="accessibility-trust" eyebrow="10 - Accessibility, trust and sensitive workflows" title="Clarity matters most when the information is sensitive." body="An immigration experience can involve personal records and uncertain outcomes. The design must help people understand both the task and the limits of the product. These are design considerations and validation priorities, not compliance or security certifications." tinted>
+      <CaseSection id="accessibility-trust" eyebrow="09 - Accessibility, trust and sensitive workflows" title="Clarity matters most when the information is sensitive." body="An immigration experience can involve personal records and uncertain outcomes. The design must help people understand both the task and the limits of the product. These are design considerations and validation priorities, not compliance or security certifications." tinted>
         <div className="mt-8 grid gap-5 md:grid-cols-2">
           <FeatureCard title="Readable and understandable" body="Review text size, hierarchy, contrast, and plain-language instructions. Form errors should identify the issue and explain how to correct it without depending on colour alone." />
           <FeatureCard title="Perceivable interaction states" body="Test keyboard access, focus, screen-reader announcements, and loading feedback. Clearly distinguish uploaded, processed, and verified documents so completion indicators do not create false confidence." />
@@ -652,7 +640,7 @@ export default function AppLawyerCaseStudyPage() {
         </div>
       </CaseSection>
 
-      <CaseSection id="outcomes" eyebrow="11 - Outcomes and learnings" title="A design direction to evaluate, with development still in progress." body="The outcome so far is a mobile interface direction and recorded prototype experience covering key preparation tasks. The product remains in development; formal usability and business outcomes have not been measured here.">
+      <CaseSection id="outcomes" eyebrow="10 - Outcomes and learnings" title="A design direction to evaluate, with development still in progress." body="The outcome so far is a mobile interface direction and recorded prototype experience covering key preparation tasks. The product remains in development; formal usability and business outcomes have not been measured here.">
         <div className="mt-8 grid gap-5 lg:grid-cols-3">
           <FeatureCard title="What was delivered" body="The case study includes screen designs for onboarding, case intake, documents, and contextual AI, plus Home and product-flow recordings. My contribution centered on UI, reusable interaction patterns, and front-end prototyping within the four-person team." />
           <FeatureCard title="What I take forward" body="The distinction between an uploaded file and reviewed evidence is a key lesson from this interface. Progress also needs a clear scope: finishing intake is not the same as preparing a complete case. Reusable patterns and working prototypes give those distinctions a concrete form to discuss with developers." />
